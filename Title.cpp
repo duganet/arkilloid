@@ -19,19 +19,19 @@ extern int hi_score;
 //    }
 //}
 
-void buttonStart_click()
-{
-    set_next_state(STATE_LEVEL_1);
-}
-
-void buttonExit_click()
-{
-    stateID = STATE_EXIT;
-}
+//void buttonStart_click()
+//{
+//    set_next_state(STATE_LEVEL_1);
+//}
+//
+//void buttonExit_click()
+//{
+//    stateID = STATE_EXIT;
+//}
 
 void buttonHelp_click()
 {
-
+    set_next_state(STATE_HELP);
 }
 
 Title::Title(TTF_Font*font, SDL_Surface *ball_sprite)
@@ -69,6 +69,7 @@ Title::~Title()
     version = NULL;
     delete buttonExit;
     delete buttonStart;
+    delete buttonHelp;
     delete ball;
 }
 

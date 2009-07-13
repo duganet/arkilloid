@@ -1,10 +1,10 @@
 //Title.h
 #ifndef TITLE_H
 #define TITLE_H
-#include "Intro.h"
+#include "GameState.h"
 #include "Button.h"
 #include "Ball.h"
-class Title : public Intro
+class Title : public GameState
 {
 public:
     Title(TTF_Font*font, SDL_Surface* sprite);

@@ -13,3 +13,13 @@ void GameState::set_next_state( int newState )
         nextState = newState;
     }
 }
+
+void buttonStart_click()
+{
+    set_next_state(STATE_LEVEL_1);
+}
+
+void buttonExit_click()
+{
+    stateID = STATE_EXIT;
+}

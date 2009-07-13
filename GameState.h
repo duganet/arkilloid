@@ -12,9 +12,11 @@ public:
 
     virtual ~GameState(){};
     void set_next_state( int newState );
-
+protected:
+    SDL_Surface *bg;
 };
 
-
+void buttonStart_click();
+void buttonExit_click();
 
 #endif

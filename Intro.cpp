@@ -6,11 +6,15 @@ extern int stateID;
 extern int nextState;
 extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
+
+
+
 Intro::Intro()
 {
     bg = image_load("images/intro_bg.bmp");
-    Mix_PlayChannel(-1, soundList[2], 0);
     introTime.Start();
+    Mix_PlayChannel(-1, soundList[2], 0);
+    Mix_PlayChannel(-1, soundList[2], 0);
 }
 
 Intro::~Intro()
@@ -23,8 +27,6 @@ void Intro::handle_events(SDL_Event &event)
     if(((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_RETURN))||
          (event.type == SDL_MOUSEBUTTONDOWN))
     {
-        if(Mix_Playing(-1) != 0)
-            Mix_Pause(-1);
         set_next_state( STATE_TITLE );
     }
 }

@@ -4,10 +4,10 @@
 #include "Intro.h"
 #include "Button.h"
 
-class Help : public Intro
+class Help : public GameState
 {
 public:
-    Help(SDL_Surface* sprite);
+    Help();
     ~Help();
     void handle_events(SDL_Event &event);
     void render(SDL_Surface* screen);

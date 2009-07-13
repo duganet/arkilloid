@@ -17,10 +17,11 @@ public:
     void logic();
     void render(SDL_Surface *screen);
 
-protected:
-    SDL_Surface *bg;
 private:
     Timer introTime;
 };
+
+
+
 
 #endif

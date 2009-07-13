@@ -169,7 +169,7 @@ void Ball::move(SDL_Rect bitaRect, int collision_type, bool menu)
                 //Mix_PlayChannel(-1, chunk, 0);
                 yVel = -yVel;
             }
-            if(cbRect.y < 27)
+            if(cbRect.y < 25)
             {
                 direction = 80;
                 xVel = 1;

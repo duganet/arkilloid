@@ -55,7 +55,7 @@ void Game::change_state()
                 break;
 
             case STATE_HELP:
-                //currentState = new Help();
+                currentState = new Help();
                 break;
             case STATE_LEVEL_1:
                 currentState = new Level_1(//hit,
