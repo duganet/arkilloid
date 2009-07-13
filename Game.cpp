@@ -180,7 +180,7 @@ bool Game::Init()
 
 bool Game::LoadFiles()
 {
-    brkbtn_spr = image_load("images/BetonBrick.png", 0xFF, 0, 0xFF);
+    brkbtn_spr = image_load("images/BetonBrick_n.png", 0xFF, 0, 0xFF);
     if(brkbtn_spr == NULL)
     {
         return false;

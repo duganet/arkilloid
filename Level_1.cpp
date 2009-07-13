@@ -321,27 +321,27 @@ void Level_1::logic()
                                 case 2:
                                     break;
                                 case 3:
-                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - b_speed_up_sprite->w/2,                                                                     BrickControl::brickList[i]->get_rect().y, b_speed_up_sprite, SPEED_UP);
+                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - b_speed_up_sprite->w/2,BrickControl::brickList[i]->get_rect().y, b_speed_up_sprite, SPEED_UP);
                                     Bonus::bonusList.push_back(bonus);
                                     bonus_created = true;
                                     break;
                                 case 4:
-                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - b_speed_down_sprite->w/2,                                                                     BrickControl::brickList[i]->get_rect().y, b_speed_down_sprite, SPEED_DOWN);
+                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - b_speed_down_sprite->w/2,BrickControl::brickList[i]->get_rect().y, b_speed_down_sprite, SPEED_DOWN);
                                     Bonus::bonusList.push_back(bonus);
                                     bonus_created = true;
                                     break;
                                 case 5:
-                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - b_life_sprite->w/2,                                                                     BrickControl::brickList[i]->get_rect().y, b_life_sprite, LIFE);
+                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - b_life_sprite->w/2,BrickControl::brickList[i]->get_rect().y, b_life_sprite, LIFE);
                                     Bonus::bonusList.push_back(bonus);
                                     bonus_created = true;
                                     break;
                                 case 6:
-                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - b_die_sprite->w/2,                                                                     BrickControl::brickList[i]->get_rect().y, b_die_sprite, DIE);
+                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - b_die_sprite->w/2,BrickControl::brickList[i]->get_rect().y, b_die_sprite, DIE);
                                     Bonus::bonusList.push_back(bonus);
                                     bonus_created = true;
                                     break;
                                 case 7:
-                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - b_die_sprite->w/2,                                                                     BrickControl::brickList[i]->get_rect().y, b_add_sprite, ADD_BALL);
+                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - b_die_sprite->w/2,BrickControl::brickList[i]->get_rect().y, b_add_sprite, ADD_BALL);
                                     Bonus::bonusList.push_back(bonus);
                                     bonus_created = true;
                                     break;
@@ -352,6 +352,7 @@ void Level_1::logic()
                         }
                         else
                         {
+                            BrickControl::brickList[i]->set_collision_type(collision_type);
                             Mix_PlayChannel(-1, soundList[1], 0);
                             break;
                         }

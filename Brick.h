@@ -21,6 +21,7 @@ public:
     int get_type();
     virtual int get_life();
     virtual void set_life(int);
+    virtual void set_collision_type(int){};
     //SDL_Surface* Brick::get_sprite();
 protected:
     SDL_Rect box;

@@ -9,13 +9,13 @@
 
 //extern Uint32 deltaTicks;
 
-const int NO_COLLISION     = 0;
-const int COLLISION_TOP    = 1;
-const int COLLISION_BOTTOM = 2;
-const int COLLISION_LEFT   = 3;
-const int COLLISION_RIGHT  = 4;
-const int COLLISION_ANGLE  = 5;
-const int COLLISION_BOTTOM_NEED = 6;
+//const int NO_COLLISION     = 0;
+//const int COLLISION_TOP    = 1;
+//const int COLLISION_BOTTOM = 2;
+//const int COLLISION_LEFT   = 3;
+//const int COLLISION_RIGHT  = 4;
+//const int COLLISION_ANGLE  = 5;
+//const int COLLISION_BOTTOM_NEED = 6;
 const double PI = 3.14159265;
 
 std::vector<Ball*> Ball::ballList;

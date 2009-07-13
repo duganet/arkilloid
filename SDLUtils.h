@@ -66,4 +66,15 @@ enum BrickType
     BRICK_BETON
 };
 
+enum collision_type
+{
+    NO_COLLISION,
+    COLLISION_TOP,
+    COLLISION_BOTTOM,
+    COLLISION_LEFT,
+    COLLISION_RIGHT,
+    COLLISION_ANGLE,
+    COLLISION_BOTTOM_NEED
+};
+
 #endif
