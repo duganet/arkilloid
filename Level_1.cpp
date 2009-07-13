@@ -314,7 +314,7 @@ void Level_1::logic()
                             if(bonus_created == false)
                             {
                                 //srand((unsigned)time(NULL));
-                                int j = rand() % 10;
+                                int j = rand() % 20;
                                 //int j = 7;
                                 switch(j)
                                 {
