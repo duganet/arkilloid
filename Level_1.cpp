@@ -419,7 +419,7 @@ void Level_1::logic()
                         lives -= 1;
                         break;
                     case ADD_BALL:
-                        ball = new Ball(bita.get_rect().x,bita.get_rect().y, ball_spr, true);
+                        ball = new Ball(bita.get_rect().x + bita.get_rect().w/2,bita.get_rect().y, ball_spr, true);
                         Ball::ballList.push_back(ball);
                         break;
                     }
