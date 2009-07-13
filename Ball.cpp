@@ -9,13 +9,6 @@
 
 //extern Uint32 deltaTicks;
 
-//const int NO_COLLISION     = 0;
-//const int COLLISION_TOP    = 1;
-//const int COLLISION_BOTTOM = 2;
-//const int COLLISION_LEFT   = 3;
-//const int COLLISION_RIGHT  = 4;
-//const int COLLISION_ANGLE  = 5;
-//const int COLLISION_BOTTOM_NEED = 6;
 const double PI = 3.14159265;
 
 std::vector<Ball*> Ball::ballList;
@@ -37,7 +30,12 @@ Ball::Ball(int X, int Y, SDL_Surface* SPRITE, bool move)
     moving = move;
     if(moving == true)
     {
-        set_direction(235);
+        direction = (rand()%360) + 270;
+        if(direction < 225)
+            direction = 225;
+        if(direction > 315)
+            direction = 315;
+        set_direction(direction);
     }
 }
 
