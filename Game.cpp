@@ -201,9 +201,9 @@ bool Game::LoadFiles()
     }
 
     bg = image_load("images/bg.bmp");
-    log("images/bg.bmp not loaded");
     if(bg == NULL)
     {
+        log("images/bg.bmp not loaded");
         return false;
     }
 
