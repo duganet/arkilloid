@@ -225,6 +225,11 @@ bool Game::LoadFiles()
     bonus_die_spr = image_load("images/bonus_die.png", 0xFF, 0, 0xFF);
     bonus_add_spr = image_load("images/bonus_add.png", 0xFF, 0, 0xFF);
     heart_sprite = image_load("images/heart.png", 0xFF, 0, 0xFF);
+    if(!heart_sprite)
+    {
+        log("images/heart.png not loaded");
+        return false;
+    }
     particle_sprite = image_load("images/particle.png", 0xFF, 0, 0xFF);
     font = TTF_OpenFont("fonts/aerial.ttf", 10);
     //TTF_Font* font_small = TTF_OpenFont("fonts/aerial.ttf", 20);
