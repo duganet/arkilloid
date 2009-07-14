@@ -266,6 +266,13 @@ bool Game::LoadFiles()
         return false;
     }
     soundList.push_back(sound);
+
+    sound = Mix_LoadWAV_RW(SDL_RWFromFile("sound/music/intro.ogg", "rb"), 1);
+    if (sound == NULL)
+    {
+        log("sound/music/intro.ogg not loaded");
+        return false;
+    }
     //-----------------------------------------------
 
     return true;
