@@ -273,6 +273,8 @@ bool Game::LoadFiles()
         log("sound/music/intro.ogg not loaded");
         return false;
     }
+    soundList.push_back(sound);
+
     //-----------------------------------------------
 
     return true;
