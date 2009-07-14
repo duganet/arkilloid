@@ -287,7 +287,7 @@ bool Game::MainLoop()
     log("Loading files...");
     if(LoadFiles() == false)
     {
-        log('ERROR: Some files failed to load :(');
+        log("ERROR: Some files failed to load :(");
         return false;
     }
 
