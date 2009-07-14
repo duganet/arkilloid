@@ -183,21 +183,25 @@ bool Game::LoadFiles()
     brkbtn_spr = image_load("images/BetonBrick_n.png", 0xFF, 0, 0xFF);
     if(brkbtn_spr == NULL)
     {
+        log("images/BetonBrick_n.png not loaded");
         return false;
     }
 
     brkstr_spr = image_load("images/StrongBrick.png", 0xFF, 0, 0xFF);
     if(brkstr_spr == NULL)
     {
+        log("images/StrongBrick.png not loaded");
         return false;
     }
     brk_spr = image_load("images/brick.png", 0xFF, 0, 0xFF);
     if(brk_spr == NULL)
     {
+        log("images/brick.png not loaded");
         return false;
     }
 
     bg = image_load("images/bg.bmp");
+    log("images/bg.bmp not loaded");
     if(bg == NULL)
     {
         return false;
@@ -206,11 +210,13 @@ bool Game::LoadFiles()
     bita_sprite = image_load("images/bita.bmp", 0xFF, 0, 0xFF);
     if(bita_sprite == NULL)
     {
+        log("images/bita.bmp not loaded");
         return false;
     }
     ball_sprite = image_load("images/ball.bmp",0xFF, 0, 0xFF);
     if(ball_sprite == NULL)
     {
+        log("images/ball.bmp not loaded");
         return false;
     }
     bonus_speed_up_spr = image_load("images/bonus_speed_up.png",0xFF,0,0xFF);
@@ -281,7 +287,7 @@ bool Game::MainLoop()
     log("Loading files...");
     if(LoadFiles() == false)
     {
-        log("ERROR: Filse not loaded");
+        log('ERROR: Some files failed to load :(');
         return false;
     }
 
