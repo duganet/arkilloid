@@ -30,7 +30,8 @@ Ball::Ball(int X, int Y, SDL_Surface* SPRITE, bool move)
     moving = move;
     if(moving == true)
     {
-        direction = (rand()%360) + 270;
+        srand((unsigned)time(0));
+		direction = (rand()%360) + 270;
         if(direction < 225)
             direction = 225;
         if(direction > 315)

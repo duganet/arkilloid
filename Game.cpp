@@ -7,7 +7,7 @@ extern std::ofstream loger;
 extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<SDL_Surface*> imageList;
 extern SDL_Surface *screen;
-
+extern Mix_Music *music;
 Game::Game()
 {
     currentState = NULL;
@@ -266,15 +266,22 @@ bool Game::LoadFiles()
         return false;
     }
     soundList.push_back(sound);
-
+	/*
     sound = Mix_LoadWAV_RW(SDL_RWFromFile("sound/music/intro.ogg", "rb"), 1);
     if (sound == NULL)
     {
         log("sound/music/intro.ogg not loaded");
         return false;
     }
+	
     soundList.push_back(sound);
-
+	*/
+	music = Mix_LoadMUS("sound/music/intro.ogg");
+    if(music == NULL)
+    {  
+	  log("sound/music/intro.ogg not loaded");
+	  return false;
+	}
     //-----------------------------------------------
 
     return true;
@@ -372,6 +379,8 @@ void Game::Close()
     {
         soundList.erase(soundList.begin() + i);
     }
+	Mix_HaltMusic();
+	Mix_FreeMusic(music);
     Mix_CloseAudio();
     SDL_Quit();
 }

@@ -1,6 +1,9 @@
 #include "SDLUtils.h"
 std::vector<Mix_Chunk*> soundList;
 std::vector<SDL_Surface*> imageList;
+
+Mix_Music *music = NULL;
+
 std::ofstream loger("log.txt");
 void log(std::string message)
 {
