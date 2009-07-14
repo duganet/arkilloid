@@ -50,7 +50,7 @@ void BrickBeton::set_up(int x, int y, SDL_Surface *sprite)
 
 void BrickBeton::show(SDL_Surface* screen)
 {
-    if(timer.Get_Ticks() >= 700)
+    if(timer.Get_Ticks() >= 200)
     {
         timer.Stop();
         collision_type = 0;
