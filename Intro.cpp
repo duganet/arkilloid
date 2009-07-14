@@ -6,7 +6,7 @@ extern int stateID;
 extern int nextState;
 extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
-
+extern Mix_Music *music;
 
 
 Intro::Intro()
