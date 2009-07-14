@@ -15,7 +15,7 @@ Intro::Intro()
     introTime.Start();
     Mix_PlayChannel(-1, soundList[2], 0);
     //Mix_PlayChannel(-1, soundList[4], -1);
-	Mix_PlayMusic(music, 0);
+	Mix_PlayMusic(music, -1);
 }
 
 Intro::~Intro()
