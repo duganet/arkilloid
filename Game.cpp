@@ -273,12 +273,12 @@ bool Game::LoadFiles()
         log("sound/music/intro.ogg not loaded");
         return false;
     }
-	
+
     soundList.push_back(sound);
 	*/
 	music = Mix_LoadMUS("sound/music/intro.ogg");
     if(music == NULL)
-    {  
+    {
 	  log("sound/music/intro.ogg not loaded");
 	  return false;
 	}
@@ -323,7 +323,7 @@ bool Game::MainLoop()
         fps.Start();
         while(SDL_PollEvent(&event))
         {
-            if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+            if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_q))
             {
                 currentState->set_next_state( STATE_EXIT );
             }
