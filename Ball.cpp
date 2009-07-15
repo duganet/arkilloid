@@ -105,19 +105,27 @@ int Ball::collision_check(SDL_Rect brickRect)
         int left   = brickRect.x;
         int right  = brickRect.x + brickRect.w;
 
-        if((newFrame.y + newFrame.h/2) < top)
+//        if((newFrame.x < left && newFrame.y > top) ||
+//           (newFrame.x < left && newFrame.y+newFrame.h < bottom) ||
+//           (newFrame.x+newFrame.w < right && newFrame.y > top) ||
+//           (newFrame.x+newFrame.w < right && newFrame.y+newFrame.h < bottom))
+//        {
+//            return COLLISION_ANGLE;
+//        }
+
+        if((newFrame.y) < top)
         {
             return COLLISION_TOP;
         }
-        if((newFrame.y + newFrame.h/2) > bottom)
+        if((newFrame.y + newFrame.h) > bottom)
         {
             return COLLISION_BOTTOM;
         }
-        if((newFrame.x + newFrame.h/2) < left)
+        if((newFrame.x) < left)
         {
             return COLLISION_LEFT;
         }
-        if((newFrame.x + newFrame.h/2) > right)
+        if((newFrame.x + newFrame.w) > right)
         {
             return COLLISION_RIGHT;
         }
@@ -150,6 +158,16 @@ void Ball::move(SDL_Rect bitaRect, int collision_type, bool menu)
         {
             xVel = -xVel;
         }
+
+//        if(collision_type == COLLISION_ANGLE)
+//        {
+//            if(xVel < 0)
+//            {
+//                xVel = -xVel;
+//            }
+//            else
+//            yVel = -yVel;
+//        }
 
         if(collision_type == NO_COLLISION)
         {
