@@ -223,7 +223,7 @@ void Level_1::handle_events(SDL_Event &event)
 {
     if(begin == true)
     {
-        if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_p)
+        if(event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_p))
         {
             if(pause == false)
             {
