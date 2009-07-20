@@ -5,6 +5,7 @@
 //#include <SDL/SDL_mixer.h>
 #include <SDL/SDL_ttf.h>
 #include <vector>
+#include "SDLUtils.h"
 class Ball
 {
 public:
@@ -25,9 +26,13 @@ public:
     void set_newFrame();
     void set_speed(int speed);
     int get_speed();
+    Circle get_circle();
+    void normalize();
 private:
     SDL_Rect cbRect;
     SDL_Rect newFrame;
+    Circle c;
+    Circle newC;
     double xVel;
     double yVel;
     int speed;

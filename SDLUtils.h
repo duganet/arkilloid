@@ -10,6 +10,7 @@
 #include <fstream>
 #include "Globals.h"
 #include <vector>
+#include <cmath>
 //#include <windows.h>
 
 /*
@@ -28,11 +29,20 @@ const int ZONE_G = 7;
 const int ZONE_H = 8;
 const int ZONE_I = 9;
 
+struct Circle
+{
+    int x,y;  // center of the Circle
+    int r;    // radius of the Circle
+};
+
 SDL_Surface *image_load(std::string filename);
 SDL_Surface *image_load(std::string filename, int red, int green, int blue);
 void apply_surface(int x, int y, SDL_Surface *source, SDL_Surface *destination);
 void apply_surface(int x, int y, SDL_Surface *source, SDL_Surface *destination, SDL_Rect *clip);
+double distance(int x1, int y1, int x2, int y2);
 bool check_collision(SDL_Rect A, SDL_Rect B);
+bool check_collision(Circle A, SDL_Rect B);
+bool check_collision(Circle A, Circle B);
 int finde_zone(SDL_Rect A, SDL_Rect B);
 void set_next_state( int newState );
 

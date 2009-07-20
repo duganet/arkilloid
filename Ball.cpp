@@ -6,6 +6,7 @@
 #include <SDL/SDL_ttf.h>
 #include <sstream>
 #include <cstdlib>
+#include <cmath>
 
 //extern Uint32 deltaTicks;
 
@@ -95,70 +96,125 @@ void Ball::handle_events(SDL_Event &event)
     }
 }
 
+void Ball::normalize()
+{
+    int velocity = sqrt(xVel*xVel + yVel*yVel);
+    xVel = xVel/velocity*2;
+    yVel = yVel/velocity*2;
+}
+
 int Ball::collision_check(SDL_Rect brickRect)
 {
-    if(check_collision(brickRect, newFrame))
+    if(check_collision(brickRect, cbRect))
     {
-        collide = true;
+        //collide = true;
         int top    = brickRect.y;
         int bottom = brickRect.y + brickRect.h;
         int left   = brickRect.x;
         int right  = brickRect.x + brickRect.w;
 
-//        if((newFrame.x < left && newFrame.y > top) ||
-//           (newFrame.x < left && newFrame.y+newFrame.h < bottom) ||
-//           (newFrame.x+newFrame.w < right && newFrame.y > top) ||
-//           (newFrame.x+newFrame.w < right && newFrame.y+newFrame.h < bottom))
-//        {
-//            return COLLISION_ANGLE;
-//        }
-
-        if((newFrame.y) < top)
+        if((cbRect.x) < left)
         {
-            return COLLISION_TOP;
-        }
-        if((newFrame.y + newFrame.h) > bottom)
-        {
-            return COLLISION_BOTTOM;
-        }
-        if((newFrame.x) < left)
-        {
+            xVel = -xVel;
+//            collide = true;
             return COLLISION_LEFT;
         }
-        if((newFrame.x + newFrame.w) > right)
+
+        if((cbRect.y + cbRect.h) > top)
         {
+            yVel = -yVel;
+//            collide = true;
+            return COLLISION_BOTTOM;
+        }
+        if((cbRect.x + cbRect.w) > right)
+        {
+            xVel = -xVel;
+//            collide = true;
             return COLLISION_RIGHT;
         }
+        if((cbRect.y) < bottom)
+        {
+            yVel = -yVel;
+//            collide = true;
+            return COLLISION_TOP;
+        }
     }
-
-
     //cbRect = newFrame;
     collide = false;
     return NO_COLLISION;
-
-
 }
+
+//int Ball::collision_check(SDL_Rect brickRect)
+//{
+//    if(check_collision(brickRect, newFrame))
+//    {
+//        int leftA, leftB;
+//        int rightA, rightB;
+//        int topA, topB;
+//        int bottomA, bottomB;
+//
+//        leftA = brickRect.x;
+//        rightA = brickRect.x + brickRect.w;
+//        topA = brickRect.y;
+//        bottomA = brickRect.y + brickRect.h;
+//
+//
+//        leftB = newFrame.x;
+//        rightB = newFrame.x + newFrame.w;
+//        topB = newFrame.y;
+//        bottomB = newFrame.y + newFrame.h;
+//
+//        if( bottomA < topB == false)
+//        {
+//            return COLLISION_BOTTOM;
+//        }
+//
+//        else if( topA > bottomB == false)
+//        {
+//            return COLLISION_TOP;
+//        }
+//
+//        else if( rightA < leftB == false)
+//        {
+//            return COLLISION_RIGHT;
+//        }
+//
+//        else if( leftA > rightB == false)
+//        {
+//            return COLLISION_LEFT;
+//        }
+//    }
+//    else
+//    {
+//        return NO_COLLISION;
+//    }
+//}
 
 void Ball::move(SDL_Rect bitaRect, int collision_type, bool menu)
 {
     if(moving == true)
     {
-        if(menu == true)
-        {
-            cbRect.x += (int)(xVel * speed);
-            cbRect.y += (int)(yVel * speed);
-        }
+//        if(menu == true)
+//        {
+//            cbRect.x += (int)(xVel * speed);
+//            cbRect.y += (int)(yVel * speed);
+//        }
 //------------------------------------------------------------------------
-
-        if(collision_type == COLLISION_TOP || collision_type == COLLISION_BOTTOM)
-        {
-            yVel = -yVel;
-        }
-        else if(collision_type == COLLISION_LEFT || collision_type == COLLISION_RIGHT)
-        {
-            xVel = -xVel;
-        }
-
+//       if(collide == true)
+//       {
+//        if(collision_type == COLLISION_TOP || collision_type == COLLISION_BOTTOM)
+//        {
+//            //normalize();
+//            collide =false;
+//            yVel = -yVel;
+//        }
+//        else if(collision_type == COLLISION_LEFT || collision_type == COLLISION_RIGHT)
+//        {
+//            collide =false;
+//            xVel = -xVel;
+//
+//        }
+//       }
 //        if(collision_type == COLLISION_ANGLE)
 //        {
 //            if(xVel < 0)
@@ -169,30 +225,40 @@ void Ball::move(SDL_Rect bitaRect, int collision_type, bool menu)
 //            yVel = -yVel;
 //        }
 
-        if(collision_type == NO_COLLISION)
-        {
-            cbRect = newFrame;
-        }
-
-        if((cbRect.x < 0) || cbRect.x + cbRect.w >= SCREEN_WIDTH)
+//        if(collision_type == NO_COLLISION)
+//        {
+//            //normalize();
+//            cbRect = newFrame;
+//        }
+        //cbRect = newFrame;
+        if(cbRect.x < 0)
         {
             //Mix_PlayChannel(-1, chunk, 0);
+            cbRect.x = 0;
+            //normalize();
             xVel = -xVel;
         }
+
+        if(cbRect.x + cbRect.w >= SCREEN_WIDTH)
+        {
+            //Mix_PlayChannel(-1, chunk, 0);
+            cbRect.x = SCREEN_WIDTH - cbRect.w;
+            //normalize();
+            xVel = -xVel;
+        }
+
+
+
         //if(menu == false)
         {
             if(cbRect.y < 31)
             {
                 //Mix_PlayChannel(-1, chunk, 0);
+                cbRect.y = 31;
+                //normalize();
                 yVel = -yVel;
             }
-            if(cbRect.y < 25)
-            {
-                direction = 80;
-                xVel = 1;
-                yVel = 0;
-                rotate(xVel, yVel, speed, direction);
-            }
+
         }
 //        else if(menu == true)
 //        {
@@ -204,6 +270,7 @@ void Ball::move(SDL_Rect bitaRect, int collision_type, bool menu)
 
         if(cbRect.y + cbRect.h >= SCREEN_HEIGHT && collision_type == COLLISION_BOTTOM_NEED)
         {
+            //normalize();
             yVel = -yVel;
         }
 
@@ -218,6 +285,9 @@ void Ball::move(SDL_Rect bitaRect, int collision_type, bool menu)
             yVel = 0;
             rotate(xVel, yVel, speed, direction);
         }
+
+        cbRect.x += (int)(xVel * speed);
+        cbRect.y += (int)(yVel * speed);
     }
     else if(moving == false)
     {
