@@ -624,5 +624,3 @@ void Level_1::logic()
         }
     }
 }
-
-
