@@ -4,6 +4,8 @@ std::vector<SDL_Surface*> imageList;
 
 Mix_Music *music = NULL;
 
+bool sound_on = true;
+
 std::ofstream loger("log.txt");
 void log(std::string message)
 {

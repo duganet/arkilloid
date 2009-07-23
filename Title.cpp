@@ -1,13 +1,14 @@
 //Title.cpp
 #include "Title.h"
 #include <sstream>
-
+#include <vector>
 extern int stateID;
 extern int nextState;
 extern std::ofstream loger;
 extern int lives;
 extern int score;
 extern int hi_score;
+extern std::vector<SDL_Surface*> imageList;
 
 //void set_next_state( int newState )
 //{
@@ -34,20 +35,15 @@ void buttonHelp_click()
     set_next_state(STATE_HELP);
 }
 
-Title::Title(TTF_Font*font, SDL_Surface *ball_sprite)
+Title::Title(TTF_Font*font)
 {
-    bg = image_load("images/bg_title.bmp");
-    if(bg == NULL)
-    {
-        log("ERROR: bg_title.bmp not load");
-        stateID = STATE_EXIT;
-    }
+    //bg = imageList[BG_TITLE];
     buttonStart = new Button(308,436, "images/buttonStart.bmp");
     buttonExit = new Button(518,436, "images/buttonExit.bmp");
-    buttonHelp = new Button(413, 436,"images/buttonHelp.bmp");
-    ball = new Ball(300,300, ball_sprite, true);
+    buttonHelp = new Button(413, 436,"images/buttonOPTIONS.png");
+    ball = new Ball(300,300, imageList[BALL_SPR], true);
     SDL_Color textColor = {226,67,71};
-    version = TTF_RenderText_Blended(font, "V.0.0.1", textColor);
+    version = TTF_RenderText_Blended(font, "V.0.0.4", textColor);
     lives = 3;
     if(score > hi_score)
         hi_score = score;
@@ -61,8 +57,8 @@ Title::Title(TTF_Font*font, SDL_Surface *ball_sprite)
 
 Title::~Title()
 {
-    SDL_FreeSurface(bg);
-    bg = NULL;
+    //SDL_FreeSurface(bg);
+    //bg = NULL;
     SDL_FreeSurface(version);
     SDL_FreeSurface(hi_score_show);
     hi_score_show = NULL;
@@ -87,40 +83,36 @@ void Title::logic()
     //rect.y = 20;
     int collision_type;
 
-    if(ball->collision_check(buttonStart->get_rect()) == 0)
+    collision_type = ball->collision_check(buttonStart->get_rect());
+    if(collision_type == NO_COLLISION)
     {
-        if(ball->collision_check(buttonExit->get_rect()) == 0)
+        collision_type = ball->collision_check(buttonHelp->get_rect());
+        if(collision_type == NO_COLLISION)
         {
-            if(ball->collision_check(buttonHelp->get_rect()) == 0)
+            collision_type = ball->collision_check(buttonExit->get_rect());
+            if(collision_type == NO_COLLISION)
             {
                 ball->move(rect, 6, true);
-                ball->set_newFrame();
             }
             else
             {
-                collision_type = ball->collision_check(buttonHelp->get_rect());
                 ball->move(rect, collision_type, true);
-                ball->set_newFrame();
             }
         }
         else
         {
-            collision_type = ball->collision_check(buttonExit->get_rect());
             ball->move(rect, collision_type, true);
-            ball->set_newFrame();
         }
     }
     else
     {
-        collision_type = ball->collision_check(buttonStart->get_rect());
         ball->move(rect, collision_type, true);
-        ball->set_newFrame();
     }
 }
 
 void Title::render(SDL_Surface *screen)
 {
-    apply_surface(0,0,bg,screen);
+    apply_surface(0,0,imageList[BG_TITLE],screen);
     buttonStart->show(screen);
     buttonExit->show(screen);
     buttonHelp->show(screen);

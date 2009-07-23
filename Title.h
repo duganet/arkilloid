@@ -7,7 +7,7 @@
 class Title : public GameState
 {
 public:
-    Title(TTF_Font*font, SDL_Surface* sprite);
+    Title(TTF_Font*font);
     ~Title();
     void handle_events(SDL_Event &event);
     void logic();

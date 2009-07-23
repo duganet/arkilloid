@@ -3,7 +3,7 @@
 #define HELP_H
 #include "Intro.h"
 #include "Button.h"
-
+#include "Checkbox.h"
 class Help : public GameState
 {
 public:
@@ -15,6 +15,8 @@ public:
 private:
     Button *buttonStart;
     Button *buttonExit;
+    Checkbox *musicOn;
+    Checkbox *soundOn;
 };
 
 #endif

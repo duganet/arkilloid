@@ -11,20 +11,27 @@ enum
     CLIP_MOUSEDOWN,
     CLIP_MOUSEUP
 };
+enum
+{
+    CLIP_MOUSEOVER_CHECKED=2,
+    CLIP_MOUSEOUT_CHECKED
+};
 
 class Button
 {
 public:
+    Button(){};
     Button(int x, int y, std::string filename);
-    ~Button();
-    void handle_events(SDL_Event &event,void(callback)(void));
-    void show(SDL_Surface *screen);
-    SDL_Rect get_rect();
-private:
+    virtual ~Button();
+    virtual void handle_events(SDL_Event &event,void(callback)(void));
+    virtual void show(SDL_Surface *screen);
+    virtual SDL_Rect get_rect();
+protected:
     SDL_Rect box;
-    SDL_Rect clips[2];
     SDL_Rect clip;
     SDL_Surface *buttonSheet;
+private:
+    SDL_Rect clips[2];
 };
 
 #endif

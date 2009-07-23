@@ -2,7 +2,6 @@
 #include "Game.h"
 extern int stateID;
 extern int nextState;
-//extern Uint32 deltaTicks;
 extern std::ofstream loger;
 extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<SDL_Surface*> imageList;
@@ -11,19 +10,6 @@ extern Mix_Music *music;
 Game::Game()
 {
     currentState = NULL;
-    bg = NULL;
-    brk_spr = NULL;
-    brkstr_spr = NULL;
-    brkbtn_spr = NULL;
-    bita_sprite = NULL;
-    ball_sprite = NULL;
-    bonus_speed_up_spr = NULL;
-    bonus_speed_down_spr = NULL;
-    bonus_life_spr = NULL;
-    bonus_die_spr = NULL;
-    bonus_add_spr = NULL;
-    heart_sprite = NULL;
-    particle_sprite = NULL;
     font = NULL;
     font_small = NULL;
     font_level = NULL;
@@ -51,80 +37,26 @@ void Game::change_state()
         switch( nextState )
         {
             case STATE_TITLE:
-                currentState = new Title(font, ball_sprite);
+                currentState = new Title(font);
                 break;
 
             case STATE_HELP:
                 currentState = new Help();
                 break;
             case STATE_LEVEL_1:
-                currentState = new Level_1(//hit,
-                                           bg,
-                                           brk_spr,
-                                           brkstr_spr,
-                                           brkbtn_spr,
-                                           bita_sprite,
-                                           ball_sprite,
-                                           bonus_speed_up_spr,
-                                           bonus_speed_down_spr,
-                                           bonus_life_spr,
-                                           bonus_die_spr,
-                                           bonus_add_spr,
-                                           heart_sprite,
-                                           particle_sprite,
-                                           //soundList,
-                                           font_level,
-                                           1,
-                                           "maps/level_1.map");
+                currentState = new Level_1(font_level,1,"maps/level_1.map");
                 break;
-
             case STATE_LEVEL_2:
-                currentState = new Level_1(//hit,
-                                           bg,
-                                           brk_spr,
-                                           brkstr_spr,
-                                           brkbtn_spr,
-                                           bita_sprite,
-                                           ball_sprite,
-                                           bonus_speed_up_spr,
-                                           bonus_speed_down_spr,
-                                           bonus_life_spr,
-                                           bonus_die_spr,
-                                           bonus_add_spr,
-                                           heart_sprite,
-                                           particle_sprite,
-                                           //hit,
-                                           //soundList,
-                                           font_level,
-                                           2,
-                                           "maps/level_2.map");
+                currentState = new Level_1(font_level,2,"maps/level_2.map");
                 break;
             case STATE_LEVEL_3:
-                currentState = new Level_1(//hit,
-                                           bg,
-                                           brk_spr,
-                                           brkstr_spr,
-                                           brkbtn_spr,
-                                           bita_sprite,
-                                           ball_sprite,
-                                           bonus_speed_up_spr,
-                                           bonus_speed_down_spr,
-                                           bonus_life_spr,
-                                           bonus_die_spr,
-                                           bonus_add_spr,
-                                           heart_sprite,
-                                           particle_sprite,
-                                           //hit,
-                                           //soundList,
-                                           font_level,
-                                           3,
-                                           "maps/level_3.map");
+                currentState = new Level_1(font_level,3,"maps/level_3.map");
                 break;
             case STATE_INTRO:
-                currentState = new Title(font, ball_sprite);
+                currentState = new Title(font);
                 break;
             case STATE_GAMEOVER:
-                currentState = new Title(font, ball_sprite);
+                currentState = new Title(font);
                 break;
         }
 
@@ -149,20 +81,10 @@ bool Game::Init()
         return false;
     }
 
-//    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE);
-//
-//    if(screen == NULL)
-//    {
-//        log("ERROR: Video mode not set");
-//        return false;
-//    }
-
     if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
     {
         return false;
     }
-
-    //SDL_WM_SetCaption("Arkilloid", NULL);
 
     if(TTF_Init() == -1)
     {
@@ -170,9 +92,6 @@ bool Game::Init()
         return false;
     }
 
-    //-------------------------------------------------------------
-
-    //-------------------------------------------------------------
     return true;
 }
 
@@ -180,70 +99,159 @@ bool Game::Init()
 
 bool Game::LoadFiles()
 {
-    brkbtn_spr = image_load("images/BetonBrick_n.png", 0xFF, 0, 0xFF);
+    //Load Images--------------------------------------------------------------
+    SDL_Surface *brkbtn_spr = image_load("images/BetonBrick_n.png", 0xFF, 0, 0xFF);
     if(brkbtn_spr == NULL)
     {
         log("images/BetonBrick_n.png not loaded");
         return false;
     }
+    imageList.push_back(brkbtn_spr);
 
-    brkstr_spr = image_load("images/StrongBrick.png", 0xFF, 0, 0xFF);
+    SDL_Surface *brkstr_spr = image_load("images/StrongBrick.png", 0xFF, 0, 0xFF);
     if(brkstr_spr == NULL)
     {
         log("images/StrongBrick.png not loaded");
         return false;
     }
-    brk_spr = image_load("images/brick.png", 0xFF, 0, 0xFF);
+    imageList.push_back(brkstr_spr);
+
+    SDL_Surface *brk_spr = image_load("images/brick.png", 0xFF, 0, 0xFF);
     if(brk_spr == NULL)
     {
         log("images/brick.png not loaded");
         return false;
     }
+    imageList.push_back(brk_spr);
 
-    bg = image_load("images/bg.bmp");
+    SDL_Surface *bg = image_load("images/bg.png");
     if(bg == NULL)
     {
-        log("images/bg.bmp not loaded");
+        log("images/bg.png not loaded");
         return false;
     }
+    imageList.push_back(bg);
 
-    bita_sprite = image_load("images/bita.bmp", 0xFF, 0, 0xFF);
+    SDL_Surface *bita_sprite = image_load("images/bita.bmp", 0xFF, 0, 0xFF);
     if(bita_sprite == NULL)
     {
         log("images/bita.bmp not loaded");
         return false;
     }
-    ball_sprite = image_load("images/ball.bmp",0xFF, 0, 0xFF);
+    imageList.push_back(bita_sprite);
+
+    SDL_Surface *ball_sprite = image_load("images/ball.bmp",0xFF, 0, 0xFF);
     if(ball_sprite == NULL)
     {
         log("images/ball.bmp not loaded");
         return false;
     }
-    bonus_speed_up_spr = image_load("images/bonus_speed_up.png",0xFF,0,0xFF);
-    bonus_speed_down_spr = image_load("images/bonus_speed_down.png", 0xFF, 0, 0xFF);
-    bonus_life_spr = image_load("images/bonus_life.png", 0xFF, 0, 0xFF);
-    bonus_die_spr = image_load("images/bonus_die.png", 0xFF, 0, 0xFF);
-    bonus_add_spr = image_load("images/bonus_add.png", 0xFF, 0, 0xFF);
-    heart_sprite = image_load("images/heart.png", 0xFF, 0, 0xFF);
-    if(!heart_sprite)
+    imageList.push_back(ball_sprite);
+
+    SDL_Surface *bg_intro = image_load("images/bg_intro.png");
+    if(bg_intro == NULL)
+    {
+        log("images/intro_bg not loaded");
+        return false;
+    }
+    imageList.push_back(bg_intro);
+
+    SDL_Surface *bg_title = image_load("images/bg_title.png");
+    if(bg_title == NULL)
+    {
+        log("ERROR: bg_title.bmp not load");
+        return false;
+    }
+    imageList.push_back(bg_title);
+
+    SDL_Surface *bg_help = image_load("images/bg_Help.bmp");
+    if(bg_help == NULL)
+    {
+        log("ERROR: bg_help.bmp not load");
+        return false;
+    }
+    imageList.push_back(bg_help);
+
+    SDL_Surface *bonus_speed_up_spr = image_load("images/bonus_speed_up.png",0xFF,0,0xFF);
+    if(bonus_speed_up_spr == NULL)
+    {
+        log("ERROR: bonus_speed_up.png not load");
+        return false;
+    }
+    imageList.push_back(bonus_speed_up_spr);
+
+    SDL_Surface *bonus_speed_down_spr = image_load("images/bonus_speed_down.png", 0xFF, 0, 0xFF);
+    if(bonus_speed_down_spr == NULL)
+    {
+        log("ERROR: bonus_speed_down.png not load");
+        return false;
+    }
+    imageList.push_back(bonus_speed_down_spr);
+
+    SDL_Surface *bonus_life_spr = image_load("images/bonus_life.png", 0xFF, 0, 0xFF);
+    if(bonus_life_spr == NULL)
+    {
+        log("ERROR: bonus_life.png not load");
+        return false;
+    }
+    imageList.push_back(bonus_life_spr);
+
+    SDL_Surface *bonus_die_spr = image_load("images/bonus_die.png", 0xFF, 0, 0xFF);
+    if(bonus_die_spr == NULL)
+    {
+        log("ERROR: bonus_die.png not load");
+        stateID = STATE_EXIT;
+    }
+    imageList.push_back(bonus_die_spr);
+
+    SDL_Surface *bonus_add_spr = image_load("images/bonus_add.png", 0xFF, 0, 0xFF);
+    if(bonus_add_spr == NULL)
+    {
+        log("ERROR: bonus_add.png not load");
+        return false;
+    }
+    imageList.push_back(bonus_add_spr);
+
+    SDL_Surface *heart_sprite = image_load("images/heart.png", 0xFF, 0, 0xFF);
+    if(heart_sprite == NULL)
     {
         log("images/heart.png not loaded");
         return false;
     }
-    particle_sprite = image_load("images/particle.png", 0xFF, 0, 0xFF);
-    font = TTF_OpenFont("fonts/aerial.ttf", 10);
-    //TTF_Font* font_small = TTF_OpenFont("fonts/aerial.ttf", 20);
-    font_level = TTF_OpenFont("fonts/aerial.ttf", 50);
+    imageList.push_back(heart_sprite);
 
+    SDL_Surface *particle_sprite = image_load("images/particle.png", 0xFF, 0, 0xFF);
+    if(particle_sprite == NULL)
+    {
+        log("images/particle.png not loaded");
+        return false;
+    }
+    imageList.push_back(particle_sprite);
+    //-------------------------------------------------------
+    //Load fonts --------------------------------------------
+    font = TTF_OpenFont("fonts/aerial.ttf", 10);
+    if(font == NULL)
+    {
+        log("fonts/aerial.ttf not loaded");
+        return false;
+    }
+
+    font_level = TTF_OpenFont("fonts/aerial.ttf", 50);
+    if(font == NULL)
+    {
+        log("fonts/aerial.ttf not loaded");
+        return false;
+    }
+    //--------------------------------------------------------
     //Load sound-------------------------------------
-    Mix_Chunk* sound = Mix_LoadWAV_RW(SDL_RWFromFile("sound/pow.ogg", "rb"), 1);
+    Mix_Chunk* sound = Mix_LoadWAV("sound/pow.ogg");
     if(sound == NULL)
     {
         log("hit.ogg not found");
         return false;
     }
     soundList.push_back(sound);
-    //Mix_FreeChunk(sound);
+
     sound = Mix_LoadWAV_RW(SDL_RWFromFile("sound/hit.ogg", "rb"), 1);
     if(sound == NULL)
     {
@@ -251,7 +259,7 @@ bool Game::LoadFiles()
         return false;
     }
     soundList.push_back(sound);
-    //Mix_FreeChunk(sound);
+
     sound = Mix_LoadWAV_RW(SDL_RWFromFile("sound/intro.ogg", "rb"), 1);
     if(sound == NULL)
     {
@@ -266,16 +274,7 @@ bool Game::LoadFiles()
         return false;
     }
     soundList.push_back(sound);
-	/*
-    sound = Mix_LoadWAV_RW(SDL_RWFromFile("sound/music/intro.ogg", "rb"), 1);
-    if (sound == NULL)
-    {
-        log("sound/music/intro.ogg not loaded");
-        return false;
-    }
 
-    soundList.push_back(sound);
-	*/
 	music = Mix_LoadMUS("sound/music/intro.ogg");
     if(music == NULL)
     {
@@ -361,24 +360,21 @@ bool Game::MainLoop()
 void Game::Close()
 {
     SDL_FreeSurface(screen);
-    SDL_FreeSurface(bg);
-    SDL_FreeSurface(brkstr_spr);
-    SDL_FreeSurface(brkbtn_spr);
-    SDL_FreeSurface(brk_spr);
-    SDL_FreeSurface(bonus_speed_up_spr);
-    SDL_FreeSurface(bonus_speed_down_spr);
-    SDL_FreeSurface(bonus_life_spr);
-    SDL_FreeSurface(bonus_die_spr);
-    SDL_FreeSurface(bonus_add_spr);
-    SDL_FreeSurface(heart_sprite);
     loger.close();
     TTF_CloseFont(font);
     TTF_Quit();
     Mix_FreeChunk(hit);
     for(unsigned int i = 0; i < soundList.size(); i++)
     {
-        soundList.erase(soundList.begin() + i);
+        Mix_FreeChunk(soundList[i]);
+        //soundList.erase(soundList.begin() + i);
     }
+
+    for(unsigned int i = 0; i < imageList.size(); i++)
+    {
+        SDL_FreeSurface(imageList[i]);
+    }
+    //imageList.erase(imageList.begin(),imageList.end());
 	Mix_HaltMusic();
 	Mix_FreeMusic(music);
     Mix_CloseAudio();

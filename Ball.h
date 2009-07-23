@@ -6,6 +6,7 @@
 #include <SDL/SDL_ttf.h>
 #include <vector>
 #include "SDLUtils.h"
+#include "BrickControl.h"
 class Ball
 {
 public:
@@ -27,7 +28,6 @@ public:
     void set_speed(int speed);
     int get_speed();
     Circle get_circle();
-    void normalize();
 private:
     SDL_Rect cbRect;
     SDL_Rect newFrame;
@@ -36,6 +36,7 @@ private:
     double xVel;
     double yVel;
     int speed;
+    int prevSpeed;
     int direction;
     SDL_Surface *sprite;
     bool moving;

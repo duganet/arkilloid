@@ -10,6 +10,7 @@
 #include <fstream>
 #include "Globals.h"
 #include <vector>
+#include <map>
 #include <cmath>
 //#include <windows.h>
 
@@ -87,4 +88,23 @@ enum collision_type
     COLLISION_BOTTOM_NEED
 };
 
+enum images
+{
+    BRICK_BETON_SPR,
+    BRICK_STRONG_SPR,
+    BRICK_SPR,
+    BG,
+    BITA_SPR,
+    BALL_SPR,
+    BG_INTRO,
+    BG_TITLE,
+    BG_HELP,
+    BONUS_SPEEDUP_SPR,
+    BONUS_SPEEDDOWN_SPR,
+    BONUS_LIFE_SPR,
+    BONUS_DIE_SPR,
+    BONUS_ADD_SPR,
+    HEART_SPR,
+    PARTICLE_SPR
+};
 #endif

@@ -1,6 +1,9 @@
 //BrickBeton.cpp
 #include "BrickBeton.h"
 #include "Constants.h"
+#include <map>
+
+extern std::vector<SDL_Surface*> imageList;
 
 BrickBeton::BrickBeton()
 {
@@ -15,37 +18,35 @@ BrickBeton::~BrickBeton()
 
 void BrickBeton::set_up(int x, int y, SDL_Surface *sprite)
 {
-    brickBeton_sprite = sprite;
-
     clip[0].x = 0;
     clip[0].y = 0;
-    clip[0].w = brickBeton_sprite->w/5;
-    clip[0].h = brickBeton_sprite->h;
+    clip[0].w = imageList[BRICK_BETON_SPR]->w/5;
+    clip[0].h = imageList[BRICK_BETON_SPR]->h;
 
-    clip[1].x = brickBeton_sprite->w/5;
+    clip[1].x = imageList[BRICK_BETON_SPR]->w/5;
     clip[1].y = 0;
-    clip[1].w = brickBeton_sprite->w/5;
-    clip[1].h = brickBeton_sprite->h;
+    clip[1].w = imageList[BRICK_BETON_SPR]->w/5;
+    clip[1].h = imageList[BRICK_BETON_SPR]->h;
 
-    clip[2].x = brickBeton_sprite->w/5 * 2;
+    clip[2].x = imageList[BRICK_BETON_SPR]->w/5 * 2;
     clip[2].y = 0;
-    clip[2].w = brickBeton_sprite->w/5;
-    clip[2].h = brickBeton_sprite->h;
+    clip[2].w = imageList[BRICK_BETON_SPR]->w/5;
+    clip[2].h = imageList[BRICK_BETON_SPR]->h;
 
-    clip[3].x = brickBeton_sprite->w/5 * 3;
+    clip[3].x = imageList[BRICK_BETON_SPR]->w/5 * 3;
     clip[3].y = 0;
-    clip[3].w = brickBeton_sprite->w/5;
-    clip[3].h = brickBeton_sprite->h;
+    clip[3].w = imageList[BRICK_BETON_SPR]->w/5;
+    clip[3].h = imageList[BRICK_BETON_SPR]->h;
 
-    clip[4].x = brickBeton_sprite->w/5 * 4;
+    clip[4].x = imageList[BRICK_BETON_SPR]->w/5 * 4;
     clip[4].y = 0;
-    clip[4].w = brickBeton_sprite->w/5;
-    clip[4].h = brickBeton_sprite->h;
+    clip[4].w = imageList[BRICK_BETON_SPR]->w/5;
+    clip[4].h = imageList[BRICK_BETON_SPR]->h;
 
     this->box.x = x;
     this->box.y = y;
-    this->box.w = brickBeton_sprite->w/5;
-    this->box.h = brickBeton_sprite->h;
+    this->box.w = imageList[BRICK_BETON_SPR]->w/5;
+    this->box.h = imageList[BRICK_BETON_SPR]->h;
 }
 
 void BrickBeton::show(SDL_Surface* screen)
@@ -58,19 +59,19 @@ void BrickBeton::show(SDL_Surface* screen)
     switch(collision_type)
     {
     case NO_COLLISION:
-        apply_surface(box.x, box.y, brickBeton_sprite, screen, &clip[0]);
+        apply_surface(box.x, box.y, imageList[BRICK_BETON_SPR], screen, &clip[0]);
         break;
     case COLLISION_BOTTOM:
-        apply_surface(box.x, box.y, brickBeton_sprite, screen, &clip[1]);
+        apply_surface(box.x, box.y, imageList[BRICK_BETON_SPR], screen, &clip[1]);
         break;
     case COLLISION_TOP:
-        apply_surface(box.x, box.y, brickBeton_sprite, screen, &clip[2]);
+        apply_surface(box.x, box.y, imageList[BRICK_BETON_SPR], screen, &clip[2]);
         break;
     case COLLISION_RIGHT:
-        apply_surface(box.x, box.y, brickBeton_sprite, screen, &clip[3]);
+        apply_surface(box.x, box.y, imageList[BRICK_BETON_SPR], screen, &clip[3]);
         break;
     case COLLISION_LEFT:
-        apply_surface(box.x, box.y, brickBeton_sprite, screen, &clip[4]);
+        apply_surface(box.x, box.y, imageList[BRICK_BETON_SPR], screen, &clip[4]);
         break;
     }
 }

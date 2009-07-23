@@ -6,12 +6,13 @@ extern int stateID;
 extern int nextState;
 extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
+extern std::vector<SDL_Surface*> imageList;
 extern Mix_Music *music;
 
 
 Intro::Intro()
 {
-    bg = image_load("images/intro_bg.bmp");
+    bg = imageList[BG_INTRO];
     introTime.Start();
     Mix_PlayChannel(-1, soundList[2], 0);
     //Mix_PlayChannel(-1, soundList[4], -1);
