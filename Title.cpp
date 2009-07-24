@@ -10,6 +10,7 @@ extern int score;
 extern int hi_score;
 extern std::vector<SDL_Surface*> imageList;
 
+
 //void set_next_state( int newState )
 //{
 //    //If the user doesn't want to exit
@@ -110,13 +111,13 @@ void Title::logic()
     }
 }
 
-void Title::render(SDL_Surface *screen)
+void Title::render(SDL_Surface *buffer)
 {
-    apply_surface(0,0,imageList[BG_TITLE],screen);
-    buttonStart->show(screen);
-    buttonExit->show(screen);
-    buttonHelp->show(screen);
-    ball->show(screen);
-    apply_surface(520, 30, version, screen);
-    apply_surface(50, 30, hi_score_show, screen);
+    apply_surface(0,0,imageList[BG_TITLE],buffer);
+    buttonStart->show(buffer);
+    buttonExit->show(buffer);
+    buttonHelp->show(buffer);
+    ball->show(buffer);
+    apply_surface(520, 30, version, buffer);
+    apply_surface(50, 30, hi_score_show, buffer);
 }

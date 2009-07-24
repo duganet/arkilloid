@@ -13,6 +13,7 @@ extern Mix_Music *music;
 extern int score;
 extern int hi_score;
 extern bool sound_on;
+extern SDL_Surface *buffer;
 TTF_Font *levelFont;
 bool Level_1::pause;
 //int Level_1::num_level;
@@ -111,13 +112,12 @@ Level_1::Level_1(TTF_Font* font, int num_level, std::string filename)
     game_over = false;
     life_label = NULL;
     prevScore = score;
+    prevLives = lives;
     show_particles = false;
     std::stringstream score_text;
-        score_text << "Score: " << score;
-        //SDL_Color textColor = {0,0,0};
-
-        score_label = TTF_RenderText_Solid(font_small, score_text.str().c_str(), textColor);
-
+    score_text << "Score: " << score;
+    //SDL_Color textColor = {0,0,0};
+    score_label = TTF_RenderText_Solid(font_small, score_text.str().c_str(), textColor);
     //TTF_CloseFont(font_small);
 
     particle_spr = imageList[PARTICLE_SPR];
@@ -168,38 +168,40 @@ Level_1::~Level_1()
     delete musicOn;
 }
 
-void Level_1::render(SDL_Surface *screen)
+void Level_1::render(SDL_Surface *buffer)
 {
-    apply_surface(0,0,imageList[BG],screen);
+    apply_surface(0,0,imageList[BG],buffer);
 
     for(unsigned int i = 0; i < BrickControl::brickList.size(); i++)
     {
-        BrickControl::brickList[i]->show(screen);
+        BrickControl::brickList[i]->show(buffer);
     }
     for(unsigned int i = 0; i < Ball::ballList.size(); i++)
     {
-        Ball::ballList[i]->show(screen);
+        Ball::ballList[i]->show(buffer);
     }
 
-    bita.show(screen);
+    bita.show(buffer);
     if(begin == false)
     {
-        apply_surface(SCREEN_WIDTH/2 - level_label->w/2, SCREEN_HEIGHT/2 - level_label->h/2,level_label, screen);
+        apply_surface(SCREEN_WIDTH/2 - level_label->w/2, SCREEN_HEIGHT/2 - level_label->h/2,level_label, buffer);
     }
     if(clear == true)
     {
-        apply_surface(SCREEN_WIDTH/2 - clear_label->w/2, SCREEN_HEIGHT/2 - clear_label->h/2,clear_label, screen);
+        apply_surface(SCREEN_WIDTH/2 - clear_label->w/2, SCREEN_HEIGHT/2 - clear_label->h/2,clear_label, buffer);
     }
     if(Bonus::bonusList.size() > 0)
     {
         for(unsigned int i = 0; i < Bonus::bonusList.size(); i++)
         {
-            Bonus::bonusList[i]->show(screen);
+            Bonus::bonusList[i]->show(buffer);
         }
     }
     SDL_Color textColor = {226,67,71};
-    if(lives > 3 || lives == 0)
+
+    if(lives > 3 || lives == 0 && prevLives != lives)
     {
+        prevLives = lives;
         SDL_FreeSurface(life_label);
         life_label= NULL;
         std::stringstream life_text;
@@ -207,22 +209,22 @@ void Level_1::render(SDL_Surface *screen)
 
         life_label = TTF_RenderText_Solid(font_small, life_text.str().c_str(), textColor);
 
-        apply_surface(10,10,heart_spr, screen);
-        apply_surface(10 + heart_spr->w,5, life_label, screen);
+        apply_surface(10,10,heart_spr, buffer);
+        apply_surface(10 + heart_spr->w,5, life_label, buffer);
     }
     switch(lives)
     {
     case 3:
-        apply_surface(10,10,heart_spr, screen);
-        apply_surface(heart_spr->w+10,10,heart_spr,screen);
-        apply_surface(heart_spr->w *2+10,10,heart_spr,screen);
+        apply_surface(10,10,heart_spr, buffer);
+        apply_surface(heart_spr->w+10,10,heart_spr,buffer);
+        apply_surface(heart_spr->w *2+10,10,heart_spr,buffer);
         break;
     case 2:
-        apply_surface(10,10,heart_spr, screen);
-        apply_surface(10+heart_spr->w,10,heart_spr,screen);
+        apply_surface(10,10,heart_spr, buffer);
+        apply_surface(10+heart_spr->w,10,heart_spr,buffer);
         break;
     case 1:
-        apply_surface(10,10,heart_spr, screen);
+        apply_surface(10,10,heart_spr, buffer);
         break;
     case 0:
         break;
@@ -237,32 +239,32 @@ void Level_1::render(SDL_Surface *screen)
         prevScore = score;
         score_label = TTF_RenderText_Solid(font_small, score_text.str().c_str(), textColor);
     }
-    apply_surface(520,5, level_label_small,screen);
-    apply_surface(SCREEN_WIDTH/2 - score_label->w/2,5, score_label,screen);
+    apply_surface(520,5, level_label_small,buffer);
+    apply_surface(SCREEN_WIDTH/2 - score_label->w/2,5, score_label,buffer);
 
     //Particles-----------------------------------------------
     if(show_particles == true)
     {
         for(int p = 0; p < 20; p++)
         {
-            particles[p]->show(screen);
+            particles[p]->show(buffer);
         }
     }
     //--------------------------------------------------------
-    SDL_Surface *pause_label = NULL;
+    //SDL_Surface *pause_label = NULL;
     if(pause == true)
     {
-        apply_surface(0,0,imageList[BG_HELP],screen);
-        SDL_Surface *pause_label = TTF_RenderText_Solid(levelFont, "Pause", textColor);
-        apply_surface(SCREEN_WIDTH/2 - pause_label->w/2, SCREEN_HEIGHT/2 - pause_label->h/2,pause_label, screen);
-        resumeButton->show(screen);
-        restartButton->show(screen);
-        exitButton->show(screen);
-        soundOn->show(screen);
-        musicOn->show(screen);
+        apply_surface(0,0,imageList[BG_HELP],buffer);
+        //SDL_Surface *pause_label = TTF_RenderText_Solid(levelFont, "Pause", textColor);
+        //apply_surface(SCREEN_WIDTH/2 - pause_label->w/2, SCREEN_HEIGHT/2 - pause_label->h/2,pause_label, buffer);
+        resumeButton->show(buffer);
+        restartButton->show(buffer);
+        exitButton->show(buffer);
+        soundOn->show(buffer);
+        musicOn->show(buffer);
     }
-    else
-    SDL_FreeSurface(pause_label);
+    //else
+    //SDL_FreeSurface(pause_label);
 }
 
 void Level_1::handle_events(SDL_Event &event)
@@ -475,7 +477,7 @@ void Level_1::logic()
                         timer_speed_up.Start();
                         for(unsigned int i = 0; i < Ball::ballList.size(); i++)
                         {
-                            Ball::ballList[i]->set_speed(16);
+                            Ball::ballList[i]->set_speed(14);
                         }
                         break;
               //for(unsigned int i = 0; i < Ball::ballList.size(); i++)          break;
@@ -483,7 +485,7 @@ void Level_1::logic()
                         timer_speed_down.Start();
                         for(unsigned int i = 0; i < Ball::ballList.size(); i++)
                         {
-                            Ball::ballList[i]->set_speed(8);
+                            Ball::ballList[i]->set_speed(6);
                         }
                         break;
                     case LIFE:
@@ -559,7 +561,7 @@ void Level_1::logic()
                 timer_speed_up.Stop();
                 for(unsigned int i = 0; i < Ball::ballList.size(); i++)
                 {
-                    Ball::ballList[i]->set_speed(12);
+                    Ball::ballList[i]->set_speed(10);
                 }
             }
             if(timer_speed_down.Get_Ticks() >= 10000)
@@ -567,7 +569,7 @@ void Level_1::logic()
                 timer_speed_down.Stop();
                 for(unsigned int i = 0; i < Ball::ballList.size(); i++)
                 {
-                    Ball::ballList[i]->set_speed(12);
+                    Ball::ballList[i]->set_speed(10);
                 }
             }
         }
@@ -613,6 +615,7 @@ void Level_1::logic()
                 set_next_state(num_level + 3);
             }
         }
+        SDL_Delay(60);
      }//-------------------------------------------------
     }
     else

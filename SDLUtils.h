@@ -9,6 +9,7 @@
 #include <string>
 #include <fstream>
 #include "Globals.h"
+#include "Constants.h"
 #include <vector>
 #include <map>
 #include <cmath>

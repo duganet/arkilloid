@@ -52,6 +52,7 @@ protected:
     TTF_Font *font_small;
     //SDL_Color textColor;
     int prevScore;
+    int prevLives;
     //int num_level;
     Particles *particles[20];
     Button *resumeButton;
