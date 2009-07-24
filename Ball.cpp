@@ -63,8 +63,8 @@ void Ball::set_direction(int dir)
     xVel = 1;
     yVel = 0;
     direction = dir;
-    speed = 12;
-    prevSpeed = 12;
+    speed = 10;
+    prevSpeed = 10;
     rotate(xVel, yVel, speed, direction);
 }
 
@@ -330,9 +330,9 @@ void Ball::move(SDL_Rect bitaRect, int collision_type, bool menu)
     }
 }
 
-void Ball::show(SDL_Surface *screen)
+void Ball::show(SDL_Surface *buffer)
 {
-    apply_surface((int)cbRect.x, (int)cbRect.y, sprite, screen);
+    apply_surface((int)cbRect.x, (int)cbRect.y, sprite, buffer);
 }
 
 void Ball::reset(int x, int y)

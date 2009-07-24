@@ -14,6 +14,7 @@ void log(std::string message)
     loger.flush();
 }
 
+SDL_Surface* buffer = NULL;
 SDL_Surface *screen = NULL;
 
 

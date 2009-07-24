@@ -8,7 +8,7 @@ extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<SDL_Surface*> imageList;
 extern Mix_Music *music;
-
+extern SDL_Surface *buffer;
 
 Intro::Intro()
 {
@@ -45,7 +45,7 @@ void Intro::logic()
 
 void Intro::render(SDL_Surface *screen)
 {
-    apply_surface(0,0,bg,screen);
+    apply_surface(0,0,bg,buffer);
 }
 
 

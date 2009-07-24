@@ -6,6 +6,7 @@ extern std::ofstream loger;
 extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<SDL_Surface*> imageList;
 extern SDL_Surface *screen;
+extern SDL_Surface *buffer;
 extern Mix_Music *music;
 Game::Game()
 {
@@ -317,9 +318,17 @@ bool Game::MainLoop()
     currentState = new Intro();
 
     Timer fps;
+    buffer = SDL_CreateRGBSurface(SDL_HWSURFACE, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
+                                   0, 0, 0, 0);
     while(stateID != STATE_EXIT)
     {
         fps.Start();
+        buffer = SDL_CreateRGBSurface(SDL_HWSURFACE, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
+                                   0, 0, 0, 0);
+
+        int st=SDL_GetAppState();
+        if ((st==SDL_APPACTIVE) || (! st) ) SDL_Delay(1000);
+        else SDL_Delay(0);
         while(SDL_PollEvent(&event))
         {
             if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_q))
@@ -335,19 +344,20 @@ bool Game::MainLoop()
             return 1;
         }
         currentState->logic();
-        //fps.Start();
+        fps.Start();
         //Change state if needed
         change_state();
 
         //Do state rendering
-        currentState->render(screen);
+        currentState->render(buffer);
+        apply_surface(0,0,buffer,screen);
 
         if(SDL_Flip(screen) == -1)
         {
             log("ERROR: SDL_Flip(screen) = -1");
             return false;
         }
-
+        SDL_FreeSurface(buffer);
         if(fps.Get_Ticks() < 1000/FRAMES_PER_SECOND)
         {
             SDL_Delay((1000/FRAMES_PER_SECOND) - fps.Get_Ticks());
@@ -360,6 +370,7 @@ bool Game::MainLoop()
 void Game::Close()
 {
     SDL_FreeSurface(screen);
+    SDL_FreeSurface(buffer);
     loger.close();
     TTF_CloseFont(font);
     TTF_Quit();

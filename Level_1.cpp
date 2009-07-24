@@ -13,6 +13,7 @@ extern Mix_Music *music;
 extern int score;
 extern int hi_score;
 extern bool sound_on;
+extern SDL_Surface *buffer;
 TTF_Font *levelFont;
 bool Level_1::pause;
 //int Level_1::num_level;
@@ -111,13 +112,12 @@ Level_1::Level_1(TTF_Font* font, int num_level, std::string filename)
     game_over = false;
     life_label = NULL;
     prevScore = score;
+    prevLives = lives;
     show_particles = false;
     std::stringstream score_text;
-        score_text << "Score: " << score;
-        //SDL_Color textColor = {0,0,0};
-
-        score_label = TTF_RenderText_Solid(font_small, score_text.str().c_str(), textColor);
-
+    score_text << "Score: " << score;
+    //SDL_Color textColor = {0,0,0};
+    score_label = TTF_RenderText_Solid(font_small, score_text.str().c_str(), textColor);
     //TTF_CloseFont(font_small);
 
     particle_spr = imageList[PARTICLE_SPR];
@@ -168,38 +168,40 @@ Level_1::~Level_1()
     delete musicOn;
 }
 
-void Level_1::render(SDL_Surface *screen)
+void Level_1::render(SDL_Surface *buffer)
 {
-    apply_surface(0,0,imageList[BG],screen);
+    apply_surface(0,0,imageList[BG],buffer);
 
     for(unsigned int i = 0; i < BrickControl::brickList.size(); i++)
     {
-        BrickControl::brickList[i]->show(screen);
+        BrickControl::brickList[i]->show(buffer);
     }
     for(unsigned int i = 0; i < Ball::ballList.size(); i++)
     {
-        Ball::ballList[i]->show(screen);
+        Ball::ballList[i]->show(buffer);
     }
 
-    bita.show(screen);
+    bita.show(buffer);
     if(begin == false)
     {
-        apply_surface(SCREEN_WIDTH/2 - level_label->w/2, SCREEN_HEIGHT/2 - level_label->h/2,level_label, screen);
+        apply_surface(SCREEN_WIDTH/2 - level_label->w/2, SCREEN_HEIGHT/2 - level_label->h/2,level_label, buffer);
     }
     if(clear == true)
     {
-        apply_surface(SCREEN_WIDTH/2 - clear_label->w/2, SCREEN_HEIGHT/2 - clear_label->h/2,clear_label, screen);
+        apply_surface(SCREEN_WIDTH/2 - clear_label->w/2, SCREEN_HEIGHT/2 - clear_label->h/2,clear_label, buffer);
     }
     if(Bonus::bonusList.size() > 0)
     {
         for(unsigned int i = 0; i < Bonus::bonusList.size(); i++)
         {
-            Bonus::bonusList[i]->show(screen);
+            Bonus::bonusList[i]->show(buffer);
         }
     }
     SDL_Color textColor = {226,67,71};
-    if(lives > 3 || lives == 0)
+
+    if(lives > 3 || lives == 0 && prevLives != lives)
     {
+        prevLives = lives;
         SDL_FreeSurface(life_label);
         life_label= NULL;
         std::stringstream life_text;
@@ -207,22 +209,22 @@ void Level_1::render(SDL_Surface *screen)
 
         life_label = TTF_RenderText_Solid(font_small, life_text.str().c_str(), textColor);
 
-        apply_surface(10,10,heart_spr, screen);
-        apply_surface(10 + heart_spr->w,5, life_label, screen);
+        apply_surface(10,10,heart_spr, buffer);
+        apply_surface(10 + heart_spr->w,5, life_label, buffer);
     }
     switch(lives)
     {
     case 3:
-        apply_surface(10,10,heart_spr, screen);
-        apply_surface(heart_spr->w+10,10,heart_spr,screen);
-        apply_surface(heart_spr->w *2+10,10,heart_spr,screen);
+        apply_surface(10,10,heart_spr, buffer);
+        apply_surface(heart_spr->w+10,10,heart_spr,buffer);
+        apply_surface(heart_spr->w *2+10,10,heart_spr,buffer);
         break;
     case 2:
-        apply_surface(10,10,heart_spr, screen);
-        apply_surface(10+heart_spr->w,10,heart_spr,screen);
+        apply_surface(10,10,heart_spr, buffer);
+        apply_surface(10+heart_spr->w,10,heart_spr,buffer);
         break;
     case 1:
-        apply_surface(10,10,heart_spr, screen);
+        apply_surface(10,10,heart_spr, buffer);
         break;
     case 0:
         break;
@@ -237,32 +239,32 @@ void Level_1::render(SDL_Surface *screen)
         prevScore = score;
         score_label = TTF_RenderText_Solid(font_small, score_text.str().c_str(), textColor);
     }
-    apply_surface(520,5, level_label_small,screen);
-    apply_surface(SCREEN_WIDTH/2 - score_label->w/2,5, score_label,screen);
+    apply_surface(520,5, level_label_small,buffer);
+    apply_surface(SCREEN_WIDTH/2 - score_label->w/2,5, score_label,buffer);
 
     //Particles-----------------------------------------------
     if(show_particles == true)
     {
         for(int p = 0; p < 20; p++)
         {
-            particles[p]->show(screen);
+            particles[p]->show(buffer);
         }
     }
     //--------------------------------------------------------
-    SDL_Surface *pause_label = NULL;
+    //SDL_Surface *pause_label = NULL;
     if(pause == true)
     {
-        apply_surface(0,0,imageList[BG_HELP],screen);
-        SDL_Surface *pause_label = TTF_RenderText_Solid(levelFont, "Pause", textColor);
-        apply_surface(SCREEN_WIDTH/2 - pause_label->w/2, SCREEN_HEIGHT/2 - pause_label->h/2,pause_label, screen);
-        resumeButton->show(screen);
-        restartButton->show(screen);
-        exitButton->show(screen);
-        soundOn->show(screen);
-        musicOn->show(screen);
+        apply_surface(0,0,imageList[BG_HELP],buffer);
+        //SDL_Surface *pause_label = TTF_RenderText_Solid(levelFont, "Pause", textColor);
+        //apply_surface(SCREEN_WIDTH/2 - pause_label->w/2, SCREEN_HEIGHT/2 - pause_label->h/2,pause_label, buffer);
+        resumeButton->show(buffer);
+        restartButton->show(buffer);
+        exitButton->show(buffer);
+        soundOn->show(buffer);
+        musicOn->show(buffer);
     }
-    else
-    SDL_FreeSurface(pause_label);
+    //else
+    //SDL_FreeSurface(pause_label);
 }
 
 void Level_1::handle_events(SDL_Event &event)
@@ -334,179 +336,179 @@ void Level_1::logic()
                  brickBeton_num++;
              }
          }
-    if(BrickControl::brickList.size()-brickBeton_num > 0)
-    {
-        for(unsigned int k = 0; k < Ball::ballList.size(); k++)
-        {
-            Ball::ballList[k]->set_newFrame();
-            if(lives < 0)
+            if(BrickControl::brickList.size()-brickBeton_num > 0)
             {
-                timer.UnPause();
-                game_over = true;
-                for(unsigned int i = 0; i < BrickControl::brickList.size(); i++)
+                for(unsigned int k = 0; k < Ball::ballList.size(); k++)
                 {
-                    BrickControl::brickList.erase(BrickControl::brickList.begin()+i);
-                }
-            }
-             for(unsigned int i = 0; i < BrickControl::brickList.size(); i++)
-             {
-                    collision_type = Ball::ballList[k]->collision_check(BrickControl::brickList[i]->get_rect());
-                    if(collision_type > 0)
+                    Ball::ballList[k]->set_newFrame();
+                    if(lives < 0)
                     {
-                        if(BrickControl::brickList[i]->get_type() != BRICK_BETON)
+                        timer.UnPause();
+                        game_over = true;
+                        for(unsigned int i = 0; i < BrickControl::brickList.size(); i++)
                         {
-                            if(BrickControl::brickList[i]->get_type() == STRONG_BRICK)
+                            BrickControl::brickList.erase(BrickControl::brickList.begin()+i);
+                        }
+                    }
+                     for(unsigned int i = 0; i < BrickControl::brickList.size(); i++)
+                     {
+                            collision_type = Ball::ballList[k]->collision_check(BrickControl::brickList[i]->get_rect());
+                            if(collision_type > 0)
                             {
-                                if(BrickControl::brickList[i]->get_life() > 0)
+                                if(BrickControl::brickList[i]->get_type() != BRICK_BETON)
                                 {
+                                    if(BrickControl::brickList[i]->get_type() == STRONG_BRICK)
+                                    {
+                                        if(BrickControl::brickList[i]->get_life() > 0)
+                                        {
+                                            if(sound_on == true)
+                                                Mix_PlayChannel(-1, soundList[1], 0);
+
+                                            score += 10;
+                                            BrickControl::brickList[i]->set_life(BrickControl::brickList[i]->get_life()-1);
+                                            break;
+                                        }
+                                    }
+                                            score += 50;
+                                    //Particles--------------------------------------------
+                                    if(sound_on == true)
+                                        Mix_PlayChannel(-1, soundList[0], 0);
+
+                                    for(unsigned int p = 0; p < 20; p++)
+                                    {
+                                        delete particles[p];
+                                        particles[p] = new Particles(BrickControl::brickList[i]->get_rect().x,
+                                                                     BrickControl::brickList[i]->get_rect().y,
+                                                                     particle_spr);
+                                    }
+                                    show_particles = true;
+
+                                    //-----------------------------------------------------
+
+                                    if(bonus_created == false)
+                                    {
+                                        //srand((unsigned)time(NULL));
+                                        int j = rand() % 20;
+                                        //int j = 7;
+                                        switch(j)
+                                        {
+                                        case 2:
+                                            break;
+                                        case 3:
+                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_SPEEDUP_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_SPEEDUP_SPR], SPEED_UP);
+                                            Bonus::bonusList.push_back(bonus);
+                                            bonus_created = true;
+                                            break;
+                                        case 4:
+                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_SPEEDDOWN_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_SPEEDDOWN_SPR], SPEED_DOWN);
+                                            Bonus::bonusList.push_back(bonus);
+                                            bonus_created = true;
+                                            break;
+                                        case 5:
+                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_LIFE_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_LIFE_SPR], LIFE);
+                                            Bonus::bonusList.push_back(bonus);
+                                            bonus_created = true;
+                                            break;
+                                        case 6:
+                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_DIE_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_DIE_SPR], DIE);
+                                            Bonus::bonusList.push_back(bonus);
+                                            bonus_created = true;
+                                            break;
+                                        case 7:
+                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_ADD_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_ADD_SPR], ADD_BALL);
+                                            Bonus::bonusList.push_back(bonus);
+                                            bonus_created = true;
+                                            break;
+                                        }
+                                    }
+                                    BrickControl::brickList.erase(BrickControl::brickList.begin()+i);
+                                    break;
+                                }
+                                else
+                                {
+                                    BrickControl::brickList[i]->set_collision_type(collision_type);
                                     if(sound_on == true)
                                         Mix_PlayChannel(-1, soundList[1], 0);
-
-                                    score += 10;
-                                    BrickControl::brickList[i]->set_life(BrickControl::brickList[i]->get_life()-1);
                                     break;
                                 }
                             }
-                                    score += 50;
-                            //Particles--------------------------------------------
-                            if(sound_on == true)
-                                Mix_PlayChannel(-1, soundList[0], 0);
-
-                            for(unsigned int p = 0; p < 20; p++)
-                            {
-                                delete particles[p];
-                                particles[p] = new Particles(BrickControl::brickList[i]->get_rect().x,
-                                                             BrickControl::brickList[i]->get_rect().y,
-                                                             particle_spr);
-                            }
-                            show_particles = true;
-
-                            //-----------------------------------------------------
-
-                            if(bonus_created == false)
-                            {
-                                //srand((unsigned)time(NULL));
-                                int j = rand() % 20;
-                                //int j = 7;
-                                switch(j)
-                                {
-                                case 2:
-                                    break;
-                                case 3:
-                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_SPEEDUP_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_SPEEDUP_SPR], SPEED_UP);
-                                    Bonus::bonusList.push_back(bonus);
-                                    bonus_created = true;
-                                    break;
-                                case 4:
-                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_SPEEDDOWN_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_SPEEDDOWN_SPR], SPEED_DOWN);
-                                    Bonus::bonusList.push_back(bonus);
-                                    bonus_created = true;
-                                    break;
-                                case 5:
-                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_LIFE_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_LIFE_SPR], LIFE);
-                                    Bonus::bonusList.push_back(bonus);
-                                    bonus_created = true;
-                                    break;
-                                case 6:
-                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_DIE_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_DIE_SPR], DIE);
-                                    Bonus::bonusList.push_back(bonus);
-                                    bonus_created = true;
-                                    break;
-                                case 7:
-                                    bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_ADD_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_ADD_SPR], ADD_BALL);
-                                    Bonus::bonusList.push_back(bonus);
-                                    bonus_created = true;
-                                    break;
-                                }
-                            }
-                            BrickControl::brickList.erase(BrickControl::brickList.begin()+i);
-                            break;
+        //----------------------------------------------------------------
+        //                    else
+        //                    {
+        //                        if(Ball::ballList.size() > 1)
+        //                        {
+        //                            for(unsigned int ball_num = 0; ball_num < Ball::ballList.size(); ball_num++)
+        //                            {
+        //                                collision_type = Ball::ballList[k]->collision_check(Ball::ballList[ball_num]->get_rect());
+        //                            }
+        //                        }
+        //                    }
+        //-------------------------------------------------------------------
+                            bonus_created = false;
+                     }
+                   Ball::ballList[k]->move(bita.get_rect(),  collision_type, false);
+                   if (Ball::ballList[k]->get_rect().y+Ball::ballList[k]->get_rect().h > SCREEN_HEIGHT)
+                   {
+                        if (Ball::ballList.size() > 1)
+                        {
+                            Ball::ballList.erase(Ball::ballList.begin() + k);
                         }
                         else
                         {
-                            BrickControl::brickList[i]->set_collision_type(collision_type);
-                            if(sound_on == true)
-                                Mix_PlayChannel(-1, soundList[1], 0);
-                            break;
+                            lives -= 1;
+                            Ball::ballList[k]->reset(bita.get_rect().x + (bita.get_rect().w/2), bita.get_rect().y);
                         }
-                    }
-//----------------------------------------------------------------
-//                    else
-//                    {
-//                        if(Ball::ballList.size() > 1)
-//                        {
-//                            for(unsigned int ball_num = 0; ball_num < Ball::ballList.size(); ball_num++)
-//                            {
-//                                collision_type = Ball::ballList[k]->collision_check(Ball::ballList[ball_num]->get_rect());
-//                            }
-//                        }
-//                    }
-//-------------------------------------------------------------------
-                    bonus_created = false;
-             }
-           Ball::ballList[k]->move(bita.get_rect(),  collision_type, false);
-           if (Ball::ballList[k]->get_rect().y+Ball::ballList[k]->get_rect().h > SCREEN_HEIGHT)
-           {
-                if (Ball::ballList.size() > 1)
-                {
-                    Ball::ballList.erase(Ball::ballList.begin() + k);
+                   }
                 }
-                else
+                    bita.move();
+                if(Bonus::bonusList.size() > 0)
                 {
-                    lives -= 1;
-                    Ball::ballList[k]->reset(bita.get_rect().x + (bita.get_rect().w/2), bita.get_rect().y);
-                }
-           }
-        }
-            bita.move();
-        if(Bonus::bonusList.size() > 0)
-        {
-            for(unsigned int i = 0; i < Bonus::bonusList.size(); i++)
-            {
-                Bonus::bonusList[i]->move();
-                if(check_collision(bita.get_rect(), Bonus::bonusList[i]->get_rect()))
-                {
-                    score += 10;
-                    if(sound_on == true)
-                        Mix_PlayChannel(-1, soundList[3], 0);
-                    switch(Bonus::bonusList[i]->get_type())
+                    for(unsigned int i = 0; i < Bonus::bonusList.size(); i++)
                     {
-                    case SPEED_UP:
-                        timer_speed_up.Start();
-                        for(unsigned int i = 0; i < Ball::ballList.size(); i++)
+                        Bonus::bonusList[i]->move();
+                        if(check_collision(bita.get_rect(), Bonus::bonusList[i]->get_rect()))
                         {
-                            Ball::ballList[i]->set_speed(16);
+                            score += 10;
+                            if(sound_on == true)
+                                Mix_PlayChannel(-1, soundList[3], 0);
+                            switch(Bonus::bonusList[i]->get_type())
+                            {
+                            case SPEED_UP:
+                                timer_speed_up.Start();
+                                for(unsigned int i = 0; i < Ball::ballList.size(); i++)
+                                {
+                                    Ball::ballList[i]->set_speed(14);
+                                }
+                                break;
+                      //for(unsigned int i = 0; i < Ball::ballList.size(); i++)          break;
+                            case SPEED_DOWN:
+                                timer_speed_down.Start();
+                                for(unsigned int i = 0; i < Ball::ballList.size(); i++)
+                                {
+                                    Ball::ballList[i]->set_speed(6);
+                                }
+                                break;
+                            case LIFE:
+                                lives += 1;
+                                break;
+                            case DIE:
+                                lives -= 1;
+                                break;
+                            case ADD_BALL:
+                                ball = new Ball(bita.get_rect().x + bita.get_rect().w/2,bita.get_rect().y, ball_spr, true);
+                                Ball::ballList.push_back(ball);
+                                break;
+                            }
+                            Bonus::bonusList.erase(Bonus::bonusList.begin()+i);
                         }
-                        break;
-              //for(unsigned int i = 0; i < Ball::ballList.size(); i++)          break;
-                    case SPEED_DOWN:
-                        timer_speed_down.Start();
-                        for(unsigned int i = 0; i < Ball::ballList.size(); i++)
+                        if(Bonus::bonusList[i]->get_rect().y > SCREEN_HEIGHT)
                         {
-                            Ball::ballList[i]->set_speed(8);
+                            Bonus::bonusList.erase(Bonus::bonusList.begin()+i);
                         }
-                        break;
-                    case LIFE:
-                        lives += 1;
-                        break;
-                    case DIE:
-                        lives -= 1;
-                        break;
-                    case ADD_BALL:
-                        ball = new Ball(bita.get_rect().x + bita.get_rect().w/2,bita.get_rect().y, ball_spr, true);
-                        Ball::ballList.push_back(ball);
-                        break;
                     }
-                    Bonus::bonusList.erase(Bonus::bonusList.begin()+i);
                 }
-                if(Bonus::bonusList[i]->get_rect().y > SCREEN_HEIGHT)
-                {
-                    Bonus::bonusList.erase(Bonus::bonusList.begin()+i);
-                }
-            }
-        }
 
-    }
+            }
         else
         {
             if(game_over == true)
@@ -559,7 +561,7 @@ void Level_1::logic()
                 timer_speed_up.Stop();
                 for(unsigned int i = 0; i < Ball::ballList.size(); i++)
                 {
-                    Ball::ballList[i]->set_speed(12);
+                    Ball::ballList[i]->set_speed(10);
                 }
             }
             if(timer_speed_down.Get_Ticks() >= 10000)
@@ -567,7 +569,7 @@ void Level_1::logic()
                 timer_speed_down.Stop();
                 for(unsigned int i = 0; i < Ball::ballList.size(); i++)
                 {
-                    Ball::ballList[i]->set_speed(12);
+                    Ball::ballList[i]->set_speed(10);
                 }
             }
         }
@@ -613,6 +615,7 @@ void Level_1::logic()
                 set_next_state(num_level + 3);
             }
         }
+        SDL_Delay(60);
      }//-------------------------------------------------
     }
     else
