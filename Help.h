@@ -1,6 +1,7 @@
 //Help.h
 #ifndef HELP_H
 #define HELP_H
+
 #include "Intro.h"
 #include "Button.h"
 #include "Checkbox.h"
