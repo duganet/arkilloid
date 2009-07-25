@@ -199,7 +199,7 @@ void Level_1::render(SDL_Surface *buffer)
     }
     SDL_Color textColor = {226,67,71};
 
-    if(lives > 3 || lives == 0 && prevLives != lives)
+    if(lives > 3 || (lives == 0 && prevLives != lives))
     {
         prevLives = lives;
         SDL_FreeSurface(life_label);
@@ -468,7 +468,6 @@ void Level_1::logic()
                         Bonus::bonusList[i]->move();
                         if(check_collision(bita.get_rect(), Bonus::bonusList[i]->get_rect()))
                         {
-<<<<<<< HEAD:Level_1.cpp
                             score += 10;
                             if(sound_on == true)
                                 Mix_PlayChannel(-1, soundList[3], 0);
@@ -501,17 +500,14 @@ void Level_1::logic()
                                 break;
                             }
                             Bonus::bonusList.erase(Bonus::bonusList.begin()+i);
-=======
+
                             Ball::ballList[i]->set_speed(14);
->>>>>>> 244e236f0da6beefe949941219fa0e3884e5bb16:Level_1.cpp
                         }
                         if(Bonus::bonusList[i]->get_rect().y > SCREEN_HEIGHT)
                         {
-<<<<<<< HEAD:Level_1.cpp
                             Bonus::bonusList.erase(Bonus::bonusList.begin()+i);
-=======
+
                             Ball::ballList[i]->set_speed(6);
->>>>>>> 244e236f0da6beefe949941219fa0e3884e5bb16:Level_1.cpp
                         }
                     }
                 }
