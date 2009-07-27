@@ -5,7 +5,7 @@ extern SDL_Surface* screen;
 
 Window::Window()
 {
-    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,SDL_HWSURFACE | SDL_DOUBLEBUF);
+    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_HWACCEL);
     if(screen == NULL)
     {
         windowOk = false;
