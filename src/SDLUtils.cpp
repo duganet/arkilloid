@@ -1,11 +1,16 @@
 #include "SDLUtils.h"
+#include "../extern/GLFT_Font/GLFT_Font.h"
+
 std::vector<Mix_Chunk*> soundList;
-std::vector<SDL_Surface*> imageList;
+std::vector<Texture*> textureList;
 
 Mix_Music *music = NULL;
 
 bool sound_on = true;
 
+GLFT_Font font;
+GLFT_Font fontLevel;
+GLFT_Font font_small;
 std::ofstream loger("log.txt");
 void log(std::string message)
 {
@@ -13,10 +18,6 @@ void log(std::string message)
 
     loger.flush();
 }
-
-SDL_Surface* buffer = NULL;
-SDL_Surface *screen = NULL;
-
 
 int stateID = STATE_NULL;
 int nextState = STATE_NULL;
@@ -84,18 +85,15 @@ void apply_surface(int x, int y, SDL_Surface *source, SDL_Surface *destination, 
 
 bool check_collision( SDL_Rect A, SDL_Rect B )
 {
-
     int leftA, leftB;
     int rightA, rightB;
     int topA, topB;
     int bottomA, bottomB;
 
-
     leftA = A.x;
     rightA = A.x + A.w;
     topA = A.y;
     bottomA = A.y + A.h;
-
 
     leftB = B.x;
     rightB = B.x + B.w;
@@ -122,31 +120,7 @@ bool check_collision( SDL_Rect A, SDL_Rect B )
         return false;
     }
 
-
     return true;
-}
-int finde_zone( SDL_Rect A, SDL_Rect B )
-{
-    int leftA,leftB;
-    int rightA, rightB;
-    int topA, topB;
-    int bottomA, bottomB;
-
-    leftA   = A.x;
-    rightA  = A.x+A.w;
-    topA    = A.y;
-    bottomA = A.y+A.h;
-
-    leftB   = B.x;
-    rightB  = B.x+B.w;
-    topB    = B.y;
-    bottomB = B.y+B.h;
-
-    if(B.x < leftA && B.y > topA)
-    {
-        return ZONE_A;
-    }
-    return 0;
 }
 
 void set_next_state( int newState )

@@ -3,6 +3,9 @@
 #define BIRCK_H
 #include "SDLUtils.h"
 #include <vector>
+#include "Texture.h"
+
+extern std::vector<Texture*>textureList;
 
 class Brick
 {
@@ -10,9 +13,9 @@ public:
 
     Brick();
     virtual~Brick();
-    virtual void set_up(int x, int y, SDL_Surface* sprite);
-    virtual void set_up(int x, int y);
-    virtual void show(SDL_Surface *screen);
+    virtual void set_up(int x, int y, Texture*texture = textureList[BRICK]);
+    //virtual void set_up(int x, int y);
+    virtual void show();
     void Collision_check();
     SDL_Rect get_rect();
     Point get_center();
@@ -22,12 +25,11 @@ public:
     virtual int get_life();
     virtual void set_life(int);
     virtual void set_collision_type(int){};
-    //SDL_Surface* Brick::get_sprite();
 protected:
     SDL_Rect box;
     int type;
 private:
-    SDL_Surface *brick_sprite;
+    Texture *texture;
 };
 
 #endif

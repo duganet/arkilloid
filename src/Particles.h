@@ -3,20 +3,23 @@
 #define PARTICLES_H
 
 #include "SDLUtils.h"
+#include "Texture.h"
+
+extern std::vector<Texture*> textureList;
 
 class Particles
 {
 public:
-    Particles(int x, int y, SDL_Surface *sprite);
+    Particles(int x, int y, Texture *texture = textureList[PARTICLE]);
     ~Particles();
 
-    void show(SDL_Surface *screen);
+    void show();
     bool is_dead();
 private:
     int x,y;
-    SDL_Surface *sprite;
+    Texture *sprite;
     int frame;
-    int alpha;
+    float alpha;
 };
 
 #endif

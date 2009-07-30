@@ -4,18 +4,14 @@ extern int stateID;
 extern int nextState;
 extern std::ofstream loger;
 extern std::vector<Mix_Chunk*> soundList;
-extern std::vector<SDL_Surface*> imageList;
-extern SDL_Surface *screen;
-extern SDL_Surface *buffer;
+extern std::vector<Texture*>textureList;
 extern Mix_Music *music;
+extern GLFT_Font font;
+extern GLFT_Font fontLevel;
+extern GLFT_Font font_small;
 Game::Game()
 {
     currentState = NULL;
-    font = NULL;
-    font_small = NULL;
-    font_level = NULL;
-    hit = NULL;
-    sound = NULL;
 }
 
 Game::~Game()
@@ -38,26 +34,26 @@ void Game::change_state()
         switch( nextState )
         {
             case STATE_TITLE:
-                currentState = new Title(font);
+                currentState = new Title();
                 break;
 
             case STATE_HELP:
                 currentState = new Help();
                 break;
             case STATE_LEVEL_1:
-                currentState = new Level_1(font_level,1,"maps/level_1.map");
+                currentState = new Level_1(1,"maps/level_1.map");
                 break;
             case STATE_LEVEL_2:
-                currentState = new Level_1(font_level,2,"maps/level_2.map");
+                currentState = new Level_1(2,"maps/level_2.map");
                 break;
             case STATE_LEVEL_3:
-                currentState = new Level_1(font_level,3,"maps/level_3.map");
+                currentState = new Level_1(3,"maps/level_3.map");
                 break;
             case STATE_INTRO:
-                currentState = new Title(font);
+                currentState = new Title();
                 break;
             case STATE_GAMEOVER:
-                currentState = new Title(font);
+                currentState = new Title();
                 break;
         }
 
@@ -74,177 +70,216 @@ bool Game::Start()
     return true;
 }
 
+bool Game::InitGL()
+{
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
+    glEnable( GL_TEXTURE_2D );
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glClearColor(0,0,0,1);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0,SCREEN_WIDTH, SCREEN_HEIGHT, 0, -1, 1);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    if(glGetError() != GL_NO_ERROR)
+    {
+        log("ERROR: gl not init, " + glGetError());
+        return false;
+    }
+    return true;
+}
+
 bool Game::Init()
 {
     if(SDL_Init(SDL_INIT_EVERYTHING) == -1)
     {
-        log("ERROR: SDL not init");
+        log("ERROR: init failed");
         return false;
     }
+
 
     if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
     {
         return false;
     }
-
-    if(TTF_Init() == -1)
-    {
-        log("TTF not init");
-        return false;
-    }
-
     return true;
 }
 
 
-
 bool Game::LoadFiles()
 {
-    //Load Images--------------------------------------------------------------
-    SDL_Surface *brkbtn_spr = image_load("images/BetonBrick_n.png", 0xFF, 0, 0xFF);
-    if(brkbtn_spr == NULL)
-    {
-        log("images/BetonBrick_n.png not loaded");
-        return false;
-    }
-    imageList.push_back(brkbtn_spr);
+    std::string fontsdir, imagedir, sounddir,musicdir,font_filename, img_filename, snd_filename, mus_filename;
+    #ifdef WIN32
+    imagedir = "images";
+    fontsdir = "fonts";
+    sounddir = "sound";
+    musicdir = "sound/music";
+    #else
+    /*imagedir = "../share/" + PACKAGE + "/images";
+    fontsdir = "../share/" + PACKAGE + "/fonts";*/
+    imagedir = "../share/arkilloid/images";
+    fontsdir = "../share/arkilloid/fonts";
+    sounddir = "../share/arkilloid/sound";
+    musicdir = "../share/arkilloid/sound/music";
+    #endif
 
-    SDL_Surface *brkstr_spr = image_load("images/StrongBrick.png", 0xFF, 0, 0xFF);
-    if(brkstr_spr == NULL)
+//Load Images------------------------------------------------
+    img_filename = imagedir + "/BetonBrick_n.png";
+    Texture *brickbtn_tex = new Texture;
+    if(brickbtn_tex->load_from_file(img_filename) == false)
     {
-        log("images/StrongBrick.png not loaded");
+        log("ERROR: " + img_filename + " not found");
         return false;
     }
-    imageList.push_back(brkstr_spr);
+    textureList.push_back(brickbtn_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/StrongBrick.png";
+    Texture *brickstr_tex = new Texture;
+    if(brickstr_tex->load_from_file(img_filename) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(brickstr_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/brick.png";
+    Texture *brick_tex = new Texture;
+    if(brick_tex->load_from_file(img_filename) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(brick_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/bita.bmp";
+    Texture *bita_tex = new Texture;
+    if(bita_tex->load_from_file(img_filename, 0xFF,0,0xFF) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(bita_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/ball.png";
+    Texture *ball_tex = new Texture;
+    if(ball_tex->load_from_file(img_filename, 0xFF,0,0xFF) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(ball_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/bg.png";
+    Texture *bg_tex = new Texture;
+    if(bg_tex->load_from_file(img_filename) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(bg_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/bg_intro.png";
+    Texture *bgintro_tex = new Texture;
+    if(bgintro_tex->load_from_file(img_filename) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(bgintro_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/bg_title.png";
+    Texture *bgtitle_tex = new Texture;
+    if(bgtitle_tex->load_from_file(img_filename) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(bgtitle_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/bg_Help.bmp";
+    Texture *bghelp_tex = new Texture;
+    if(bghelp_tex->load_from_file(img_filename) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(bghelp_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/bonus_speed_up.png";
+    Texture *speedup_tex = new Texture;
+    if(speedup_tex->load_from_file(img_filename, 0xFF,0,0xFF) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(speedup_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/bonus_speed_down.png";
+    Texture *speeddown_tex = new Texture;
+    if(speeddown_tex->load_from_file(img_filename, 0xFF,0,0xFF) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(speeddown_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/bonus_life.png";
+    Texture *life_tex = new Texture;
+    if(life_tex->load_from_file(img_filename,0xFF,0,0xFF) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(life_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/bonus_die.png";
+    Texture *die_tex = new Texture;
+    if(die_tex->load_from_file(img_filename,0xFF,0,0xFF) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(die_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/bonus_add.png";
+    Texture *add_tex = new Texture;
+    if(add_tex->load_from_file(img_filename,0xFF,0,0xFF) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(add_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/heart.png";
+    Texture *heart_tex = new Texture;
+    if(heart_tex->load_from_file(img_filename,0xFF,0,0xFF) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(heart_tex);
+//-----------------------------------------------------------
+    img_filename = imagedir + "/particle.png";
+    Texture *particle_tex = new Texture;
+    if(particle_tex->load_from_file(img_filename,0xFF,0,0xFF) == false)
+    {
+        log("ERROR: " + img_filename + " not found");
+        return false;
+    }
+    textureList.push_back(particle_tex);
+//-----------------------------------------------------------
 
-    SDL_Surface *brk_spr = image_load("images/brick.png", 0xFF, 0, 0xFF);
-    if(brk_spr == NULL)
-    {
-        log("images/brick.png not loaded");
-        return false;
-    }
-    imageList.push_back(brk_spr);
-
-    SDL_Surface *bg = image_load("images/bg.png");
-    if(bg == NULL)
-    {
-        log("images/bg.png not loaded");
-        return false;
-    }
-    imageList.push_back(bg);
-
-    SDL_Surface *bita_sprite = image_load("images/bita.bmp", 0xFF, 0, 0xFF);
-    if(bita_sprite == NULL)
-    {
-        log("images/bita.bmp not loaded");
-        return false;
-    }
-    imageList.push_back(bita_sprite);
-
-    SDL_Surface *ball_sprite = image_load("images/ball.bmp",0xFF, 0, 0xFF);
-    if(ball_sprite == NULL)
-    {
-        log("images/ball.bmp not loaded");
-        return false;
-    }
-    imageList.push_back(ball_sprite);
-
-    SDL_Surface *bg_intro = image_load("images/bg_intro.png");
-    if(bg_intro == NULL)
-    {
-        log("images/intro_bg not loaded");
-        return false;
-    }
-    imageList.push_back(bg_intro);
-
-    SDL_Surface *bg_title = image_load("images/bg_title.png");
-    if(bg_title == NULL)
-    {
-        log("ERROR: bg_title.bmp not load");
-        return false;
-    }
-    imageList.push_back(bg_title);
-
-    SDL_Surface *bg_help = image_load("images/bg_Help.bmp");
-    if(bg_help == NULL)
-    {
-        log("ERROR: bg_help.bmp not load");
-        return false;
-    }
-    imageList.push_back(bg_help);
-
-    SDL_Surface *bonus_speed_up_spr = image_load("images/bonus_speed_up.png",0xFF,0,0xFF);
-    if(bonus_speed_up_spr == NULL)
-    {
-        log("ERROR: bonus_speed_up.png not load");
-        return false;
-    }
-    imageList.push_back(bonus_speed_up_spr);
-
-    SDL_Surface *bonus_speed_down_spr = image_load("images/bonus_speed_down.png", 0xFF, 0, 0xFF);
-    if(bonus_speed_down_spr == NULL)
-    {
-        log("ERROR: bonus_speed_down.png not load");
-        return false;
-    }
-    imageList.push_back(bonus_speed_down_spr);
-
-    SDL_Surface *bonus_life_spr = image_load("images/bonus_life.png", 0xFF, 0, 0xFF);
-    if(bonus_life_spr == NULL)
-    {
-        log("ERROR: bonus_life.png not load");
-        return false;
-    }
-    imageList.push_back(bonus_life_spr);
-
-    SDL_Surface *bonus_die_spr = image_load("images/bonus_die.png", 0xFF, 0, 0xFF);
-    if(bonus_die_spr == NULL)
-    {
-        log("ERROR: bonus_die.png not load");
-        stateID = STATE_EXIT;
-    }
-    imageList.push_back(bonus_die_spr);
-
-    SDL_Surface *bonus_add_spr = image_load("images/bonus_add.png", 0xFF, 0, 0xFF);
-    if(bonus_add_spr == NULL)
-    {
-        log("ERROR: bonus_add.png not load");
-        return false;
-    }
-    imageList.push_back(bonus_add_spr);
-
-    SDL_Surface *heart_sprite = image_load("images/heart.png", 0xFF, 0, 0xFF);
-    if(heart_sprite == NULL)
-    {
-        log("images/heart.png not loaded");
-        return false;
-    }
-    imageList.push_back(heart_sprite);
-
-    SDL_Surface *particle_sprite = image_load("images/particle.png", 0xFF, 0, 0xFF);
-    if(particle_sprite == NULL)
-    {
-        log("images/particle.png not loaded");
-        return false;
-    }
-    imageList.push_back(particle_sprite);
-    //-------------------------------------------------------
-    //Load fonts --------------------------------------------
-    font = TTF_OpenFont("fonts/aerial.ttf", 10);
-    if(font == NULL)
-    {
-        log("fonts/aerial.ttf not loaded");
-        return false;
-    }
-
-    font_level = TTF_OpenFont("fonts/aerial.ttf", 50);
-    if(font == NULL)
-    {
-        log("fonts/aerial.ttf not loaded");
-        return false;
-    }
-    //--------------------------------------------------------
-    //Load sound-------------------------------------
+//Load fonts ------------------------------------------------
+    font.open("fonts/aerial.ttf", 10);
+//-----------------------------------------------------------
+    fontLevel.open("fonts/aerial.ttf", 50);
+//-----------------------------------------------------------
+    font_small.open("fonts/aerial.ttf", 20);
+//-----------------------------------------------------------
+//Load sound-------------------------------------------------
     Mix_Chunk* sound = Mix_LoadWAV("sound/pow.ogg");
     if(sound == NULL)
     {
@@ -252,7 +287,7 @@ bool Game::LoadFiles()
         return false;
     }
     soundList.push_back(sound);
-
+//-----------------------------------------------------------
     sound = Mix_LoadWAV_RW(SDL_RWFromFile("sound/hit.ogg", "rb"), 1);
     if(sound == NULL)
     {
@@ -260,7 +295,7 @@ bool Game::LoadFiles()
         return false;
     }
     soundList.push_back(sound);
-
+//-----------------------------------------------------------
     sound = Mix_LoadWAV_RW(SDL_RWFromFile("sound/intro.ogg", "rb"), 1);
     if(sound == NULL)
     {
@@ -268,6 +303,7 @@ bool Game::LoadFiles()
         return false;
     }
     soundList.push_back(sound);
+//-----------------------------------------------------------
     sound = Mix_LoadWAV_RW(SDL_RWFromFile("sound/bonus_get.ogg", "rb"), 1);
     if(sound == NULL)
     {
@@ -275,14 +311,15 @@ bool Game::LoadFiles()
         return false;
     }
     soundList.push_back(sound);
-
+//-----------------------------------------------------------
+//Load music-------------------------------------------------
 	music = Mix_LoadMUS("sound/music/intro.ogg");
     if(music == NULL)
     {
 	  log("sound/music/intro.ogg not loaded");
 	  return false;
 	}
-    //-----------------------------------------------
+//-----------------------------------------------------------
 
     return true;
 }
@@ -299,12 +336,16 @@ bool Game::MainLoop()
     }
 
     Window window;
+
     if(window.error() == true)
     {
         log("ERROR: error in window");
         return 1;
     }
-
+    if(InitGL() == false)
+    {
+        return false;
+    }
     log("Loading files...");
     if(LoadFiles() == false)
     {
@@ -318,17 +359,10 @@ bool Game::MainLoop()
     currentState = new Intro();
 
     Timer fps;
-    buffer = SDL_CreateRGBSurface(SDL_HWSURFACE, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
-                                   0, 0, 0, 0);
     while(stateID != STATE_EXIT)
     {
         fps.Start();
-        buffer = SDL_CreateRGBSurface(SDL_HWSURFACE, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,
-                                   0, 0, 0, 0);
 
-        int st=SDL_GetAppState();
-        if ((st==SDL_APPACTIVE) || (! st) ) SDL_Delay(1000);
-        else SDL_Delay(0);
         while(SDL_PollEvent(&event))
         {
             if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_q))
@@ -339,25 +373,21 @@ bool Game::MainLoop()
             currentState->handle_events(event);
         }
         //deltaTicks = fps.Get_Ticks();
-        if(window.error() == true)
-        {
-            return 1;
-        }
+//        if(window.error() == true)
+//        {
+//            return 1;
+//        }
         currentState->logic();
         fps.Start();
         //Change state if needed
         change_state();
 
         //Do state rendering
-        currentState->render(buffer);
-        apply_surface(0,0,buffer,screen);
+        glClear(GL_COLOR_BUFFER_BIT);
+        currentState->render();
 
-        if(SDL_Flip(screen) == -1)
-        {
-            log("ERROR: SDL_Flip(screen) = -1");
-            return false;
-        }
-        SDL_FreeSurface(buffer);
+        SDL_GL_SwapBuffers();
+
         if(fps.Get_Ticks() < 1000/FRAMES_PER_SECOND)
         {
             SDL_Delay((1000/FRAMES_PER_SECOND) - fps.Get_Ticks());
@@ -369,22 +399,20 @@ bool Game::MainLoop()
 
 void Game::Close()
 {
-    SDL_FreeSurface(screen);
-    SDL_FreeSurface(buffer);
     loger.close();
-    TTF_CloseFont(font);
-    TTF_Quit();
-    Mix_FreeChunk(hit);
+    font.release();
+    fontLevel.release();
     for(unsigned int i = 0; i < soundList.size(); i++)
     {
         Mix_FreeChunk(soundList[i]);
         //soundList.erase(soundList.begin() + i);
     }
 
-    for(unsigned int i = 0; i < imageList.size(); i++)
+    for(unsigned int i = 0; i < textureList.size(); i++)
     {
-        SDL_FreeSurface(imageList[i]);
+       textureList.erase(textureList.begin(), textureList.end());
     }
+
     //imageList.erase(imageList.begin(),imageList.end());
 	Mix_HaltMusic();
 	Mix_FreeMusic(music);

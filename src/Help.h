@@ -11,7 +11,7 @@ public:
     Help();
     ~Help();
     void handle_events(SDL_Event &event);
-    void render(SDL_Surface* screen);
+    void render();
     void logic();
 private:
     Button *buttonStart;

@@ -8,12 +8,10 @@ extern int nextState;
 
 Button::Button(int x, int y, std::string filename)
 {
-    buttonSheet = image_load(filename, 0xFF, 0, 0xFF);
-    if(buttonSheet == NULL)
-    {
-        log("ERROR: button image not loaded!");
-        stateID = STATE_EXIT;
-    }
+    buttonSheet = new Texture;
+    buttonSheet->load_from_file(filename, 0xFF,0,0xFF);
+
+    buttonSheet->num_vclip = 2;
 
     clips[CLIP_MOUSEOVER].x = 0;
     clips[CLIP_MOUSEOVER].y = 0;
@@ -35,7 +33,7 @@ Button::Button(int x, int y, std::string filename)
 
 Button::~Button()
 {
-    SDL_FreeSurface(buttonSheet);
+    delete buttonSheet;
 }
 
 void Button::handle_events(SDL_Event &event,void(callback)(void))
@@ -92,9 +90,9 @@ void Button::handle_events(SDL_Event &event,void(callback)(void))
 //    }
 }
 
-void Button::show(SDL_Surface *screen)
+void Button::show()
 {
-    apply_surface(box.x, box.y,buttonSheet,screen, &clip);
+    buttonSheet->show(box.x, box.y,clip);
 }
 
 SDL_Rect Button::get_rect()

@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include "Globals.h"
 #include "Timer.h"
+#include "Texture.h"
 
 class Intro : public GameState
 {
@@ -15,13 +16,10 @@ public:
     ~Intro();
     void handle_events(SDL_Event &event);
     void logic();
-    void render(SDL_Surface *screen);
+    void render();
 
 private:
     Timer introTime;
 };
-
-
-
 
 #endif

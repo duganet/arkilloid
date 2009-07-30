@@ -1,19 +1,23 @@
 //Bonus_speed.cpp
 #include "Bonus_speed.h"
 
-Bonus_Speed::Bonus_Speed(int x, int y, SDL_Surface *sprite)
+extern std::vector<Texture*>textureList;
+
+Bonus_Speed::Bonus_Speed(int x, int y, Texture* texture = textureList[SPEEDUP])
 {
-    bonus_sprite = sprite;
+    this->texture = new Texture();
+    this->texture = texture;
     bonusRect.x = x;
     bonusRect.y = y;
-    bonusRect.w = sprite->w;
-    bonusRect.h = sprite->h;
+    bonusRect.w = this->texture->w;
+    bonusRect.h = this->texture->h;
     yVel = 3;
-    bonus_type = SPEED_UP;
+    bonus_type = SPEED_UP_B;
 }
 
 Bonus_Speed::~Bonus_Speed()
 {
+    delete this->texture;
 }
 
 void Bonus_Speed::move()

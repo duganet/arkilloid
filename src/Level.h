@@ -13,11 +13,7 @@ public:
     virtual ~Level();
     virtual void handle_events(SDL_Event &event);
     virtual void logic();
-    virtual void render(SDL_Surface *screen);
-protected:
-    SDL_Surface *bg;
-    SDL_Surface *brk_spr;
-    SDL_Surface *brkstr_spr;
+    virtual void render();
 };
 
 #endif

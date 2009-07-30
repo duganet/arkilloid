@@ -3,7 +3,7 @@
 #define BUTTON_H
 
 #include "SDLUtils.h"
-
+#include "Texture.h"
 enum
 {
     CLIP_MOUSEOVER,
@@ -24,12 +24,12 @@ public:
     Button(int x, int y, std::string filename);
     virtual ~Button();
     virtual void handle_events(SDL_Event &event,void(callback)(void));
-    virtual void show(SDL_Surface *screen);
+    virtual void show();
     virtual SDL_Rect get_rect();
 protected:
     SDL_Rect box;
     SDL_Rect clip;
-    SDL_Surface *buttonSheet;
+    Texture *buttonSheet;
 private:
     SDL_Rect clips[2];
 };

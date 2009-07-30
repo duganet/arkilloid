@@ -3,7 +3,6 @@
 #include <sstream>
 extern std::ofstream loger;
 std::vector<Brick*> BrickControl::brickList;
-//std::vector<BrickStrong> BrickControl::brickStrongList;
 
 BrickControl::BrickControl()
 {
@@ -16,7 +15,7 @@ BrickControl::~BrickControl()
 
 }
 
-bool BrickControl::LoadBricksFromFile(const char *filename, SDL_Surface* brk_spr, SDL_Surface *brkstr_spr, SDL_Surface* brkbtn_spr)
+bool BrickControl::LoadBricksFromFile(const char *filename)
 {
     FILE *FileHandle = fopen(filename, "r");
     if(FileHandle == NULL)
@@ -30,32 +29,35 @@ bool BrickControl::LoadBricksFromFile(const char *filename, SDL_Surface* brk_spr
     for (int i = 0; i < brickCount; i++)
     {
         Brick *brick;
-        //BrickStrong tmpBrickStrong;
 
         fscanf(FileHandle, "%d %d %d\n", &brickType, &X, &Y);
 
         switch(brickType)
         {
-        case BRICK:
+        case BRICK_T:
             brick = new Brick();
-            brick->set_up(X,Y, brk_spr);
+            brick->set_up(X,Y);
             BrickControl::brickList.push_back(brick);
             //brick.clean_up();
             break;
-        case STRONG_BRICK:
+        case STRONG_BRICK_T:
             brick = new BrickStrong();
-            brick->set_up(X,Y, brkstr_spr);
+            brick->set_up(X,Y);
             BrickControl::brickList.push_back(brick);
             break;
-        case BRICK_BETON:
+        case BRICK_BETON_T:
             brick = new BrickBeton();
-            brick->set_up(X,Y, brkbtn_spr);
+            brick->set_up(X,Y);
             BrickControl::brickList.push_back(brick);
         }
     }
-
+    log("brick loaded");
     fclose(FileHandle);
 
     return true;
+}
 
+void BrickControl::delete_bricks()
+{
+    BrickControl::brickList.erase(BrickControl::brickList.begin(), BrickControl::brickList.end());
 }

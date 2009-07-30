@@ -3,6 +3,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "../extern/GLFT_Font/GLFT_Font.h"
 #include "Constants.h"
 #include "Globals.cpp"
 #include "SDLUtils.h"
@@ -13,6 +14,7 @@
 #include "Help.h"
 #include "Level_1.h"
 #include "Window.h"
+#include "Texture.h"
 #include <vector>
 
 class Game
@@ -23,20 +25,14 @@ public:
     bool Start();
     bool LoadFiles();
     bool Init();
+    bool InitGL();
     bool MainLoop();
     void Close();
     void change_state();
 private:
     bool quit;
-    Mix_Chunk* hit;
-    Mix_Chunk *sound;
-    //SDL_Surface *screen;
     GameState *currentState;
     SDL_Event event;
-    TTF_Font *font;
-    TTF_Font *font_level;
-    TTF_Font *font_small;
-    //SDL_Color textColor;
 };
 
 #endif

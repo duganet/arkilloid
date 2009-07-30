@@ -2,6 +2,7 @@
 #ifndef LEVEL_1_H
 #define LEVEL_1_H
 
+#include "../extern/GLFT_Font/GLFT_Font.h"
 #include "GameState.h"
 #include "BrickControl.h"
 #include "Ball.h"
@@ -11,15 +12,16 @@
 #include "Particles.h"
 #include "Button.h"
 #include "Checkbox.h"
+#include "Texture.h"
 #include <vector>
 #include <SDL/SDL_mixer.h>
 class Level_1 : public GameState
 {
 public:
-    Level_1(TTF_Font*,int num_level,std::string filename);
+    Level_1(int num_level,std::string filename);
     Level_1(){};
     ~Level_1();
-    void render(SDL_Surface*);
+    void render();
     void logic();
     void handle_events(SDL_Event&);
     void load_files();
@@ -34,9 +36,9 @@ protected:
     SDL_Surface *clear_label;
     SDL_Surface *score_label;
     SDL_Surface *life_label;
-    SDL_Surface *heart_spr;
-    SDL_Surface *ball_spr;
-    SDL_Surface *particle_spr;
+    //Texture *heart_spr;
+    Texture *ball_spr;
+    //Texture *particle_spr;
     Ball *ball;
     Bita bita;
     Bonus *bonus;
@@ -49,7 +51,7 @@ protected:
     Timer timer;
     Timer timer_speed_up;
     Timer timer_speed_down;
-    TTF_Font *font_small;
+    //GLFT_Font font_small;
     //SDL_Color textColor;
     int prevScore;
     int prevLives;

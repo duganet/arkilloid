@@ -4,16 +4,18 @@
 #include "BrickStrong.h"
 #include "Timer.h"
 
+extern std::vector<Texture*>textureList;
+
 class BrickBeton : public Brick
 {
 public:
     BrickBeton();
     virtual ~BrickBeton();
-    virtual void set_up(int x, int y, SDL_Surface *sprite);
-    virtual void show(SDL_Surface *screen);
+    virtual void set_up(int x, int y, Texture* texture= textureList[BRICK_BETON]);
+    virtual void show();
     void set_collision_type(int type);
 private:
-    SDL_Surface *brickBeton_sprite;
+    Texture *texture;
     SDL_Rect clip[5];
     int collision_type;
     Timer timer;

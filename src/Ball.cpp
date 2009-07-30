@@ -10,7 +10,7 @@
 #include <cmath>
 
 //extern Uint32 deltaTicks;
-extern std::vector<SDL_Surface*> imageList;
+
 
 const double PI = 3.14159265;
 
@@ -24,13 +24,17 @@ void rotate(double &xVel,double &yVel, int speed, int direction)
 }
 
 
-Ball::Ball(int X, int Y, SDL_Surface* SPRITE, bool move)
+Ball::Ball(int X, int Y, bool move, Texture* texture)
 {
-    sprite = imageList[BALL_SPR];
-    cbRect.w = this->sprite->w;
-    cbRect.h = this->sprite->h;
+    this->texture = new Texture();
+    this->texture = texture;
+
+    cbRect.w = this->texture->w;
+    cbRect.h = this->texture->h;
     reset(X, Y);
+
     moving = move;
+
     if(moving == true)
     {
         srand((unsigned)time(0));
@@ -41,19 +45,19 @@ Ball::Ball(int X, int Y, SDL_Surface* SPRITE, bool move)
             direction = 315;
         set_direction(direction);
     }
+    log("ball create");
 }
 
-void Ball::set_up(int X, int Y, SDL_Surface* SPRITE)
+void Ball::set_up(int X, int Y, Texture* texture = textureList[BALL])
 {
-    sprite = SPRITE;
-    cbRect.w = this->sprite->w;
-    cbRect.h = this->sprite->h;
+    this->texture = texture;
+    cbRect.w = this->texture->w;
+    cbRect.h = this->texture->h;
     reset(X, Y);
 }
 
 Ball::~Ball()
 {
-    //SDL_FreeSurface(this->sprite);
     cbRect.x = 0;
     cbRect.y = 0;
 }
@@ -330,14 +334,15 @@ void Ball::move(SDL_Rect bitaRect, int collision_type, bool menu)
     }
 }
 
-void Ball::show(SDL_Surface *buffer)
+void Ball::show()
 {
-    apply_surface((int)cbRect.x, (int)cbRect.y, sprite, buffer);
+    //textureList[BALL]->show((int)cbRect.x, (int)cbRect.y);
+    texture->show((int)cbRect.x, (int)cbRect.y);
 }
 
 void Ball::reset(int x, int y)
 {
-    speed = 12;
+    speed = 10;
     cbRect.x = x - cbRect.w/2;
     cbRect.y = y - cbRect.h;
     moving = false;

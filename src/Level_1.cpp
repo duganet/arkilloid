@@ -8,13 +8,15 @@ extern int stateID;
 extern int nextState;
 extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
-extern std::vector<SDL_Surface*> imageList;
+extern std::vector<Texture*> textureList;
 extern Mix_Music *music;
 extern int score;
 extern int hi_score;
+extern GLFT_Font font;
+extern GLFT_Font fontLevel;
+extern GLFT_Font font_small;
 extern bool sound_on;
-extern SDL_Surface *buffer;
-TTF_Font *levelFont;
+
 bool Level_1::pause;
 //int Level_1::num_level;
 bool Level_1::restarted;
@@ -56,33 +58,31 @@ void musicOn_notchecked_pause()
     Mix_PlayMusic(music, -1);
 }
 
-Level_1::Level_1(TTF_Font* font, int num_level, std::string filename)
+Level_1::Level_1(int num_level, std::string filename)
 {
+    log("level_1 constructor");
     restarted = false;
-    levelFont = font;
+    //levelFont = font;
     SDL_WM_GrabInput(SDL_GRAB_ON);
     this->num_level = num_level;
-    SDL_Color textColor = {226,67,71};
+   // SDL_Color textColor = {226,67,71};
     //back = bg;
-    if(!BrickControl::LoadBricksFromFile(filename.c_str(), imageList[BRICK_SPR], imageList[BRICK_STRONG_SPR], imageList[BRICK_BETON_SPR]))
+
+    if(!BrickControl::LoadBricksFromFile(filename.c_str()))
     {
         log("map not load");
     }
-    bita.set_up(300, 570, imageList[BITA_SPR]);
-    font_small = TTF_OpenFont("fonts/aerial.ttf", 20);
-    ball_spr = imageList[BALL_SPR];
+    bita.set_up(300, 570);
+
     if(Ball::ballList.size() <= 0)
     {
-        ball = new Ball(bita.get_rect().x + (bita.get_rect().w/2), bita.get_rect().y, ball_spr, false);
+        ball = new Ball(bita.get_rect().x + (bita.get_rect().w/2), (int)bita.get_rect().y, false);
         Ball::ballList.push_back(ball);
     }
     else
     {
-        for(unsigned int check = 0; check < Ball::ballList.size(); check++)
-        {
-            Ball::ballList.erase(Ball::ballList.begin() + check);
-        }
-        ball = new Ball(bita.get_rect().x + (bita.get_rect().w/2), bita.get_rect().y, ball_spr, false);
+        Ball::ballList.erase(Ball::ballList.begin(),Ball::ballList.end());
+        ball = new Ball(bita.get_rect().x + (bita.get_rect().w/2), (int)bita.get_rect().y, false);
         Ball::ballList.push_back(ball);
     }
 
@@ -97,35 +97,28 @@ Level_1::Level_1(TTF_Font* font, int num_level, std::string filename)
     //ball.set_up(bita.get_rect().x + (bita.get_rect().w/2), bita.get_rect().y, ball_sprite);
     collision_type = 0;
     SDL_ShowCursor(false);
-    std::stringstream level_text;
-    level_text << "Level " << num_level;
-    level_label = TTF_RenderText_Solid(font, level_text.str().c_str(), textColor);
-    level_label_small = TTF_RenderText_Solid(font_small, level_text.str().c_str(), textColor);
-    level_text << " Clear";
-    clear_label = TTF_RenderText_Solid(font, level_text.str().c_str(), textColor);
+
     begin = false;
     clear = false;
     bonus_created = false;
     timer.Start();
     bonus = NULL;
-    heart_spr = imageList[HEART_SPR];
+
+    //heart_spr = new Texture();
+    //heart_spr = textureList[HEART];
     game_over = false;
     life_label = NULL;
     prevScore = score;
     prevLives = lives;
     show_particles = false;
-    std::stringstream score_text;
-    score_text << "Score: " << score;
-    //SDL_Color textColor = {0,0,0};
-    score_label = TTF_RenderText_Solid(font_small, score_text.str().c_str(), textColor);
-    //TTF_CloseFont(font_small);
 
-    particle_spr = imageList[PARTICLE_SPR];
-
+    //particle_spr = new Texture();
+    //particle_spr = textureList[PARTICLE];
     for (int i = 0; i < 20; i++)
     {
-        particles[i] = new Particles(0,0, particle_spr);
+        particles[i] = new Particles(0,0);
     }
+
     pause = false;
     resumeButton = new Button(308,436, "images/buttonResume.png");
     exitButton = new Button(518,436, "images/buttonExit.bmp");
@@ -140,6 +133,7 @@ Level_1::Level_1(TTF_Font* font, int num_level, std::string filename)
     {
         soundOn->check();
     }
+    log("...");
 }
 
 void Level_1::load_files()
@@ -149,14 +143,12 @@ void Level_1::load_files()
 
 Level_1::~Level_1()
 {
-    for(unsigned int i = 0; i < BrickControl::brickList.size(); i++)
-    {
-        BrickControl::brickList[i]->clean_up();
-    }
-    SDL_FreeSurface(level_label);
-    SDL_FreeSurface(level_label_small);
-    SDL_FreeSurface(score_label);
-    TTF_CloseFont(font_small);
+    BrickControl::delete_bricks();
+    //SDL_FreeSurface(level_label);
+    //SDL_FreeSurface(level_label_small);
+    //SDL_FreeSurface(score_label);
+    //font_small.release();
+//    levelFont.release();
     for (int i = 0; i < 20; i++)
     {
         delete particles[i];
@@ -166,105 +158,113 @@ Level_1::~Level_1()
     delete restartButton;
     delete soundOn;
     delete musicOn;
+    log("level_1 destructor");
 }
 
-void Level_1::render(SDL_Surface *buffer)
+void Level_1::render()
 {
-    apply_surface(0,0,imageList[BG],buffer);
+    bg = textureList[BG];
+    bg->show(0,0);
 
     for(unsigned int i = 0; i < BrickControl::brickList.size(); i++)
     {
-        BrickControl::brickList[i]->show(buffer);
-    }
-    for(unsigned int i = 0; i < Ball::ballList.size(); i++)
-    {
-        Ball::ballList[i]->show(buffer);
+        log("render");
+        BrickControl::brickList[i]->show();
     }
 
-    bita.show(buffer);
+    for(unsigned int i = 0; i < Ball::ballList.size(); i++)
+    {
+        Ball::ballList[i]->show();
+    }
+    bita.show();
+
     if(begin == false)
     {
-        apply_surface(SCREEN_WIDTH/2 - level_label->w/2, SCREEN_HEIGHT/2 - level_label->h/2,level_label, buffer);
+        glColor3f(0,0,0);
+        fontLevel.beginDraw(SCREEN_WIDTH/2,SCREEN_HEIGHT/2) << "Level " << num_level << fontLevel.endDraw();
+        glColor3f(1,1,1);
     }
     if(clear == true)
     {
-        apply_surface(SCREEN_WIDTH/2 - clear_label->w/2, SCREEN_HEIGHT/2 - clear_label->h/2,clear_label, buffer);
+        glColor3f(0,0,0);
+        fontLevel.beginDraw(SCREEN_WIDTH/2,SCREEN_HEIGHT/2) << "Level " << num_level << " Clear" << fontLevel.endDraw();
+        glColor3f(1,1,1);
     }
     if(Bonus::bonusList.size() > 0)
     {
         for(unsigned int i = 0; i < Bonus::bonusList.size(); i++)
         {
-            Bonus::bonusList[i]->show(buffer);
+            Bonus::bonusList[i]->show();
         }
     }
-    SDL_Color textColor = {226,67,71};
+    //SDL_Color textColor = {226,67,71};
 
-    if(lives > 3 || (lives == 0 && prevLives != lives))
-    {
-        prevLives = lives;
-        SDL_FreeSurface(life_label);
-        life_label= NULL;
-        std::stringstream life_text;
-        life_text << "x" << lives;
-
-        life_label = TTF_RenderText_Solid(font_small, life_text.str().c_str(), textColor);
-
-        apply_surface(10,10,heart_spr, buffer);
-        apply_surface(10 + heart_spr->w,5, life_label, buffer);
-    }
+//    if(lives > 3 || (lives == 0 && prevLives != lives))
+//    {
+//        prevLives = lives;
+//        SDL_FreeSurface(life_label);
+//        life_label= NULL;
+//
+//        heart_spr->show(10,10);
+//        glColor3f(0,0,0);
+//        font_small.beginDraw(heart_spr->w+10,5) << "x" << lives << font_small.endDraw();
+//        glColor3f(1,1,1);
+//    }
     switch(lives)
     {
     case 3:
-        apply_surface(10,10,heart_spr, buffer);
-        apply_surface(heart_spr->w+10,10,heart_spr,buffer);
-        apply_surface(heart_spr->w *2+10,10,heart_spr,buffer);
+        textureList[HEART]->show(10,10);
+        textureList[HEART]->show(textureList[HEART]->w+10,10);
+        textureList[HEART]->show(textureList[HEART]->w *2+10,10);
         break;
     case 2:
-        apply_surface(10,10,heart_spr, buffer);
-        apply_surface(10+heart_spr->w,10,heart_spr,buffer);
+        textureList[HEART]->show(10,10);
+        textureList[HEART]->show(textureList[HEART]->w+10,10);
         break;
     case 1:
-        apply_surface(10,10,heart_spr, buffer);
+        textureList[HEART]->show(10,10);
         break;
     case 0:
+        textureList[HEART]->show(10,10);
+        glColor3f(0,0,0);
+        font_small.beginDraw(textureList[HEART]->w+10,5) << "x0" << font_small.endDraw();
+        glColor3f(1,1,1);
+        break;
+    default:
+        textureList[HEART]->show(10,10);
+        glColor3f(0,0,0);
+        font_small.beginDraw(textureList[HEART]->w+10,5) << "x" << lives << font_small.endDraw();
+        glColor3f(1,1,1);
         break;
     }
-    if(prevScore != score)
-    {
-        SDL_FreeSurface(score_label);
-        score_label= NULL;
-        std::stringstream score_text;
-        score_text << "Score: " << score;
-        //SDL_Color textColor = {121,121,121};
-        prevScore = score;
-        score_label = TTF_RenderText_Solid(font_small, score_text.str().c_str(), textColor);
-    }
-    apply_surface(520,5, level_label_small,buffer);
-    apply_surface(SCREEN_WIDTH/2 - score_label->w/2,5, score_label,buffer);
+    //std::stringstream ss;
+    //ss << "Score: " + score;
+    glColor3f(0,0,0);
+    font_small.beginDraw(SCREEN_WIDTH/2,5) << "Score: " << score << font_small.endDraw();
+    //font.small
+    font_small.beginDraw(620,5) << "Level " << num_level << font_small.endDraw();
+    glColor3f(1,1,1);
 
     //Particles-----------------------------------------------
     if(show_particles == true)
     {
         for(int p = 0; p < 20; p++)
         {
-            particles[p]->show(buffer);
+            particles[p]->show();
         }
     }
     //--------------------------------------------------------
     //SDL_Surface *pause_label = NULL;
     if(pause == true)
     {
-        apply_surface(0,0,imageList[BG_HELP],buffer);
-        //SDL_Surface *pause_label = TTF_RenderText_Solid(levelFont, "Pause", textColor);
-        //apply_surface(SCREEN_WIDTH/2 - pause_label->w/2, SCREEN_HEIGHT/2 - pause_label->h/2,pause_label, buffer);
-        resumeButton->show(buffer);
-        restartButton->show(buffer);
-        exitButton->show(buffer);
-        soundOn->show(buffer);
-        musicOn->show(buffer);
+        textureList[BG_HELP]->show(0,0);
+
+        resumeButton->show();
+        restartButton->show();
+        exitButton->show();
+        soundOn->show();
+        musicOn->show();
     }
-    //else
-    //SDL_FreeSurface(pause_label);
 }
 
 void Level_1::handle_events(SDL_Event &event)
@@ -331,7 +331,7 @@ void Level_1::logic()
          for(unsigned int brc = 0; brc < BrickControl::brickList.size(); brc++)
          {
              BrickControl::brickList[brc]->get_type();
-             if(BrickControl::brickList[brc]->get_type() == BRICK_BETON)
+             if(BrickControl::brickList[brc]->get_type() == BRICK_BETON_T)
              {
                  brickBeton_num++;
              }
@@ -355,9 +355,9 @@ void Level_1::logic()
                             collision_type = Ball::ballList[k]->collision_check(BrickControl::brickList[i]->get_rect());
                             if(collision_type > 0)
                             {
-                                if(BrickControl::brickList[i]->get_type() != BRICK_BETON)
+                                if(BrickControl::brickList[i]->get_type() != BRICK_BETON_T)
                                 {
-                                    if(BrickControl::brickList[i]->get_type() == STRONG_BRICK)
+                                    if(BrickControl::brickList[i]->get_type() == STRONG_BRICK_T)
                                     {
                                         if(BrickControl::brickList[i]->get_life() > 0)
                                         {
@@ -378,8 +378,7 @@ void Level_1::logic()
                                     {
                                         delete particles[p];
                                         particles[p] = new Particles(BrickControl::brickList[i]->get_rect().x,
-                                                                     BrickControl::brickList[i]->get_rect().y,
-                                                                     particle_spr);
+                                                                     BrickControl::brickList[i]->get_rect().y);
                                     }
                                     show_particles = true;
 
@@ -395,27 +394,27 @@ void Level_1::logic()
                                         case 2:
                                             break;
                                         case 3:
-                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_SPEEDUP_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_SPEEDUP_SPR], SPEED_UP);
+                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[SPEEDUP]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[SPEEDUP], SPEED_UP_B);
                                             Bonus::bonusList.push_back(bonus);
                                             bonus_created = true;
                                             break;
                                         case 4:
-                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_SPEEDDOWN_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_SPEEDDOWN_SPR], SPEED_DOWN);
+                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[SPEEDDOWN]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[SPEEDDOWN], SPEED_DOWN_B);
                                             Bonus::bonusList.push_back(bonus);
                                             bonus_created = true;
                                             break;
                                         case 5:
-                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_LIFE_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_LIFE_SPR], LIFE);
+                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[LIFE]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[LIFE], LIFE_B);
                                             Bonus::bonusList.push_back(bonus);
                                             bonus_created = true;
                                             break;
                                         case 6:
-                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_DIE_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_DIE_SPR], DIE);
+                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[DIE]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[DIE], DIE_B);
                                             Bonus::bonusList.push_back(bonus);
                                             bonus_created = true;
                                             break;
                                         case 7:
-                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - imageList[BONUS_ADD_SPR]->w/2,BrickControl::brickList[i]->get_rect().y, imageList[BONUS_ADD_SPR], ADD_BALL);
+                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[ADD]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[ADD], ADD_BALL_B);
                                             Bonus::bonusList.push_back(bonus);
                                             bonus_created = true;
                                             break;
@@ -473,7 +472,7 @@ void Level_1::logic()
                                 Mix_PlayChannel(-1, soundList[3], 0);
                             switch(Bonus::bonusList[i]->get_type())
                             {
-                            case SPEED_UP:
+                            case SPEED_UP_B:
                                 timer_speed_up.Start();
                                 for(unsigned int i = 0; i < Ball::ballList.size(); i++)
                                 {
@@ -481,33 +480,33 @@ void Level_1::logic()
                                 }
                                 break;
                       //for(unsigned int i = 0; i < Ball::ballList.size(); i++)          break;
-                            case SPEED_DOWN:
+                            case SPEED_DOWN_B:
                                 timer_speed_down.Start();
                                 for(unsigned int i = 0; i < Ball::ballList.size(); i++)
                                 {
                                     Ball::ballList[i]->set_speed(6);
                                 }
                                 break;
-                            case LIFE:
+                            case LIFE_B:
                                 lives += 1;
                                 break;
-                            case DIE:
+                            case DIE_B:
                                 lives -= 1;
                                 break;
-                            case ADD_BALL:
-                                ball = new Ball(bita.get_rect().x + bita.get_rect().w/2,bita.get_rect().y, ball_spr, true);
+                            case ADD_BALL_B:
+                                ball = new Ball(bita.get_rect().x + bita.get_rect().w/2,(int)bita.get_rect().y);
                                 Ball::ballList.push_back(ball);
                                 break;
                             }
                             Bonus::bonusList.erase(Bonus::bonusList.begin()+i);
 
-                            Ball::ballList[i]->set_speed(14);
+                            //Ball::ballList[i]->set_speed(10);
                         }
                         if(Bonus::bonusList[i]->get_rect().y > SCREEN_HEIGHT)
                         {
                             Bonus::bonusList.erase(Bonus::bonusList.begin()+i);
 
-                            Ball::ballList[i]->set_speed(6);
+                            //Ball::ballList[i]->set_speed(6);
                         }
                     }
                 }

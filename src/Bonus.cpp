@@ -2,37 +2,39 @@
 #include "Bonus.h"
 
 std::vector<Bonus*> Bonus::bonusList;
+extern std::vector<Texture*>textureList;
 
-Bonus::Bonus(int x, int y, SDL_Surface *sprite,int type)
+Bonus::Bonus(int x, int y, Texture* texture,int type)
 {
-    bonus_sprite = sprite;
+    this->texture = new Texture();
+    this->texture = texture;
     bonusRect.x = x;
     bonusRect.y = y;
-    bonusRect.w = bonus_sprite->w;
-    bonusRect.h = bonus_sprite->h;
+    bonusRect.w = this->texture->w;
+    bonusRect.h = this->texture->h;
     yVel = 3;
     bonus_type = type;
 }
 
 Bonus::~Bonus()
 {
-    bonus_sprite = NULL;
+    delete texture;
 }
 
-void Bonus::set_up(int x, int y, SDL_Surface *sprite, int type)
+void Bonus::set_up(int x, int y, Texture *texture, int type)
 {
-    bonus_sprite = sprite;
+    this->texture = texture;
     bonusRect.x = x;
     bonusRect.y = y;
-    bonusRect.w = bonus_sprite->w;
-    bonusRect.h = bonus_sprite->h;
+    bonusRect.w = this->texture->w;
+    bonusRect.h = this->texture->h;
     bonus_type = type;
 }
 
 
-void Bonus::show(SDL_Surface *screen)
+void Bonus::show()
 {
-    apply_surface(bonusRect.x, bonusRect.y, bonus_sprite, screen);
+    this->texture->show(bonusRect.x, bonusRect.y);
 }
 
 SDL_Rect Bonus::get_rect()

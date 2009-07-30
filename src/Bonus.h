@@ -4,32 +4,33 @@
 
 #include "SDLUtils.h"
 #include "Constants.h"
+#include "Texture.h"
 #include <vector>
 
 enum BonusType
 {
-    SPEED_UP,
-    SPEED_DOWN,
-    LIFE,
-    DIE,
-    ADD_BALL
+    SPEED_UP_B,
+    SPEED_DOWN_B,
+    LIFE_B,
+    DIE_B,
+    ADD_BALL_B
 };
 
 class Bonus
 {
 public:
     static std::vector<Bonus*> bonusList;
-    Bonus(int x, int y, SDL_Surface *sprite,int type);
+    Bonus(int x, int y, Texture*,int type);
     Bonus(){};
     virtual ~Bonus();
-    void set_up(int x, int y, SDL_Surface *sprite,int type);
+    void set_up(int x, int y, Texture*,int type);
     virtual void move();
-    virtual void show(SDL_Surface *screen);
+    virtual void show();
     SDL_Rect get_rect();
     int get_type();
 protected:
     int yVel;
-    SDL_Surface* bonus_sprite;
+    Texture *texture;
     SDL_Rect bonusRect;
     int bonus_type;
 };

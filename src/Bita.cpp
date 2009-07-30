@@ -3,23 +3,27 @@
 #include "Constants.h"
 #include "SDLUtils.h"
 
-Bita::Bita()
-{}
 
-void Bita::set_up(int X, int Y, SDL_Surface *sprite)
+
+Bita::Bita()
 {
+    texture = new Texture();
+}
+
+void Bita::set_up(int X, int Y, Texture *texture)
+{
+    this->texture = texture;
     box.x = X;
     box.y = Y;
-    box.w = sprite->w;
-    box.h = sprite->h;
+    box.w = texture->w;
+    box.h = texture->h;
     xVel = 0;
     yVel = 0;
-    bita_sprite = sprite;
 }
 
 Bita::~Bita()
 {
-    //SDL_FreeSurface(bita_sprite);
+    //delete texture;
 }
 
 void Bita::handle_events(SDL_Event &event)
@@ -61,9 +65,9 @@ void Bita::move()
     }
 }
 
-void Bita::show(SDL_Surface *screen)
+void Bita::show()
 {
-    apply_surface(box.x, box.y, bita_sprite, screen);
+    texture->show(box.x, box.y);
 }
 
 SDL_Rect Bita::get_rect()

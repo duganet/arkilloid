@@ -8,12 +8,10 @@ extern int nextState;
 Checkbox::Checkbox(int x, int y, std::string filename)
 {
     checked = true;
-    buttonSheet = image_load(filename, 0xFF, 0, 0xFF);
-    if(buttonSheet == NULL)
-    {
-        log("ERROR: checkbox image not loaded!");
-        stateID = STATE_EXIT;
-    }
+    buttonSheet = new Texture;
+    buttonSheet->load_from_file(filename);
+
+    buttonSheet->num_vclip = 4;
 
     clips[CLIP_MOUSEOVER].x = 0;
     clips[CLIP_MOUSEOVER].y = 0;
@@ -23,17 +21,17 @@ Checkbox::Checkbox(int x, int y, std::string filename)
     clips[CLIP_MOUSEOUT].x = 0;
     clips[CLIP_MOUSEOUT].y = buttonSheet->h/4;
     clips[CLIP_MOUSEOUT].w = buttonSheet->w;
-    clips[CLIP_MOUSEOUT].h = buttonSheet->h/4;
+    clips[CLIP_MOUSEOUT].h = buttonSheet->h/2;
 
     clips[CLIP_MOUSEOVER_CHECKED].x = 0;
-    clips[CLIP_MOUSEOVER_CHECKED].y = buttonSheet->h/4+buttonSheet->h/4;
+    clips[CLIP_MOUSEOVER_CHECKED].y = buttonSheet->h/2;
     clips[CLIP_MOUSEOVER_CHECKED].w = buttonSheet->w;
-    clips[CLIP_MOUSEOVER_CHECKED].h = buttonSheet->h/4;
+    clips[CLIP_MOUSEOVER_CHECKED].h = 3*buttonSheet->h/4;
 
     clips[CLIP_MOUSEOUT_CHECKED].x = 0;
-    clips[CLIP_MOUSEOUT_CHECKED].y = buttonSheet->h/4+buttonSheet->h/4+buttonSheet->h/4;
+    clips[CLIP_MOUSEOUT_CHECKED].y = 3 * buttonSheet->h/4;
     clips[CLIP_MOUSEOUT_CHECKED].w = buttonSheet->w;
-    clips[CLIP_MOUSEOUT_CHECKED].h = buttonSheet->h/4;
+    clips[CLIP_MOUSEOUT_CHECKED].h = buttonSheet->h;
 
     box.x = x;
     box.y = y;

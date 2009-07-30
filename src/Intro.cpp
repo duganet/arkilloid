@@ -6,22 +6,20 @@ extern int stateID;
 extern int nextState;
 extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
-extern std::vector<SDL_Surface*> imageList;
-extern Mix_Music *music;
-extern SDL_Surface *buffer;
+extern std::vector<Texture*> textureList;
+
 
 Intro::Intro()
 {
-    bg = imageList[BG_INTRO];
+    bg = textureList[BG_INTRO];
     introTime.Start();
     Mix_PlayChannel(-1, soundList[2], 0);
     //Mix_PlayChannel(-1, soundList[4], -1);
-	Mix_PlayMusic(music, -1);
 }
 
 Intro::~Intro()
 {
-    SDL_FreeSurface(bg);
+    delete bg;
 }
 
 void Intro::handle_events(SDL_Event &event)
@@ -43,9 +41,9 @@ void Intro::logic()
     }
 }
 
-void Intro::render(SDL_Surface *screen)
+void Intro::render()
 {
-    apply_surface(0,0,bg,buffer);
+    textureList[BG_INTRO]->show(0,0);
 }
 
 

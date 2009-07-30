@@ -3,22 +3,24 @@
 #define BRICKSTRONG_H
 
 #include "Brick.h"
+#include "Texture.h"
+
+extern std::vector<Texture*>textureList;
 
 class BrickStrong : public Brick
 {
 public:
     BrickStrong();
     virtual ~BrickStrong();
-    virtual void set_up(int x, int y, SDL_Surface* sprite);
-    virtual void set_up(int x, int y);
-    virtual void show(SDL_Surface *screen);
+    virtual void set_up(int x, int y, Texture *texture = textureList[BRICK_STRONG]);
+    virtual void show();
     int get_life();
     void set_life(int l);
-    void sprite_change();
+    //void sprite_change();
 private:
     int life;
     SDL_Rect clip[4];
-    SDL_Surface *brickStrong_sprite;
+    Texture *texture;
 };
 
 

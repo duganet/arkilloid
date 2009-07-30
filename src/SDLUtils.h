@@ -13,23 +13,8 @@
 #include <vector>
 #include <map>
 #include <cmath>
-//#include <windows.h>
+#include "Texture.h"
 
-/*
-[A][  B  ][C]
-[D][BLOCK][F]
-[G][  H  ][i]
-*/
-//const int NO_COLLISION = 0;
-const int ZONE_A = 1;
-const int ZONE_B = 2;
-const int ZONE_C = 3;
-const int ZONE_D = 4;
-const int ZONE_E = 5;
-const int ZONE_F = 6;
-const int ZONE_G = 7;
-const int ZONE_H = 8;
-const int ZONE_I = 9;
 
 struct Circle
 {
@@ -45,7 +30,6 @@ double distance(int x1, int y1, int x2, int y2);
 bool check_collision(SDL_Rect A, SDL_Rect B);
 bool check_collision(Circle A, SDL_Rect B);
 bool check_collision(Circle A, Circle B);
-int finde_zone(SDL_Rect A, SDL_Rect B);
 void set_next_state( int newState );
 
 struct Point
@@ -73,9 +57,9 @@ enum GameStates
 
 enum BrickType
 {
-    BRICK = 101,
-    STRONG_BRICK,
-    BRICK_BETON
+    BRICK_T = 101,
+    STRONG_BRICK_T,
+    BRICK_BETON_T
 };
 
 enum collision_type
@@ -91,21 +75,22 @@ enum collision_type
 
 enum images
 {
-    BRICK_BETON_SPR,
-    BRICK_STRONG_SPR,
-    BRICK_SPR,
+    BRICK_BETON,
+    BRICK_STRONG,
+    BRICK,
+    BITA,
+    BALL,
     BG,
-    BITA_SPR,
-    BALL_SPR,
     BG_INTRO,
     BG_TITLE,
     BG_HELP,
-    BONUS_SPEEDUP_SPR,
-    BONUS_SPEEDDOWN_SPR,
-    BONUS_LIFE_SPR,
-    BONUS_DIE_SPR,
-    BONUS_ADD_SPR,
-    HEART_SPR,
-    PARTICLE_SPR
+    SPEEDUP,
+    SPEEDDOWN,
+    LIFE,
+    DIE,
+    ADD,
+    HEART,
+    PARTICLE
 };
+
 #endif

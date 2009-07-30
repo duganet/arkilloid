@@ -7,11 +7,11 @@
 class Title : public GameState
 {
 public:
-    Title(TTF_Font*font);
+    Title();
     ~Title();
     void handle_events(SDL_Event &event);
     void logic();
-    void render(SDL_Surface *screen);
+    void render();
 //    void buttonExit_click();
 //    void buttonStart_click();
 private:

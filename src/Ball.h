@@ -1,22 +1,26 @@
 //Ball.h
 #ifndef BALL_H
 #define BALL_H
+
 #include <SDL/SDL.h>
 //#include <SDL/SDL_mixer.h>
 #include <SDL/SDL_ttf.h>
 #include <vector>
 #include "SDLUtils.h"
 #include "BrickControl.h"
+#include "Texture.h"
+extern std::vector<Texture*> textureList;
+
 class Ball
 {
 public:
     static std::vector<Ball*> ballList;
-    Ball(int X, int Y, SDL_Surface* SPRITE, bool move);
+    Ball(int X, int Y, bool move=true, Texture* texture= textureList[BALL]);
     ~Ball();
-    void set_up(int, int, SDL_Surface*);
+    void set_up(int, int, Texture*);
     void handle_events(SDL_Event& event);
     void move(SDL_Rect,   int collision_type, bool menu);
-    void show(SDL_Surface* screen);
+    void show();
     void reset(int x, int y);
     SDL_Rect get_rect();
     SDL_Rect get_newRect();
@@ -38,8 +42,8 @@ private:
     int speed;
     int prevSpeed;
     int direction;
-    SDL_Surface *sprite;
     bool moving;
+    Texture *texture;
 };
 
 #endif

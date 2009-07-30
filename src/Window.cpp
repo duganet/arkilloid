@@ -1,12 +1,9 @@
 //Window.cpp
 #include "Window.h"
 
-extern SDL_Surface* screen;
-
 Window::Window()
 {
-    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_HWACCEL);
-    if(screen == NULL)
+    if(SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP,SDL_OPENGL) == NULL)
     {
         windowOk = false;
         return;
@@ -27,11 +24,10 @@ void Window::toggle_fullscreen()
 {
     if(windowed == true)
     {
-        screen = SDL_SetVideoMode(SCREEN_WIDTH,
-                                  SCREEN_HEIGHT,
-                                  SCREEN_BPP,
-                                  SDL_HWSURFACE | SDL_DOUBLEBUF |SDL_FULLSCREEN);
-        if(screen == NULL)
+        if(SDL_SetVideoMode(SCREEN_WIDTH,
+                                    SCREEN_HEIGHT,
+                                    SCREEN_BPP,
+                                    SDL_OPENGL |SDL_FULLSCREEN) == NULL)
         {
             windowOk = false;
             return;
@@ -41,11 +37,10 @@ void Window::toggle_fullscreen()
     }
     else if(windowed == false)
     {
-        screen = SDL_SetVideoMode(SCREEN_WIDTH,
+        if(SDL_SetVideoMode(SCREEN_WIDTH,
                                   SCREEN_HEIGHT,
                                   SCREEN_BPP,
-                                  SDL_HWSURFACE | SDL_DOUBLEBUF);
-        if(screen == false)
+                                  SDL_OPENGL) == false)
         {
             windowOk = false;
             return;
@@ -67,11 +62,7 @@ void Window::handle_events(SDL_Event event)
     }
     else if(event.type == SDL_VIDEOEXPOSE)
     {
-        if(SDL_Flip(screen) == -1)
-        {
-           windowOk = false;
-           return;
-        }
+        SDL_GL_SwapBuffers();
     }
 }
 

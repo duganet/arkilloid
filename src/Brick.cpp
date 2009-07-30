@@ -11,6 +11,7 @@ extern int nextState;
 Brick::Brick()
 {
     type = BRICK;
+    texture = new Texture();
 }
 
 Brick::~Brick()
@@ -20,34 +21,29 @@ Brick::~Brick()
 
 void Brick::clean_up()
 {
-    if(brick_sprite)
-    {
-        SDL_FreeSurface(brick_sprite);
-    }
-    brick_sprite = NULL;
 }
 
-void Brick::set_up(int x, int y, SDL_Surface *sprite)
+void Brick::set_up(int x, int y, Texture* texture)
 {
-    brick_sprite = sprite;
+    this->texture = texture;
     this->box.x = x;
     this->box.y = y;
-    this->box.w = brick_sprite->w;
-    this->box.h = brick_sprite->h;
+    this->box.w = this->texture->w;
+    this->box.h = this->texture->h;
 }
 
-void Brick::set_up(int x, int y)
-{
-    box.x = x;
-    box.y = y;
-    box.w = brick_sprite->w;
-    box.h = brick_sprite->h;
-}
+//void Brick::set_up(int x, int y)
+//{
+//    box.x = x;
+//    box.y = y;
+//    box.w = this->texture->w;
+//    box.h = this->texture->h;
+//}
 
-void Brick::show(SDL_Surface *screen)
+void Brick::show()
 {
-    //apply_surface(box.x+1, box.y+1, brick_sprite, screen);
-    apply_surface(box.x, box.y, brick_sprite, screen);
+    //this->texture->show(box.x, box.y);
+    textureList[BRICK]->show(box.x,box.y);
 }
 
 void Brick::Collision_check()
@@ -66,10 +62,6 @@ void Brick::set_position(int x, int y)
     box.y = y;
 }
 
-//SDL_Surface* Brick::get_sprite()
-//{
-//    return brick_sprite;
-//}
 
 Point Brick::get_center()
 {

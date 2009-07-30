@@ -6,85 +6,79 @@ extern std::ofstream loger;
 extern int stateID;
 extern int nextState;
 
+
 BrickStrong::BrickStrong()
 {
-
-//    brick_sprite = image_load("images/brick.bmp", 0xFF, 0, 0xFF);
-//
-//    if(brick_sprite == NULL)
-//    {
-//        log("ERROR: brick image not loaded!");
-//        stateID = STATE_EXIT;
-//    }
-    type = STRONG_BRICK;
+    texture = new Texture();
+    type = STRONG_BRICK_T;
 }
 
 BrickStrong::~BrickStrong()
 {
-//    SDL_FreeSurface(brick_sprite);
-//    brick_sprite = NULL;
+    //delete texture;
 }
 
-void BrickStrong::set_up(int x, int y, SDL_Surface* sprite)
+void BrickStrong::set_up(int x, int y, Texture* texture)
 {
-    brickStrong_sprite = sprite;
+    this->texture = texture;
+    textureList[BRICK_STRONG]->num_hclip = 4;
     clip[0].x = 0;
     clip[0].y = 0;
-    clip[0].w = brickStrong_sprite->w/4;
-    clip[0].h = brickStrong_sprite->h;
+    clip[0].w = textureList[BRICK_STRONG]->w/4;
+    clip[0].h = textureList[BRICK_STRONG]->h;
 
-    clip[1].x = brickStrong_sprite->w/4;
+    clip[1].x = textureList[BRICK_STRONG]->w/4;
     clip[1].y = 0;
-    clip[1].w = brickStrong_sprite->w/4;
-    clip[1].h = brickStrong_sprite->h;
+    clip[1].w = textureList[BRICK_STRONG]->w/2;
+    clip[1].h = textureList[BRICK_STRONG]->h;
 
-    clip[2].x = brickStrong_sprite->w/2;
+    clip[2].x = textureList[BRICK_STRONG]->w/2;
     clip[2].y = 0;
-    clip[2].w = brickStrong_sprite->w/4;
-    clip[2].h = brickStrong_sprite->h;
+    clip[2].w = textureList[BRICK_STRONG]->w/2 + textureList[BRICK_STRONG]->w/4;
+    clip[2].h = textureList[BRICK_STRONG]->h;
 
-    clip[3].x = brickStrong_sprite->w/2 + brickStrong_sprite->w/4;
+    clip[3].x = textureList[BRICK_STRONG]->w/2 + textureList[BRICK_STRONG]->w/4;
     clip[3].y = 0;
-    clip[3].w = brickStrong_sprite->w/4;
-    clip[3].h = brickStrong_sprite->h;
+    clip[3].w = textureList[BRICK_STRONG]->w;
+    clip[3].h = textureList[BRICK_STRONG]->h;
 
     this->box.x = x;
     this->box.y = y;
-    this->box.w = brickStrong_sprite->w/3;
-    this->box.h = brickStrong_sprite->h;
+    this->box.w = textureList[BRICK_STRONG]->w/4;
+    this->box.h = textureList[BRICK_STRONG]->h;
 
     set_life(3);
 }
 
-void BrickStrong::set_up(int x, int y)
-{
-    clip[0].x = 0;
-    clip[0].y = 0;
-    clip[0].w = brickStrong_sprite->w/4;
-    clip[0].h = brickStrong_sprite->h;
-
-    clip[1].x = brickStrong_sprite->w/4;
-    clip[1].y = 0;
-    clip[1].w = brickStrong_sprite->w/4;
-    clip[1].h = brickStrong_sprite->h;
-
-    clip[2].x = brickStrong_sprite->w/2;
-    clip[2].y = 0;
-    clip[2].w = brickStrong_sprite->w/4;
-    clip[2].h = brickStrong_sprite->h;
-
-    clip[3].x = brickStrong_sprite->w/2 + brickStrong_sprite->w/4;
-    clip[3].y = 0;
-    clip[3].w = brickStrong_sprite->w/4;
-    clip[3].h = brickStrong_sprite->h;
-
-    this->box.x = x;
-    this->box.y = y;
-    this->box.w = brickStrong_sprite->w/3;
-    this->box.h = brickStrong_sprite->h;
-
-    set_life(3);
-}
+//void BrickStrong::set_up(int x, int y)
+//{
+//    clip[0].x = 0;
+//    clip[0].y = 0;
+//    clip[0].w = this->texture->w/4;
+//    clip[0].h = this->texture->h;
+//
+//    clip[1].x = this->texture->w/4;
+//    clip[1].y = 0;
+//    clip[1].w = this->texture->w/4;
+//    clip[1].h = this->texture->h;
+//
+//    clip[2].x = this->texture->w/2;
+//    clip[2].y = 0;
+//    clip[2].w = this->texture->w/4;
+//    clip[2].h = this->texture->h;
+//
+//    clip[3].x = brickStrong_sprite->w/2 + brickStrong_sprite->w/4;
+//    clip[3].y = 0;
+//    clip[3].w = brickStrong_sprite->w/4;
+//    clip[3].h = brickStrong_sprite->h;
+//
+//    this->box.x = x;
+//    this->box.y = y;
+//    this->box.w = brickStrong_sprite->w/3;
+//    this->box.h = brickStrong_sprite->h;
+//
+//    set_life(3);
+//}
 
 int BrickStrong::get_life()
 {
@@ -96,33 +90,32 @@ void BrickStrong::set_life(int l)
     life = l;
 }
 
-void BrickStrong::show(SDL_Surface *screen)
+void BrickStrong::show()
 {
+    SDL_Rect clips;
     switch(life)
     {
     case 3:
         {
-            //apply_surface(box.x+1,box.y+1,brickStrong_sprite,screen,&clip[0]);
-            apply_surface(box.x,box.y,brickStrong_sprite,screen,&clip[0]);
+            clips = clip[0];
+            log("brickStrong set_up");
             break;
         }
     case 2:
         {
-            //apply_surface(box.x+1,box.y+1,brickStrong_sprite,screen,&clip[1]);
-            apply_surface(box.x,box.y,brickStrong_sprite,screen,&clip[1]);
+            clips = clip[1];
             break;
         }
     case 1:
         {
-            //apply_surface(box.x+1,box.y+1,brickStrong_sprite,screen,&clip[2]);
-            apply_surface(box.x,box.y,brickStrong_sprite,screen,&clip[2]);
+            clips = clip[2];
             break;
         }
     case 0:
         {
-            //apply_surface(box.x+1,box.y+1,brickStrong_sprite,screen,&clip[3]);
-            apply_surface(box.x,box.y,brickStrong_sprite,screen,&clip[3]);
+            clips = clip[3];
             break;
         }
     }
+    textureList[BRICK_STRONG]->show(box.x,box.y,clips);
 }

@@ -4,13 +4,14 @@
 extern int stateID;
 extern int nextState;
 extern std::ofstream loger;
-extern std::vector<SDL_Surface*> imageList;
+extern std::vector<Texture*>textureList;
 extern Mix_Music *music;
 extern bool sound_on;
 
 Help::Help()
 {
-    bg = imageList[BG_HELP];
+    log("help state");
+    //bg = textureList[BG_HELP];
     buttonStart = new Button(413,436, "images/buttonStart.bmp");
     buttonExit = new Button(518,436, "images/buttonExit.bmp");
     musicOn = new Checkbox(413, 200, "images/on_off_button.png");
@@ -47,8 +48,7 @@ void musicOn_notchecked()
 
 Help::~Help()
 {
-    //SDL_FreeSurface(bg);
-    bg = NULL;
+    delete bg;
     delete buttonExit;
     delete buttonStart;
     delete soundOn;
@@ -82,13 +82,11 @@ void Help::logic()
 {
 }
 
-
-
-void Help::render(SDL_Surface* screen)
+void Help::render()
 {
-    apply_surface(0,0,bg,screen);
-    buttonStart->show(screen);
-    buttonExit->show(screen);
-    soundOn->show(screen);
-    musicOn->show(screen);
+    textureList[BG_HELP]->show(0,0);
+    buttonStart->show();
+    buttonExit->show();
+    soundOn->show();
+    musicOn->show();
 }

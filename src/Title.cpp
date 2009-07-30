@@ -2,15 +2,17 @@
 #include "Title.h"
 #include <sstream>
 #include <vector>
+#include "../extern/GLFT_Font/GLFT_Font.h"
+
 extern int stateID;
 extern int nextState;
 extern std::ofstream loger;
 extern int lives;
 extern int score;
 extern int hi_score;
-extern std::vector<SDL_Surface*> imageList;
-
-
+extern std::vector<Texture*> textureList;
+extern GLFT_Font font;
+extern Mix_Music *music;
 //void set_next_state( int newState )
 //{
 //    //If the user doesn't want to exit
@@ -36,32 +38,25 @@ void buttonHelp_click()
     set_next_state(STATE_HELP);
 }
 
-Title::Title(TTF_Font*font)
+Title::Title()
 {
     //bg = imageList[BG_TITLE];
-    buttonStart = new Button(308,436, "images/buttonStart.bmp");
+    buttonStart = new Button(308,436, "images/buttonStart.png");
     buttonExit = new Button(518,436, "images/buttonExit.bmp");
     buttonHelp = new Button(413, 436,"images/buttonOPTIONS.png");
-    ball = new Ball(300,300, imageList[BALL_SPR], true);
-    SDL_Color textColor = {226,67,71};
-    version = TTF_RenderText_Blended(font, "V.0.0.4", textColor);
+    ball = new Ball(300,300);
     lives = 3;
     if(score > hi_score)
         hi_score = score;
     score = 0;
-    std::stringstream text;
-    text << "Hi score: " << hi_score;
+
     SDL_ShowCursor(true);
-    hi_score_show = TTF_RenderText_Blended(font, text.str().c_str(), textColor);
     SDL_WM_GrabInput(SDL_GRAB_OFF);
+    Mix_PlayMusic(music, -1);
 }
 
 Title::~Title()
 {
-    //SDL_FreeSurface(bg);
-    //bg = NULL;
-    SDL_FreeSurface(version);
-    SDL_FreeSurface(hi_score_show);
     hi_score_show = NULL;
     version = NULL;
     delete buttonExit;
@@ -111,13 +106,14 @@ void Title::logic()
     }
 }
 
-void Title::render(SDL_Surface *buffer)
+void Title::render()
 {
-    apply_surface(0,0,imageList[BG_TITLE],buffer);
-    buttonStart->show(buffer);
-    buttonExit->show(buffer);
-    buttonHelp->show(buffer);
-    ball->show(buffer);
-    apply_surface(520, 30, version, buffer);
-    apply_surface(50, 30, hi_score_show, buffer);
+    textureList[BG_TITLE]->show(0,0);
+    buttonStart->show();
+    buttonExit->show();
+    buttonHelp->show();
+    ball->show();
+
+    font.beginDraw(50,30) << "Hi score: " << hi_score << font.endDraw();
+    font.drawText(520,30,"V.0.0.4");
 }
