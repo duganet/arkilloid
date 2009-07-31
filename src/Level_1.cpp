@@ -168,7 +168,6 @@ void Level_1::render()
 
     for(unsigned int i = 0; i < BrickControl::brickList.size(); i++)
     {
-        log("render");
         BrickControl::brickList[i]->show();
     }
 
