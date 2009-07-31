@@ -272,7 +272,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
 
 //Load sound-------------------------------------------------
-    filename = path_construct("sounds", "pow.ogg");
+    filename = path_construct("sounds/sfx", "pow.ogg");
     Mix_Chunk* sound = Mix_LoadWAV(filename.c_str());
     if(sound == NULL)
     {
@@ -281,7 +281,7 @@ bool Game::LoadFiles()
     }
     soundList.push_back(sound);
 //-----------------------------------------------------------
-    filename = path_construct("sounds", "hit.ogg");
+    filename = path_construct("sounds/sfx", "hit.ogg");
     sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);
     if(sound == NULL)
     {
@@ -290,7 +290,7 @@ bool Game::LoadFiles()
     }
     soundList.push_back(sound);
 //-----------------------------------------------------------
-    filename = path_construct("sounds", "intro.ogg");
+    filename = path_construct("sounds/sfx", "intro.ogg");
     sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);
     if(sound == NULL)
     {
@@ -299,7 +299,7 @@ bool Game::LoadFiles()
     }
     soundList.push_back(sound);
 //-----------------------------------------------------------
-    filename = path_construct("sounds", "bonus_get.ogg");
+    filename = path_construct("sounds/sfx", "bonus_get.ogg");
     sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);
     if(sound == NULL)
     {

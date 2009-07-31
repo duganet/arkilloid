@@ -1,4 +1,4 @@
-sounddir = ${pkgdatadir}/sounds
+sounddir = ${pkgdatadir}/sounds/sfx
 dist_sound_DATA = \
 	bonus_get.ogg \
 	hit.ogg \
