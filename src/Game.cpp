@@ -121,9 +121,9 @@ bool Game::LoadFiles()
     /*imagedir = "../share/" + PACKAGE + "/images";
     fontsdir = "../share/" + PACKAGE + "/fonts";*/
     imagedir = "../share/arkilloid/images";
-    fontsdir = "../share/arkilloid/fonts";
-    sounddir = "../share/arkilloid/sound";
-    musicdir = "../share/arkilloid/sound/music";
+    fontsdir = "../share/arkilloid/fonts/";
+    sounddir = "../share/arkilloid/sound/";
+    musicdir = "../share/arkilloid/sound/music/";
     #endif
 
 //Load Images------------------------------------------------
@@ -274,47 +274,6 @@ bool Game::LoadFiles()
 
 //Load fonts ------------------------------------------------
     font_filename = fontsdir + "/aerial.ttf";
-    font.open(font_filename, 10);
-//-----------------------------------------------------------
-    fontLevel.open(font_filename, 50);
-//-----------------------------------------------------------
-    font_small.open(font_filename, 20);
-//-----------------------------------------------------------
-//Load sound-------------------------------------------------
-    snd_filename = sounddir + "/pow.ogg";
-    Mix_Chunk* sound = Mix_LoadWAV(snd_filename.c_str());
-    if(sound == NULL)
-    {
-        log(snd_filename + "not found");
-        return false;
-    }
-    soundList.push_back(sound);
-//-----------------------------------------------------------
-    snd_filename = sounddir + "/hit.ogg";
-    sound = Mix_LoadWAV_RW(SDL_RWFromFile(snd_filename.c_str(), "rb"), 1);
-    if(sound == NULL)
-    {
-        log(snd_filename + "not found");
-        return false;
-    }
-    soundList.push_back(sound);
-//-----------------------------------------------------------
-    snd_filename = sounddir + "/intro.ogg";
-    sound = Mix_LoadWAV_RW(SDL_RWFromFile(snd_filename.c_str(), "rb"), 1);
-    if(sound == NULL)
-    {
-        log(snd_filename + "not found");
-        return false;
-    }
-    soundList.push_back(sound);
-//-----------------------------------------------------------
-    snd_filename = sounddir + "/bonus_get.ogg";
-    sound = Mix_LoadWAV_RW(SDL_RWFromFile(snd_filename.c_str(), "rb"), 1);
-    if(sound == NULL)
-    {
-        log(snd_filename + "not found");
-//Load fonts ------------------------------------------------
-    font_filename = fontsdir + "aerial.ttf";
 //-----------------------------------------------------------
     font.open(font_filename, 10);
 //-----------------------------------------------------------
@@ -322,6 +281,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
     font_small.open(font_filename, 20);
 //-----------------------------------------------------------
+
 //Load sound-------------------------------------------------
     snd_filename = sounddir + "pow.ogg";
     Mix_Chunk* sound = Mix_LoadWAV(snd_filename.c_str());
@@ -359,12 +319,7 @@ bool Game::LoadFiles()
     }
     soundList.push_back(sound);
 //-----------------------------------------------------------
-//Load music-------------------------------------------------
-    mus_filename = musicdir + "/intro.ogg";
-	music = Mix_LoadMUS(mus_filename.c_str());
-    if(music == NULL)
-    {
-	  log(mus_filename + "not loaded");
+
 //Load music-------------------------------------------------
 	mus_filename = musicdir + "intro.ogg";
 	music = Mix_LoadMUS(mus_filename.c_str());
