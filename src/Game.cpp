@@ -114,9 +114,9 @@ bool Game::LoadFiles()
     std::string fontsdir, imagedir, sounddir,musicdir,font_filename, img_filename, snd_filename, mus_filename;
     #ifdef WIN32
     imagedir = "images";
-    fontsdir = "fonts";
-    sounddir = "sound";
-    musicdir = "sound/music";
+    fontsdir = "fonts/";
+    sounddir = "sound/";
+    musicdir = "sound/music/";
     #else
     /*imagedir = "../share/" + PACKAGE + "/images";
     fontsdir = "../share/" + PACKAGE + "/fonts";*/
@@ -272,6 +272,7 @@ bool Game::LoadFiles()
     textureList.push_back(particle_tex);
 //-----------------------------------------------------------
 
+<<<<<<< HEAD:src/Game.cpp
 //Load fonts ------------------------------------------------
     font_filename = fontsdir + "/aerial.ttf";
     font.open(font_filename, 10);
@@ -313,16 +314,69 @@ bool Game::LoadFiles()
     if(sound == NULL)
     {
         log(snd_filename + "not found");
+=======
+//Load fonts ------------------------------------------------
+    font_filename = fontsdir + "aerial.ttf";
+//-----------------------------------------------------------
+    font.open(font_filename, 10);
+//-----------------------------------------------------------
+    fontLevel.open(font_filename, 50);
+//-----------------------------------------------------------
+    font_small.open(font_filename, 20);
+//-----------------------------------------------------------
+//Load sound-------------------------------------------------
+    snd_filename = sounddir + "pow.ogg";
+    Mix_Chunk* sound = Mix_LoadWAV(snd_filename.c_str());
+    if(sound == NULL)
+    {
+        log("ERROR: " + snd_filename + " not found");
         return false;
     }
     soundList.push_back(sound);
 //-----------------------------------------------------------
+    snd_filename = sounddir + "hit.ogg";
+    sound = Mix_LoadWAV_RW(SDL_RWFromFile(snd_filename.c_str(), "rb"), 1);
+    if(sound == NULL)
+    {
+        log("ERROR: " + snd_filename + " not found");
+        return false;
+    }
+    soundList.push_back(sound);
+//-----------------------------------------------------------
+    snd_filename = sounddir + "intro.ogg";
+    sound = Mix_LoadWAV_RW(SDL_RWFromFile(snd_filename.c_str(), "rb"), 1);
+    if(sound == NULL)
+    {
+        log("ERROR: " + snd_filename + " not found");
+        return false;
+    }
+    soundList.push_back(sound);
+//-----------------------------------------------------------
+    snd_filename = sounddir + "bonus_get.ogg";
+    sound = Mix_LoadWAV_RW(SDL_RWFromFile(snd_filename.c_str(), "rb"), 1);
+    if(sound == NULL)
+    {
+        log("ERROR: " + snd_filename + " not found");
+>>>>>>> 705c583e1930c27b2c347a61ce93c731655b0ae3:src/Game.cpp
+        return false;
+    }
+    soundList.push_back(sound);
+//-----------------------------------------------------------
+<<<<<<< HEAD:src/Game.cpp
 //Load music-------------------------------------------------
     mus_filename = musicdir + "/intro.ogg";
 	music = Mix_LoadMUS(mus_filename.c_str());
     if(music == NULL)
     {
 	  log(mus_filename + "not loaded");
+=======
+//Load music-------------------------------------------------
+	mus_filename = musicdir + "intro.ogg";
+	music = Mix_LoadMUS(mus_filename.c_str());
+    if(music == NULL)
+    {
+	  log("ERROR: " + mus_filename + " not found");
+>>>>>>> 705c583e1930c27b2c347a61ce93c731655b0ae3:src/Game.cpp
 	  return false;
 	}
 //-----------------------------------------------------------
