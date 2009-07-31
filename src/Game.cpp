@@ -111,221 +111,210 @@ bool Game::Init()
 
 bool Game::LoadFiles()
 {
-    std::string fontsdir, imagedir, sounddir,musicdir,font_filename, img_filename, snd_filename, mus_filename;
-    #ifdef WIN32
-    imagedir = "images";
-    fontsdir = "fonts/";
-    sounddir = "sound/";
-    musicdir = "sound/music/";
-    #else
-    /*imagedir = "../share/" + PACKAGE + "/images";
-    fontsdir = "../share/" + PACKAGE + "/fonts";*/
-    imagedir = "../share/arkilloid/images";
-    fontsdir = "../share/arkilloid/fonts/";
-    sounddir = "../share/arkilloid/sound/";
-    musicdir = "../share/arkilloid/sound/music/";
-    #endif
+    std::string filename, mus_basedir;
+
+    mus_basedir = "sounds/music";
 
 //Load Images------------------------------------------------
-    img_filename = imagedir + "/BetonBrick_n.png";
+    filename = path_construct("images", "BetonBrick_n.png");
     Texture *brickbtn_tex = new Texture;
-    if(brickbtn_tex->load_from_file(img_filename) == false)
+    if(brickbtn_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(brickbtn_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/StrongBrick.png";
+    filename = path_construct ("images", "StrongBrick.png");
     Texture *brickstr_tex = new Texture;
-    if(brickstr_tex->load_from_file(img_filename) == false)
+    if(brickstr_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(brickstr_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/brick.png";
+    filename = path_construct ("images", "brick.png");
     Texture *brick_tex = new Texture;
-    if(brick_tex->load_from_file(img_filename) == false)
+    if(brick_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(brick_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/bita.bmp";
+    filename = path_construct ("images", "bita.bmp");
     Texture *bita_tex = new Texture;
-    if(bita_tex->load_from_file(img_filename, 0xFF,0,0xFF) == false)
+    if(bita_tex->load_from_file(filename, 0xFF,0,0xFF) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(bita_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/ball.png";
+    filename = path_construct ("images", "ball.png");
     Texture *ball_tex = new Texture;
-    if(ball_tex->load_from_file(img_filename, 0xFF,0,0xFF) == false)
+    if(ball_tex->load_from_file(filename, 0xFF,0,0xFF) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(ball_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/bg.png";
+    filename = path_construct("images", "bg.png");
     Texture *bg_tex = new Texture;
-    if(bg_tex->load_from_file(img_filename) == false)
+    if(bg_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(bg_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/bg_intro.png";
+    filename = path_construct("images", "bg_intro.png");
     Texture *bgintro_tex = new Texture;
-    if(bgintro_tex->load_from_file(img_filename) == false)
+    if(bgintro_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(bgintro_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/bg_title.png";
+    filename = path_construct("images", "bg_title.png");
     Texture *bgtitle_tex = new Texture;
-    if(bgtitle_tex->load_from_file(img_filename) == false)
+    if(bgtitle_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(bgtitle_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/bg_Help.bmp";
+    filename = path_construct("images", "bg_Help.bmp");
     Texture *bghelp_tex = new Texture;
-    if(bghelp_tex->load_from_file(img_filename) == false)
+    if(bghelp_tex->load_from_file(filename) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(bghelp_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/bonus_speed_up.png";
+    filename = path_construct("images", "bonus_speed_up.png");
     Texture *speedup_tex = new Texture;
-    if(speedup_tex->load_from_file(img_filename, 0xFF,0,0xFF) == false)
+    if(speedup_tex->load_from_file(filename, 0xFF,0,0xFF) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(speedup_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/bonus_speed_down.png";
+    filename = path_construct("images", "bonus_speed_down.png");
     Texture *speeddown_tex = new Texture;
-    if(speeddown_tex->load_from_file(img_filename, 0xFF,0,0xFF) == false)
+    if(speeddown_tex->load_from_file(filename, 0xFF,0,0xFF) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(speeddown_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/bonus_life.png";
+    filename = path_construct("images", "bonus_life.png");
     Texture *life_tex = new Texture;
-    if(life_tex->load_from_file(img_filename,0xFF,0,0xFF) == false)
+    if(life_tex->load_from_file(filename,0xFF,0,0xFF) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(life_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/bonus_die.png";
+    filename = path_construct("images", "bonus_die.png");
     Texture *die_tex = new Texture;
-    if(die_tex->load_from_file(img_filename,0xFF,0,0xFF) == false)
+    if(die_tex->load_from_file(filename,0xFF,0,0xFF) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(die_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/bonus_add.png";
+    filename = path_construct("images", "bonus_add.png");
     Texture *add_tex = new Texture;
-    if(add_tex->load_from_file(img_filename,0xFF,0,0xFF) == false)
+    if(add_tex->load_from_file(filename,0xFF,0,0xFF) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(add_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/heart.png";
+    filename = path_construct("images", "heart.png");
     Texture *heart_tex = new Texture;
-    if(heart_tex->load_from_file(img_filename,0xFF,0,0xFF) == false)
+    if(heart_tex->load_from_file(filename,0xFF,0,0xFF) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(heart_tex);
 //-----------------------------------------------------------
-    img_filename = imagedir + "/particle.png";
+    filename = path_construct("images", "particle.png");
     Texture *particle_tex = new Texture;
-    if(particle_tex->load_from_file(img_filename,0xFF,0,0xFF) == false)
+    if(particle_tex->load_from_file(filename,0xFF,0,0xFF) == false)
     {
-        log("ERROR: " + img_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     textureList.push_back(particle_tex);
 //-----------------------------------------------------------
 
 //Load fonts ------------------------------------------------
-    font_filename = fontsdir + "/aerial.ttf";
+    filename = path_construct("fonts", "aerial.ttf");
 //-----------------------------------------------------------
-    font.open(font_filename, 10);
+    font.open(filename, 10);
 //-----------------------------------------------------------
-    fontLevel.open(font_filename, 50);
+    fontLevel.open(filename, 50);
 //-----------------------------------------------------------
-    font_small.open(font_filename, 20);
+    font_small.open(filename, 20);
 //-----------------------------------------------------------
 
 //Load sound-------------------------------------------------
-    snd_filename = sounddir + "pow.ogg";
-    Mix_Chunk* sound = Mix_LoadWAV(snd_filename.c_str());
+    filename = path_construct("sounds", "pow.ogg");
+    Mix_Chunk* sound = Mix_LoadWAV(filename.c_str());
     if(sound == NULL)
     {
-        log("ERROR: " + snd_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     soundList.push_back(sound);
 //-----------------------------------------------------------
-    snd_filename = sounddir + "hit.ogg";
-    sound = Mix_LoadWAV_RW(SDL_RWFromFile(snd_filename.c_str(), "rb"), 1);
+    filename = path_construct("sounds", "hit.ogg");
+    sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);
     if(sound == NULL)
     {
-        log("ERROR: " + snd_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     soundList.push_back(sound);
 //-----------------------------------------------------------
-    snd_filename = sounddir + "intro.ogg";
-    sound = Mix_LoadWAV_RW(SDL_RWFromFile(snd_filename.c_str(), "rb"), 1);
+    filename = path_construct("sounds", "intro.ogg");
+    sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);
     if(sound == NULL)
     {
-        log("ERROR: " + snd_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     soundList.push_back(sound);
 //-----------------------------------------------------------
-    snd_filename = sounddir + "bonus_get.ogg";
-    sound = Mix_LoadWAV_RW(SDL_RWFromFile(snd_filename.c_str(), "rb"), 1);
+    filename = path_construct("sounds", "bonus_get.ogg");
+    sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);
     if(sound == NULL)
     {
-        log("ERROR: " + snd_filename + " not found");
+        log("ERROR: " + filename + " not found");
         return false;
     }
     soundList.push_back(sound);
 //-----------------------------------------------------------
 
 //Load music-------------------------------------------------
-	mus_filename = musicdir + "intro.ogg";
-	music = Mix_LoadMUS(mus_filename.c_str());
+	filename = path_construct (mus_basedir, "intro.ogg");
+	music = Mix_LoadMUS(filename.c_str());
     if(music == NULL)
     {
-	  log("ERROR: " + mus_filename + " not found");
+	  log("ERROR: " + filename + " not found");
 	  return false;
 	}
 //-----------------------------------------------------------

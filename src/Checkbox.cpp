@@ -7,13 +7,7 @@ extern int nextState;
 
 Checkbox::Checkbox(int x, int y, std::string filename)
 {
-    std::string dir;
-    #ifdef WIN32
-    dir = "images/";
-    #else
-    dir = "../share/arkilloid/images/";
-    #endif
-    filename = dir + filename;
+    filename = path_construct("images", filename);
     checked = true;
     buttonSheet = new Texture;
     buttonSheet->load_from_file(filename);

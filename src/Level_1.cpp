@@ -61,12 +61,7 @@ void musicOn_notchecked_pause()
 Level_1::Level_1(int num_level, std::string filename)
 {
     std::string dir;
-    #ifdef WIN32
-    dir = "maps/";
-    #else
-    dir = "../share/arkilloid/maps/";
-    #endif
-    filename = dir + filename;
+    filename = path_construct("maps", filename);
     log("level_1 constructor");
     restarted = false;
     //levelFont = font;
