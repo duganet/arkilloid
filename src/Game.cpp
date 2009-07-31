@@ -41,13 +41,13 @@ void Game::change_state()
                 currentState = new Help();
                 break;
             case STATE_LEVEL_1:
-                currentState = new Level_1(1,"maps/level_1.map");
+                currentState = new Level_1(1,"level_1.map");
                 break;
             case STATE_LEVEL_2:
-                currentState = new Level_1(2,"maps/level_2.map");
+                currentState = new Level_1(2,"level_2.map");
                 break;
             case STATE_LEVEL_3:
-                currentState = new Level_1(3,"maps/level_3.map");
+                currentState = new Level_1(3,"level_3.map");
                 break;
             case STATE_INTRO:
                 currentState = new Title();
