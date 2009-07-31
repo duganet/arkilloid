@@ -8,6 +8,13 @@ extern int nextState;
 
 Button::Button(int x, int y, std::string filename)
 {
+    std::string dir;
+    #ifdef WIN32
+    dir = "images/";
+    #else
+    dir = "../share/arkilloid/images/";
+    #endif
+    filename = dir + filename;
     buttonSheet = new Texture;
     buttonSheet->load_from_file(filename, 0xFF,0,0xFF);
 

@@ -41,9 +41,9 @@ void buttonHelp_click()
 Title::Title()
 {
     //bg = imageList[BG_TITLE];
-    buttonStart = new Button(308,436, "images/buttonStart.png");
-    buttonExit = new Button(518,436, "images/buttonExit.bmp");
-    buttonHelp = new Button(413, 436,"images/buttonOPTIONS.png");
+    buttonStart = new Button(308,436, "buttonStart.png");
+    buttonExit = new Button(518,436, "buttonExit.bmp");
+    buttonHelp = new Button(413, 436,"buttonOPTIONS.png");
     ball = new Ball(300,300);
     lives = 3;
     if(score > hi_score)

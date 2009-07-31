@@ -120,15 +120,15 @@ Level_1::Level_1(int num_level, std::string filename)
     }
 
     pause = false;
-    resumeButton = new Button(308,436, "images/buttonResume.png");
-    exitButton = new Button(518,436, "images/buttonExit.bmp");
-    restartButton = new Button(413,436,"images/buttonStart.bmp");
-    musicOn = new Checkbox(413, 200, "images/on_off_button.png");
+    resumeButton = new Button(308,436, "buttonResume.png");
+    exitButton = new Button(518,436, "buttonExit.bmp");
+    restartButton = new Button(413,436,"buttonStart.bmp");
+    musicOn = new Checkbox(413, 200, "on_off_button.png");
     if(Mix_PlayingMusic() == 0)
     {
         musicOn->check();
     }
-    soundOn = new Checkbox(413, 230, "images/on_off_button.png");
+    soundOn = new Checkbox(413, 230, "on_off_button.png");
     if(sound_on == false)
     {
         soundOn->check();
