@@ -6,8 +6,8 @@ echo "Running aclocal..."
 aclocal
 echo "Running autoconf to set macros..."
 autoconf
-echo "Creating config.h.in header constructor with autoheader..."
-autoheader
+#echo "Creating config.h.in header constructor with autoheader..."
+#autoheader
 echo "Invoking automake..."
 automake --add-missing
 echo "Running autoconf to generate ./configure script"

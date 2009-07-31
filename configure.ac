@@ -7,6 +7,7 @@ AC_PROG_MAKE_SET
 
 AC_CHECK_LIB([SDL], [SDL_Init])
 AC_CHECK_LIB([SDL_image], [IMG_LoadPNG_RW])
+AC_CHECK_LIB([SDL_mixer], [Mix_OpenAudio])
 AC_CHECK_LIB([SDL_ttf], [TTF_Init])
 AC_CHECK_LIB([freetype], [FT_Init_FreeType])
 
