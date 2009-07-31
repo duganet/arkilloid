@@ -73,7 +73,7 @@ bool Texture::load_from_file(std::string filename)
     }
 
     // Also check if the height is a power of 2
-    while ( (surface->h+height & (surface->h+height - 1)) != 0 )
+    while ( ((surface->h+height) & (surface->h+height - 1)) != 0 )
     {
         height++;
     }
@@ -148,7 +148,7 @@ bool Texture::load_from_file(std::string filename, int r, int g, int b)
     }
 
     // Also check if the height is a power of 2
-    while ( (surface->h+height & (surface->h+height - 1)) != 0 )
+    while ( ((surface->h+height) & (surface->h+height - 1)) != 0 )
     {
         height++;
     }
@@ -254,7 +254,7 @@ bool Texture::load_from_surface(SDL_Surface *surface)
     }
 
     // Also check if the height is a power of 2
-    while ( (surface->h+height & (surface->h+height - 1)) != 0 )
+    while ( ((surface->h+height) & (surface->h+height - 1)) != 0 )
     {
         height++;
     }
