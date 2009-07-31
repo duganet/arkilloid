@@ -29,7 +29,7 @@ noinst_HEADERS = \
 	Texture.h \
 	Timer.h \
 	Title.h \
-	Window.h
+	Window.h \
 	../extern/GLFT_Font/GLFT_Font.h
 
 arkilloid_SOURCES = \
@@ -61,5 +61,5 @@ arkilloid_SOURCES = \
 	Texture.cpp \
 	Timer.cpp \
 	Title.cpp \
-	Window.cpp
+	Window.cpp \
 	../extern/GLFT_Font/GLFT_Font.cpp

@@ -5,4 +5,4 @@ dist_sound_DATA = \
 	intro.ogg \
 	pow.ogg
 
-EXTRA_DIST ${dist_sound_DATA}
+EXTRA_DIST = ${dist_sound_DATA}

@@ -42,6 +42,7 @@ AC_OUTPUT([ \
 	data/images/Makefile \
 	data/images/av-theme-v3/Makefile \
 	data/sounds/Makefile \
+	data/sounds/sfx/Makefile \
 	data/sounds/music/Makefile \
 	src/Makefile \
 	])
