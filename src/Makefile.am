@@ -1,3 +1,6 @@
+AM_CPPFLAGS = \
+	`freetype-config --cflags`
+
 bin_PROGRAMS = arkilloid
 
 noinst_HEADERS = \
