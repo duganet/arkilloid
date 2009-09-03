@@ -1,0 +1,15 @@
+v0.0.1
+
+Changes since latest beta:
+
+ * Choose GPLv3 as license. First public release
+ * Engine totally rewrote to OpenGL. Now game should run faster and smoother ;)
+ * New design and screen resolution (800x600)
+ * Pause menu (needs redesign so please wait here :) )
+ * Speed optimizations
+ * Full autotools support (Linux). Official Gentoo ebuild
+ * Fix paths problems on GNU/Linux. Resources are now loading from PREFIX/share/arkilloid/*
+ * Source tree cosmetics
+ * Bugfixes
+ 
+Next planned release: 0.0.2/0.1.0
