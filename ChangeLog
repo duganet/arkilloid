@@ -1,0 +1,5 @@
+2009-09-04  Maxim Kachur  <mcdebugger@duganet.ru>
+
+ * Fix paths problems on GNU/Linux. Resources are now loading from PREFIX/share/arkilloid/*
+ * Change position of START button on Intro screen (coordinated with AV-S)
+
