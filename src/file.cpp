@@ -5,7 +5,7 @@ std::string path_construct(std::string dir_shortname, std::string filename)
     #ifdef WIN32
     dir_basename = "/";
     #else
-    dir_basename = "../share/arkilloid/";
+    dir_basename = DATADIR "/arkilloid/";
     #endif
     return dir_basename + dir_shortname + "/" + filename;
 }
