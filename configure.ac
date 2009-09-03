@@ -1,6 +1,6 @@
 ##AC_INIT([src/main.cpp])
-AC_INIT([Arkilloid],[0.0.3],[http://arkilloid.duganet.ru/],[arkilloid])
-AM_INIT_AUTOMAKE([arkilloid],[0.0.3])
+AC_INIT([Arkilloid],[0.0.1],[http://arkilloid.duganet.ru/],[arkilloid])
+AM_INIT_AUTOMAKE([arkilloid],[0.0.1])
 AC_PROG_CXX
 AC_PROG_MAKE_SET
 ##AM_CONFIG_HEADER([src/config.h])
