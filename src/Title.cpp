@@ -41,7 +41,7 @@ void buttonHelp_click()
 Title::Title()
 {
     //bg = imageList[BG_TITLE];
-    buttonStart = new Button(308,436, "buttonStart.png");
+    buttonStart = new Button(524,380, "buttonStart.png");
     buttonExit = new Button(518,436, "buttonExit.bmp");
     buttonHelp = new Button(413, 436,"buttonOPTIONS.png");
     ball = new Ball(300,300);
