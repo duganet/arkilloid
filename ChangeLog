@@ -2,7 +2,7 @@ v0.0.1
 
 Changes since latest beta:
 
- * Choose GPLv3 as license
+ * Choose GPLv3 as license. First public release
  * Engine totally rewrote to OpenGL. Now game should run faster and smoother ;)
  * New design and screen resolution (800x600)
  * Pause menu (needs redesign so please wait here :) )
