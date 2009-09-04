@@ -2,6 +2,7 @@
 
  * Fix paths problems on GNU/Linux. Resources are now loading from PREFIX/share/arkilloid/*
  * Change position for START button on Intro screen (coordinated with AV-S)
+ * Change program version from 0.0.3 back to 0.0.1 (autotools)
  * Added information to ChangeLog and NEWS
 
 
