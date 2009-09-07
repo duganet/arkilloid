@@ -321,6 +321,34 @@ void GLFT_Font::drawText(float x, float y, const std::string& str) const
     glPopMatrix();
 }
 
+void GLFT_Font::drawText_centered(float x, float y, const std::string& str) const
+{
+    if(!isValid())
+    {
+        throw std::logic_error("Invalid GLFT_Font::drawText call.");
+    }
+
+    glBindTexture(GL_TEXTURE_2D, texID_);
+    glPushMatrix();
+    glTranslated(calcStringWidth(str),y,0);
+    for(std::string::const_iterator i = str.begin(); i != str.end(); ++i)
+    {
+        unsigned char ch( *i - SPACE ); // ch-SPACE = DisplayList offset
+        // replace characters outside the valid range with undrawable
+        if(ch > NUM_CHARS)
+        {
+            ch = NUM_CHARS-1;   // last character is 'undrawable'
+        }
+        glCallList(listBase_+ch);    // calculate list to call
+    }
+
+    // Alternative, ignores undrawables (no noticable speed difference)
+    //glListBase(listBase_-32);
+    //glCallLists(static_cast<int>(std::strlen(buf)), GL_UNSIGNED_BYTE, buf);
+
+    glPopMatrix();
+}
+
 std::ostream& GLFT_Font::beginDraw(float x, float y)
 {
     // clear the string and store the draw-position
@@ -330,9 +358,17 @@ std::ostream& GLFT_Font::beginDraw(float x, float y)
     return ss_;
 }
 
+
 StreamFlusher GLFT_Font::endDraw()
 {
     drawText(drawX_, drawY_, ss_.str());    // draw the string
+    ss_.str("");                            // clear the buffer
+    return StreamFlusher();
+}
+
+StreamFlusher GLFT_Font::endDraw_centered()
+{
+    drawText_centered(drawX_, drawY_, ss_.str());    // draw the string
     ss_.str("");                            // clear the buffer
     return StreamFlusher();
 }

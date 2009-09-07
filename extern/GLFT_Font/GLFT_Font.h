@@ -79,9 +79,10 @@ public:
 
     void drawText(float x, float y, const char *str, ...) const;
     void drawText(float x, float y, const std::string& str) const;
-
+    void drawText_centered(float x, float y, const std::string& str)const;
     std::ostream& beginDraw(float x, float y);
     StreamFlusher endDraw();
+    StreamFlusher endDraw_centered();
 
     unsigned int calcStringWidth(const std::string& str) const;
     unsigned int getHeight() const;
