@@ -14,7 +14,7 @@ GLFT_Font font_small;
 std::ofstream loger("log.txt");
 void log(std::string message)
 {
-    loger << message << std::endl;
+    loger << message  << std::endl;
 
     loger.flush();
 }
