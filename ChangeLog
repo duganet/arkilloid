@@ -1,3 +1,10 @@
+2009-09-08  Maxim Kachur  <mcdebugger@duganet.ru>
+
+ * Change #ifdef WIN32 to _WIN32 for possible better compatibility with Windows compilers
+ * Change dir_basename from "/" to "" for Windows (resources with path starting with "/" seems not to load)
+
+
+
 2009-09-04  Maxim Kachur  <mcdebugger@duganet.ru>
 
  * Fix paths problems on GNU/Linux. Resources are now loading from PREFIX/share/arkilloid/*
