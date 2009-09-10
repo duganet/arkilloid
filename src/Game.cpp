@@ -16,6 +16,7 @@ Game::Game()
 
 Game::~Game()
 {
+    log("Game destructor");
     Close();
 }
 
@@ -397,6 +398,7 @@ bool Game::MainLoop()
 
 void Game::Close()
 {
+    log("Game::Close()");
     loger.close();
     font.release();
     fontLevel.release();

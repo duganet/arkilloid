@@ -41,15 +41,14 @@ void buttonHelp_click()
 Title::Title()
 {
     //bg = imageList[BG_TITLE];
-    buttonStart = new Button(524,380, "buttonStart.png");
-    buttonExit = new Button(518,436, "buttonExit.bmp");
-    buttonHelp = new Button(413, 436,"buttonOPTIONS.png");
     ball = new Ball(300,300);
+    buttonStart = new Button(524,380, "buttonStart.png");
+    buttonHelp = new Button(413, 436,"buttonOptions.png");
+    buttonExit = new Button(518,436, "buttonExit.bmp");
     lives = 3;
     if(score > hi_score)
         hi_score = score;
     score = 0;
-
     SDL_ShowCursor(true);
     SDL_WM_GrabInput(SDL_GRAB_OFF);
     Mix_PlayMusic(music, -1);
@@ -88,7 +87,7 @@ void Title::logic()
             collision_type = ball->collision_check(buttonExit->get_rect());
             if(collision_type == NO_COLLISION)
             {
-                ball->move(rect, 6, true);
+                ball->move(rect, COLLISION_BOTTOM_NEED, true);
             }
             else
             {
@@ -110,8 +109,8 @@ void Title::render()
 {
     textureList[BG_TITLE]->show(0,0);
     buttonStart->show();
-    buttonExit->show();
     buttonHelp->show();
+    buttonExit->show();
     ball->show();
 
     font.beginDraw(50,30) << "Hi score: " << hi_score << font.endDraw();

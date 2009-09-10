@@ -303,7 +303,7 @@ void Ball::move(SDL_Rect bitaRect, int collision_type, bool menu)
             yVel = -yVel;
         }
 
-        if(check_collision(bitaRect ,cbRect) == 1)
+        if(check_collision(bitaRect ,cbRect) == 1 && collision_type != COLLISION_BOTTOM_NEED)
         {
             direction = ((cbRect.x + cbRect.w/2) - (bitaRect.x + bitaRect.w/2)) + 270;
             if(direction < 225)

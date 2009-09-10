@@ -98,7 +98,6 @@ void BrickStrong::show()
     case 3:
         {
             clips = clip[0];
-            log("brickStrong set_up");
             break;
         }
     case 2:
