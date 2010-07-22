@@ -182,7 +182,7 @@ void Level_1::render()
     if(begin == false)
     {
         glColor3f(0,0,0);
-        fontLevel.beginDraw(SCREEN_WIDTH/2,SCREEN_HEIGHT/2) << "Level " << num_level << fontLevel.endDraw_centered();
+        fontLevel.beginDraw(SCREEN_WIDTH/2,SCREEN_HEIGHT/2) << "Level " << num_level << fontLevel.endDraw();
         glColor3f(1,1,1);
     }
     if(clear == true)
@@ -241,7 +241,7 @@ void Level_1::render()
     //std::stringstream ss;
     //ss << "Score: " + score;
     glColor3f(0,0,0);
-    font_small.beginDraw(400,5) << "Score: " << score << font_small.endDraw_centered();
+    font_small.beginDraw(400,5) << "Score: " << score << font_small.endDraw();
     //font.small
     font_small.beginDraw(720,5) << "Level " << num_level << font_small.endDraw();
     glColor3f(1,1,1);
