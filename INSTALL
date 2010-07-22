@@ -1,6 +1,28 @@
 Arkilloid Compilation Guide.
+Gentoo Linux:
 
-Linux:
+	INSTALL FROM OVERLAY
+		You need to use layman. If you have not yet installed it, you may do it now
+
+			# emerge layman
+
+		After install you must edit make.conf to enable layman repositories.
+
+		Now add 'duganet' overlay:
+
+			# layman -o http://dev.duganet.ru/repositories.xml -f -a duganet
+
+		You can now install arkilloid:
+
+			# emerge games-arcade/arkilloid
+				or
+			# emerge arkilloid
+
+		Then you can play the game:
+
+			$ arkilloid
+
+Other Linux:
 
 	UPDATE TO LATEST DEVELOPMENT VERSION
 		First you may want to update your current copy with the recent version in repository.
@@ -13,15 +35,15 @@ Linux:
 		If you don't have initialized git repository you can initialize it now:
 		
 			$ git clone git://git.duganet.ru:arkilloid.git
+			$ cd ./arkilloid/
+			$ git submodule init
+			$ git submodule update
 		
 		You're now ready to compile! :)
 	
 	COMPILING
-		First of all chdir to the Arkilloid sources root directory:
 		
-			$ cd ./arkilloid/
-		
-		Then you need to generate a configure script.
+		Now you need to generate a configure script.
 		You'd probably prefer to use provided script to do this:
 		
 			$ ./autogen.sh
