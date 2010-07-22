@@ -1,5 +1,5 @@
 #include "SDLUtils.h"
-#include "../extern/GLFT_Font/GLFT_Font.h"
+#include "../extern/glftfont/GLFT_Font.hpp"
 
 std::vector<Mix_Chunk*> soundList;
 std::vector<Texture*> textureList;

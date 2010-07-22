@@ -2,7 +2,7 @@
 #ifndef LEVEL_1_H
 #define LEVEL_1_H
 
-#include "../extern/GLFT_Font/GLFT_Font.h"
+#include "../extern/glftfont/GLFT_Font.hpp"
 #include "GameState.h"
 #include "BrickControl.h"
 #include "Ball.h"

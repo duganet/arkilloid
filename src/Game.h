@@ -3,7 +3,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "../extern/GLFT_Font/GLFT_Font.h"
+#include "../extern/glftfont/GLFT_Font.hpp"
 #include "Constants.h"
 #include "Globals.cpp"
 #include "SDLUtils.h"
