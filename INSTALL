@@ -34,7 +34,7 @@ Other Linux:
 		and it should update everything in the tree.
 		If you don't have initialized git repository you can initialize it now:
 		
-			$ git clone git://git.duganet.ru:arkilloid.git
+			$ git clone git://git.duganet.ru/arkilloid.git
 			$ cd ./arkilloid/
 			$ git submodule init
 			$ git submodule update
