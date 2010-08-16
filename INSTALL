@@ -43,15 +43,9 @@ Other Linux:
 	
 	COMPILING
 		
-		Now you need to generate a configure script.
-		You'd probably prefer to use provided script to do this:
+		Run cmake to generate Makefiles
 		
-			$ ./autogen.sh
-		
-		Then you need to configure environment variables and makefiles for your system.
-		Run:
-		
-			$ ./configure
+			$ cmake .
 		
 		Now it's time to compile and get the binary :)
 		
@@ -65,12 +59,6 @@ Other Linux:
 		You may need root privilegies to perform this action. If you have sudo on your system you can use it to run install command:
 		
 			$ sudo make install
-		
-		If you need other dir please run
-		
-			$ ./configure --prefix=/path/to/prefix
-		
-		where /path/to/prefix is path where you want to store application files.
 		
 		That's all! Now you can run the program typing:
 		

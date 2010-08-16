@@ -33,8 +33,6 @@ void Intro::logic()
 {
     if(introTime.Get_Ticks() > 3000)
     {
-        //if(Mix_Playing(-1) != 0)
-
         set_next_state(STATE_TITLE);
     }
 }
