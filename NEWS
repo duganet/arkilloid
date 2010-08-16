@@ -7,9 +7,12 @@ Changes since latest beta:
  * New design and screen resolution (800x600)
  * Pause menu (needs redesign so please wait here :) )
  * Speed optimizations
- * Full autotools support (Linux). Official Gentoo ebuild
+ * Full autotools support (Linux). // deprecated (replaced by CMake)
+ * CMake build system
+ * Official Gentoo ebuild
  * Fix paths problems on GNU/Linux. Resources are now loading from PREFIX/share/arkilloid/*
  * Source tree cosmetics
  * Bugfixes
+ * For those who building from sources: added maps
  
 Next planned release: 0.0.2/0.1.0
