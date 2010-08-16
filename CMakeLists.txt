@@ -23,7 +23,7 @@ set(DATA_MUSIC_DIR ${DATA_DIR}/${DATA_MUSIC_SUFFIX})
 set(DATA_SOUNDFX_DIR ${DATA_DIR}/${DATA_SOUNDFX_SUFFIX})
 
 add_definitions(-DDATADIR="${CMAKE_INSTALL_PREFIX}/${DATA_DIR}")
-add_definitions(-DPACKAGE="arkilloid")
+add_definitions(-DPACKAGE="${PROJECT_NAME}")
 
 include_directories(
 	${OPENGL_INCLUDE_DIR}
