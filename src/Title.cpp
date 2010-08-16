@@ -2,7 +2,6 @@
 #include "Title.h"
 #include <sstream>
 #include <vector>
-#include "../extern/glftfont/GLFT_Font.hpp"
 
 extern int stateID;
 extern int nextState;

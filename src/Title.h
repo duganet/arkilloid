@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "Button.h"
 #include "Ball.h"
+#include <GLFT_Font.hpp>
 class Title : public GameState
 {
 public:

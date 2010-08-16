@@ -2,19 +2,19 @@
 #ifndef SDL_UTILS_H
 #define SDL_UTILS_H
 
+#include "Constants.h"
+#include "Globals.h"
+#include "Texture.h"
+#include <GLFT_Font.hpp>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 #include <SDL/SDL_mixer.h>
 #include <string>
 #include <fstream>
-#include "Globals.h"
-#include "Constants.h"
 #include <vector>
 #include <map>
 #include <cmath>
-#include "Texture.h"
-
 
 struct Circle
 {

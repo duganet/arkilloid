@@ -1,11 +1,5 @@
-find_package(OpenGL REQUIRED))
-find_package(SDL REQUIRED)
-find_package(SDL_image REQUIRED)
-find_package(SDL_mixer REQUIRED)
-find_package(SDL_ttf REQUIRED)
-find_package(Freetype REQUIRED)
 
-set (
+set(
 	arkilloid_SRCS
 	Ball.cpp
 	Bita.cpp
@@ -38,6 +32,20 @@ set (
 	main.cpp
 )
 
-add_executable (arkilloid
+set(
+	arkilloid_LIBS
+	glftfont
+	${OPENGL_LIBRARIES}
+	${SDL_LIBRARY}
+	${SDLIMAGE_LIBRARY}
+	${SDLMIXER_LIBRARY}
+	${SDLTTF_LIBRARY}
+)
+
+add_executable(arkilloid
 	${arkilloid_SRCS}
+)
+
+target_link_libraries(arkilloid
+	${arkilloid_LIBS}
 )

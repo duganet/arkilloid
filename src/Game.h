@@ -3,19 +3,19 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "../extern/glftfont/GLFT_Font.hpp"
 #include "Constants.h"
-#include "Globals.cpp"
-#include "SDLUtils.h"
-#include "Timer.h"
 #include "GameState.h"
-#include "Intro.h"
-#include "Title.h"
+#include "Globals.cpp"
 #include "Help.h"
+#include "Intro.h"
 #include "Level_1.h"
-#include "Window.h"
+#include "SDLUtils.h"
 #include "Texture.h"
+#include "Timer.h"
+#include "Title.h"
+#include "Window.h"
 #include "file.h"
+#include <GLFT_Font.hpp>
 #include <vector>
 
 class Game

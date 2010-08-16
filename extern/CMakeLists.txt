@@ -6,4 +6,4 @@ add_library (glftfont STATIC
 	${glftfont_SRCS}
 )
 
-target_link_libraries (arkilloid glftfont)
+target_link_libraries (glftfont)
