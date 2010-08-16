@@ -1,0 +1,5 @@
+set(
+	DATA_MUSIC_FILES
+	intro.ogg
+)
+install(FILES ${DATA_MUSIC_FILES} DESTINATION ${DATA_MUSIC_DIR})

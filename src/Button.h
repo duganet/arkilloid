@@ -4,6 +4,7 @@
 
 #include "SDLUtils.h"
 #include "Texture.h"
+#include <file.h>
 enum
 {
     CLIP_MOUSEOVER,

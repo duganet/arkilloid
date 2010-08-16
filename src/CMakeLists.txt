@@ -1,3 +1,5 @@
+add_subdirectory(io)
+set(LIBFILEIO_INCLUDE_DIR io)
 
 set(
 	arkilloid_SRCS
@@ -15,7 +17,6 @@ set(
 	BrickStrong.cpp
 	Button.cpp
 	Checkbox.cpp
-	file.cpp
 	Game.cpp
 	GameState.cpp
 	Globals.cpp
@@ -34,6 +35,7 @@ set(
 
 set(
 	arkilloid_LIBS
+	arkilloid_fileio
 	glftfont
 	${OPENGL_LIBRARIES}
 	${SDL_LIBRARY}
@@ -42,10 +44,9 @@ set(
 	${SDLTTF_LIBRARY}
 )
 
-add_executable(arkilloid
-	${arkilloid_SRCS}
+include_directories(
+	${LIBFILEIO_INCLUDE_DIR}
 )
-
-target_link_libraries(arkilloid
-	${arkilloid_LIBS}
-)
+add_executable(arkilloid ${arkilloid_SRCS})
+target_link_libraries(arkilloid	${arkilloid_LIBS})
+install(TARGETS arkilloid RUNTIME DESTINATION ${BINDIR})

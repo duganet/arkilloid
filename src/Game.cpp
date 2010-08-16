@@ -290,6 +290,7 @@ bool Game::LoadFiles()
         return false;
     }
     soundList.push_back(sound);
+/*
 //-----------------------------------------------------------
     filename = path_construct("sounds/sfx", "intro.ogg");
     sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);
@@ -299,6 +300,7 @@ bool Game::LoadFiles()
         return false;
     }
     soundList.push_back(sound);
+*/
 //-----------------------------------------------------------
     filename = path_construct("sounds/sfx", "bonus_get.ogg");
     sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);

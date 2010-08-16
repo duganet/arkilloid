@@ -1,6 +1,5 @@
 //Button.cpp
 #include "Button.h"
-#include "file.h"
 
 extern std::ofstream loger;
 extern int stateID;

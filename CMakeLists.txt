@@ -10,19 +10,10 @@ find_package(Freetype REQUIRED)
 
 set(GLFTFONT_INCLUDE_DIR extern/glftfont)
 
-set(DATA_DIR share/arkilloid)
-set(DATA_FONTS_SUFFIX fonts)
-set(DATA_IMAGES_SUFFIX images)
-set(DATA_MAPS_SUFFIX maps)
-set(DATA_MUSIC_SUFFIX sounds/music)
-set(DATA_SOUNDFX_SUFFIX sounds/sfx)
-set(DATA_FONTS_DIR ${DATA_DIR}/${DATA_FONTS_SUFFIX})
-set(DATA_IMAGES_DIR ${DATA_DIR}/${DATA_IMAGES_SUFFIX})
-set(DATA_MAPS_DIR ${DATA_DIR}/${DATA_MAPS_SUFFIX})
-set(DATA_MUSIC_DIR ${DATA_DIR}/${DATA_MUSIC_SUFFIX})
-set(DATA_SOUNDFX_DIR ${DATA_DIR}/${DATA_SOUNDFX_SUFFIX})
+set(BINDIR ${CMAKE_INSTALL_PREFIX}/bin)
+set(DATADIR ${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME})
 
-add_definitions(-DDATADIR="${CMAKE_INSTALL_PREFIX}/${DATA_DIR}")
+add_definitions(-DDATADIR="${DATADIR}")
 add_definitions(-DPACKAGE="${PROJECT_NAME}")
 
 include_directories(
@@ -37,3 +28,4 @@ include_directories(
 
 add_subdirectory(extern)
 add_subdirectory(src)
+add_subdirectory(data)
