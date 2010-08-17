@@ -19,10 +19,8 @@ set(
 	buttonHelp.bmp
 	buttonOPTIONS.png
 	buttonResume.png
-	buttonStart.bmp
-	buttonStart.png
+	ButtonStart.png
 	heart.png
-	intro_bg.bmp
 	menu_button.png
 	minus_button.png
 	on_off_button.png

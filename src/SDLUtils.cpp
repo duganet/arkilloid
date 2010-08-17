@@ -1,6 +1,7 @@
 #include "SDLUtils.h"
 
 std::vector<Mix_Chunk*> soundList;
+std::vector <Mix_Chunk> snd_bonusget;
 std::vector<Texture*> textureList;
 
 Mix_Music *music = NULL;

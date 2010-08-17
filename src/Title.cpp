@@ -41,7 +41,7 @@ Title::Title()
 {
     //bg = imageList[BG_TITLE];
     ball = new Ball(300,300);
-    buttonStart = new Button(524,380, "buttonStart.png");
+    buttonStart = new Button(524,380, "ButtonStart.png");
     buttonHelp = new Button(413, 436,"buttonOptions.png");
     buttonExit = new Button(518,436, "buttonExit.bmp");
     lives = 3;

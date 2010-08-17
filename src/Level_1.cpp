@@ -8,6 +8,7 @@ extern int stateID;
 extern int nextState;
 extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
+extern Mix_Chunk *snd_bonusget;
 extern std::vector<Texture*> textureList;
 extern Mix_Music *music;
 extern int score;
@@ -124,7 +125,7 @@ Level_1::Level_1(int num_level, std::string filename)
     pause = false;
     resumeButton = new Button(308,436, "buttonResume.png");
     exitButton = new Button(518,436, "buttonExit.bmp");
-    restartButton = new Button(413,436,"buttonStart.png");
+    restartButton = new Button(413,436,"ButtonStart.png");
     musicOn = new Checkbox(413, 200, "on_off_button.png");
     if(Mix_PlayingMusic() == 0)
     {
@@ -470,7 +471,7 @@ void Level_1::logic()
                         {
                             score += 10;
                             if(sound_on == true)
-                                Mix_PlayChannel(-1, soundList[3], 0);
+                                Mix_PlayChannel(-1, snd_bonusget, 0);
                             switch(Bonus::bonusList[i]->get_type())
                             {
                             case SPEED_UP_B:

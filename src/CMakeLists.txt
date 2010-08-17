@@ -5,7 +5,6 @@ set(
 	arkilloid_SRCS
 	Ball.cpp
 	Bita.cpp
-	BonusControler.cpp
 	Bonus.cpp
 	Bonus_Die.cpp
 	Bonus_Life.cpp

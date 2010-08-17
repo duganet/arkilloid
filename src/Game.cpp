@@ -4,6 +4,7 @@ extern int stateID;
 extern int nextState;
 extern std::ofstream loger;
 extern std::vector<Mix_Chunk*> soundList;
+extern Mix_Chunk *snd_bonusget;
 extern std::vector<Texture*>textureList;
 extern Mix_Music *music;
 extern GLFT_Font font;
@@ -303,13 +304,12 @@ bool Game::LoadFiles()
 */
 //-----------------------------------------------------------
     filename = path_construct("sounds/sfx", "bonus_get.ogg");
-    sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);
-    if(sound == NULL)
+    snd_bonusget = Mix_LoadWAV(filename.c_str());
+    if(snd_bonusget == NULL)
     {
         log("ERROR: " + filename + " not found");
         return false;
     }
-    soundList.push_back(sound);
 //-----------------------------------------------------------
 
 //Load music-------------------------------------------------

@@ -12,7 +12,7 @@ Help::Help()
 {
     log("help state");
     //bg = textureList[BG_HELP];
-    buttonStart = new Button(413,436, "buttonStart.bmp");
+    buttonStart = new Button(413,436, "ButtonStart.png");
     buttonExit = new Button(518,436, "buttonExit.bmp");
     musicOn = new Checkbox(413, 200, "on_off_button.png");
     if(Mix_PlayingMusic() == 0)
