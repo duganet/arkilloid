@@ -41,9 +41,9 @@ Title::Title()
 {
     //bg = imageList[BG_TITLE];
     ball = new Ball(300,300);
-    buttonStart = new Button(524,380, "ButtonStart.png");
-    buttonHelp = new Button(413, 436,"buttonOptions.png");
-    buttonExit = new Button(518,436, "buttonExit.bmp");
+    buttonStart = new Button(524,380, "btn_start.png");
+	buttonHelp = new Button(413, 436,"btn_help.png");
+    buttonExit = new Button(518,436, "btn_exit.png");
     lives = 3;
     if(score > hi_score)
         hi_score = score;

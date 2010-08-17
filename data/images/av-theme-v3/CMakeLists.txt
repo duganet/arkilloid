@@ -15,11 +15,7 @@ set(
 	bonus_speed_up.png
 	brick_beton.png
 	brick.png
-	buttonExit.bmp
-	buttonHelp.bmp
-	buttonOPTIONS.png
 	buttonResume.png
-	ButtonStart.png
 	heart.png
 	menu_button.png
 	minus_button.png
@@ -29,3 +25,4 @@ set(
 	StrongBrick.png
 )
 install(FILES ${DATA_IMAGES_FILES} DESTINATION ${DATA_IMAGES_DIR})
+add_subdirectory(buttons)
