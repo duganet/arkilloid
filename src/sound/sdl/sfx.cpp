@@ -9,7 +9,7 @@ SoundFX::SoundFX(std::string filename)
 	SoundChunk = Mix_LoadWAV(filename.c_str());
 		if(SoundChunk == NULL)
 		{
-			log("ERROR: Can't load " + filename);
+			log("ERROR: Can't load sound " + filename);
 		}
 }
 

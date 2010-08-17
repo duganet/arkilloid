@@ -276,9 +276,9 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
 
 //Load sound-------------------------------------------------
-	snd_pow = new SoundFX("pow.ogg");
-	snd_hit = new SoundFX("hit.ogg");
 	snd_bonusget = new SoundFX("bonus_get.ogg");
+	snd_hit = new SoundFX("hit.ogg");
+	snd_pow = new SoundFX("pow.ogg");
 //-----------------------------------------------------------
 
 //Load music-------------------------------------------------
