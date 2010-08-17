@@ -1,6 +1,5 @@
 #include "file.h"
 
-
 std::string path_construct(std::string dir_shortname, std::string filename)
 {
     std::string dir_basename;

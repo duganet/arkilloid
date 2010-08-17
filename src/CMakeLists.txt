@@ -1,5 +1,7 @@
 add_subdirectory(io)
+add_subdirectory(sound)
 set(LIBFILEIO_INCLUDE_DIR io)
+set(LIBSOUND_INCLUDE_DIR sound)
 
 set(
 	arkilloid_SRCS
@@ -35,6 +37,7 @@ set(
 set(
 	arkilloid_LIBS
 	arkilloid_fileio
+	arkilloid_sound
 	glftfont
 	${OPENGL_LIBRARIES}
 	${SDL_LIBRARY}
@@ -45,6 +48,7 @@ set(
 
 include_directories(
 	${LIBFILEIO_INCLUDE_DIR}
+	${LIBSOUND_INCLUDE_DIR}
 )
 add_executable(arkilloid ${arkilloid_SRCS})
 target_link_libraries(arkilloid	${arkilloid_LIBS})

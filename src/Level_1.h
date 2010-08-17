@@ -14,6 +14,7 @@
 #include "Checkbox.h"
 #include "Texture.h"
 #include <file.h>
+#include <sfx.hpp>
 #include <vector>
 #include <SDL/SDL_mixer.h>
 class Level_1 : public GameState

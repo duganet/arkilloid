@@ -8,9 +8,9 @@ extern int stateID;
 extern int nextState;
 extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
-extern Mix_Chunk *snd_bonusget;
 extern std::vector<Texture*> textureList;
 extern Mix_Music *music;
+//extern SoundFX *snd_bonusget;
 extern int score;
 extern int hi_score;
 extern GLFT_Font font;
@@ -471,7 +471,7 @@ void Level_1::logic()
                         {
                             score += 10;
                             if(sound_on == true)
-                                Mix_PlayChannel(-1, snd_bonusget, 0);
+                                snd_bonusget::Play();
                             switch(Bonus::bonusList[i]->get_type())
                             {
                             case SPEED_UP_B:
