@@ -1,7 +1,5 @@
 add_subdirectory(io)
 add_subdirectory(sound)
-set(LIBFILEIO_INCLUDE_DIR io)
-set(LIBSOUND_INCLUDE_DIR sound)
 
 set(
 	arkilloid_SRCS

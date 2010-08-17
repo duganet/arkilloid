@@ -49,7 +49,9 @@ Title::Title()
         hi_score = score;
     score = 0;
     SDL_ShowCursor(true);
+    #ifndef DEBUG
     SDL_WM_GrabInput(SDL_GRAB_OFF);
+    #endif
     Mix_PlayMusic(music, -1);
 }
 
@@ -113,5 +115,9 @@ void Title::render()
     ball->show();
 
     font.beginDraw(50,30) << "Hi score: " << hi_score << font.endDraw();
-    font.drawText(520,30,"V.0.0.4");
+    #ifndef DEBUG
+		font.drawText(520,30,"V.0.0.1");
+	#else
+		font.drawText(520,30,"V.0.0.1 DEBUG");
+	#endif
 }

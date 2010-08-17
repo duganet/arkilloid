@@ -2,6 +2,7 @@
 #include "Level_1.h"
 #include "Constants.h"
 #include "Globals.h"
+#include <sound.hpp>
 #include <sstream>
 
 extern int stateID;
@@ -10,7 +11,7 @@ extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<Texture*> textureList;
 extern Mix_Music *music;
-//extern SoundFX *snd_bonusget;
+extern SoundFX *snd_bonusget, *snd_hit, *snd_pow;
 extern int score;
 extern int hi_score;
 extern GLFT_Font font;
@@ -29,7 +30,9 @@ void restartButton_click()
 
 void resumeButton_click()
 {
+	#ifndef DEBUG
     SDL_WM_GrabInput(SDL_GRAB_ON);
+    #endif
     SDL_ShowCursor(false);
 
     Level_1::pause=false;
@@ -66,7 +69,9 @@ Level_1::Level_1(int num_level, std::string filename)
     log("level_1 constructor");
     restarted = false;
     //levelFont = font;
+    #ifndef DEBUG
     SDL_WM_GrabInput(SDL_GRAB_ON);
+    #endif
     this->num_level = num_level;
    // SDL_Color textColor = {226,67,71};
     //back = bg;
@@ -278,12 +283,16 @@ void Level_1::handle_events(SDL_Event &event)
             if(pause == false)
             {
                 pause = true;
+                #ifndef DEBUG
                 SDL_WM_GrabInput(SDL_GRAB_OFF);
+                #endif
                 SDL_ShowCursor(true);
             }
             else
             {
+				#ifndef DEBUG
                 SDL_WM_GrabInput(SDL_GRAB_ON);
+                #endif
                 SDL_ShowCursor(false);
                 pause = false;
             }
@@ -364,7 +373,7 @@ void Level_1::logic()
                                         if(BrickControl::brickList[i]->get_life() > 0)
                                         {
                                             if(sound_on == true)
-                                                Mix_PlayChannel(-1, soundList[1], 0);
+                                                snd_hit->Play();
 
                                             score += 10;
                                             BrickControl::brickList[i]->set_life(BrickControl::brickList[i]->get_life()-1);
@@ -374,7 +383,7 @@ void Level_1::logic()
                                             score += 50;
                                     //Particles--------------------------------------------
                                     if(sound_on == true)
-                                        Mix_PlayChannel(-1, soundList[0], 0);
+                                        snd_pow->Play();
 
                                     for(unsigned int p = 0; p < 20; p++)
                                     {
@@ -429,7 +438,7 @@ void Level_1::logic()
                                 {
                                     BrickControl::brickList[i]->set_collision_type(collision_type);
                                     if(sound_on == true)
-                                        Mix_PlayChannel(-1, soundList[1], 0);
+                                        snd_pow->Play();
                                     break;
                                 }
                             }
@@ -471,7 +480,7 @@ void Level_1::logic()
                         {
                             score += 10;
                             if(sound_on == true)
-                                snd_bonusget::Play();
+                                snd_bonusget->Play();
                             switch(Bonus::bonusList[i]->get_type())
                             {
                             case SPEED_UP_B:

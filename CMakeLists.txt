@@ -13,8 +13,16 @@ set(GLFTFONT_INCLUDE_DIR extern/glftfont)
 set(BINDIR ${CMAKE_INSTALL_PREFIX}/bin)
 set(DATADIR ${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME})
 
+set(ARKILLOID_INCLUDE_DIR src)
+set(LIBFILEIO_INCLUDE_DIR src/io)
+set(LIBSOUND_INCLUDE_DIR src/sound)
+
 add_definitions(-DDATADIR="${DATADIR}")
 add_definitions(-DPACKAGE="${PROJECT_NAME}")
+if(DEBUG)
+	add_definitions(-DDEBUG)
+	set(CMAKE_BUILD_TYPE Debug)
+endif()
 
 include_directories(
 	${OPENGL_INCLUDE_DIR}
@@ -24,6 +32,9 @@ include_directories(
 	${SDLTTF_INCLUDE_DIR}
 	${FREETYPE_INCLUDE_DIRS}
 	${GLFTFONT_INCLUDE_DIR}
+	${ARKILLOID_INCLUDE_DIR}
+	${LIBFILEIO_INCLUDE_DIR}
+	${LIBSOUND_INCLUDE_DIR}
 )
 
 add_subdirectory(extern)

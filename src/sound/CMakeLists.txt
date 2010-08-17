@@ -1,8 +1,7 @@
 set(
 	libsound_SRCS
-	sfx.cpp
+	sound.cpp
+	sdl/sfx.cpp
 )
-include_directories(
-	${LIBFILEIO_INCLUDE_DIR}
-)
-add_library(arkilloid_snd STATIC ${libsound_SRCS})
+
+add_library(arkilloid_sound STATIC ${libsound_SRCS})

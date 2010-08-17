@@ -24,7 +24,9 @@ Help::Help()
     {
         soundOn->check();
     }
+    #ifndef DEBUG
     SDL_WM_GrabInput(SDL_GRAB_OFF);
+    #endif
 }
 
 void soundOn_checked()

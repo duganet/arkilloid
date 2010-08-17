@@ -1,12 +1,14 @@
 //Game.cpp
 #include "Game.h"
+#include <sound.hpp>
+
 extern int stateID;
 extern int nextState;
 extern std::ofstream loger;
 extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<Texture*>textureList;
 extern Mix_Music *music;
-//extern SoundFX *snd_bonusget;
+extern SoundFX *snd_bonusget, *snd_hit, *snd_pow;
 extern GLFT_Font font;
 extern GLFT_Font fontLevel;
 extern GLFT_Font font_small;
@@ -274,36 +276,9 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
 
 //Load sound-------------------------------------------------
-    filename = path_construct("sounds/sfx", "pow.ogg");
-    Mix_Chunk* sound = Mix_LoadWAV(filename.c_str());
-    if(sound == NULL)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    soundList.push_back(sound);
-//-----------------------------------------------------------
-    filename = path_construct("sounds/sfx", "hit.ogg");
-    sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);
-    if(sound == NULL)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    soundList.push_back(sound);
-/*
-//-----------------------------------------------------------
-    filename = path_construct("sounds/sfx", "intro.ogg");
-    sound = Mix_LoadWAV_RW(SDL_RWFromFile(filename.c_str(), "rb"), 1);
-    if(sound == NULL)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    soundList.push_back(sound);
-*/
-//-----------------------------------------------------------
-//	snd_bonusget = new SoundFX("bonus_get.ogg");
+	snd_pow = new SoundFX("pow.ogg");
+	snd_hit = new SoundFX("hit.ogg");
+	snd_bonusget = new SoundFX("bonus_get.ogg");
 //-----------------------------------------------------------
 
 //Load music-------------------------------------------------
@@ -323,7 +298,9 @@ bool Game::LoadFiles()
 
 bool Game::MainLoop()
 {
+	#ifdef DEBUG
     log("Initializing...");
+    #endif
     if(Init() == false)
     {
         log("ERROR: Init() = false");
@@ -341,7 +318,9 @@ bool Game::MainLoop()
     {
         return false;
     }
+    #ifdef DEBUG
     log("Loading files...");
+    #endif
     if(LoadFiles() == false)
     {
         log("ERROR: Some files failed to load :(");
@@ -394,7 +373,9 @@ bool Game::MainLoop()
 
 void Game::Close()
 {
+	#ifdef DEBUG
     log("Game::Close()");
+    #endif
     loger.close();
     font.release();
     fontLevel.release();
