@@ -119,7 +119,7 @@ bool Texture::load_from_file(std::string filename, int r, int g, int b)
     surface = IMG_Load(filename.c_str());
     if(surface == NULL)
     {
-        log("ERROR: " + filename + "not load");
+        log("ERROR: Can't load texture " + filename);
         return false;
     }
 

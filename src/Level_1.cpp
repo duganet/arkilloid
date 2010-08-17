@@ -128,7 +128,7 @@ Level_1::Level_1(int num_level, std::string filename)
     }
 
     pause = false;
-    resumeButton = new Button(308,436, "buttonResume.png");
+    resumeButton = new Button(308,436, "btn_resume.png");
     exitButton = new Button(518,436, "btn_exit.png");
     restartButton = new Button(413,436,"btn_start.png");
     musicOn = new Checkbox(413, 200, "on_off_button.png");
