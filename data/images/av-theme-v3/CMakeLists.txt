@@ -15,7 +15,6 @@ set(
 	bonus_speed_up.png
 	brick_beton.png
 	brick.png
-	buttonResume.png
 	heart.png
 	menu_button.png
 	minus_button.png
