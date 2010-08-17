@@ -66,7 +66,9 @@ Level_1::Level_1(int num_level, std::string filename)
 {
     std::string dir;
     filename = path_construct("maps", filename);
-    log("level_1 constructor");
+    #ifdef DEBUG
+		log("level_1 constructor");
+	#endif
     restarted = false;
     //levelFont = font;
     #ifndef DEBUG
@@ -78,7 +80,7 @@ Level_1::Level_1(int num_level, std::string filename)
 
     if(!BrickControl::LoadBricksFromFile(filename.c_str()))
     {
-        log("map not load");
+        log("ERROR: Can't load map " + filename);
     }
     bita.set_up(300, 570);
 
@@ -141,7 +143,9 @@ Level_1::Level_1(int num_level, std::string filename)
     {
         soundOn->check();
     }
-    log("...");
+    #ifdef DEBUG
+		log("...");
+	#endif
 }
 
 void Level_1::load_files()
@@ -166,7 +170,9 @@ Level_1::~Level_1()
     delete restartButton;
     delete soundOn;
     delete musicOn;
-    log("level_1 destructor");
+    #ifdef DEBUG
+		log("level_1 destructor");
+	#endif
 }
 
 void Level_1::render()

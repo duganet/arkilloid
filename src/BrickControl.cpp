@@ -51,7 +51,9 @@ bool BrickControl::LoadBricksFromFile(const char *filename)
             BrickControl::brickList.push_back(brick);
         }
     }
-    log("brick loaded");
+    #ifdef DEBUG
+		log("brick loaded");
+	#endif
     fclose(FileHandle);
 
     return true;

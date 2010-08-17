@@ -45,7 +45,9 @@ Ball::Ball(int X, int Y, bool move, Texture* texture)
             direction = 315;
         set_direction(direction);
     }
-    log("ball create");
+    #ifdef DEBUG
+		log("ball create");
+	#endif
 }
 
 void Ball::set_up(int X, int Y, Texture* texture = textureList[BALL])

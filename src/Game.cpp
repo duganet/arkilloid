@@ -19,7 +19,9 @@ Game::Game()
 
 Game::~Game()
 {
-    log("Game destructor");
+	#ifdef DEBUG
+		log("Game destructor");
+	#endif
     Close();
 }
 
@@ -299,7 +301,7 @@ bool Game::LoadFiles()
 bool Game::MainLoop()
 {
 	#ifdef DEBUG
-    log("Initializing...");
+		log("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.\nInitializing...");
     #endif
     if(Init() == false)
     {
@@ -319,7 +321,7 @@ bool Game::MainLoop()
         return false;
     }
     #ifdef DEBUG
-    log("Loading files...");
+		log("Loading files...");
     #endif
     if(LoadFiles() == false)
     {
@@ -374,7 +376,7 @@ bool Game::MainLoop()
 void Game::Close()
 {
 	#ifdef DEBUG
-    log("Game::Close()");
+		log("Game::Close()");
     #endif
     loger.close();
     font.release();

@@ -10,7 +10,9 @@ extern bool sound_on;
 
 Help::Help()
 {
-    log("help state");
+	#ifdef DEBUG
+		log("help state");
+	#endif
     //bg = textureList[BG_HELP];
     buttonStart = new Button(413,436, "btn_start.png");
     buttonExit = new Button(518,436, "btn_exit.png");
@@ -25,7 +27,7 @@ Help::Help()
         soundOn->check();
     }
     #ifndef DEBUG
-    SDL_WM_GrabInput(SDL_GRAB_OFF);
+		SDL_WM_GrabInput(SDL_GRAB_OFF);
     #endif
 }
 
