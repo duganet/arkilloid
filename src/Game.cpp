@@ -8,7 +8,7 @@ extern std::ofstream loger;
 extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<Texture*>textureList;
 extern Mix_Music *music;
-extern SoundFX *snd_bonusget, *snd_hit, *snd_pow;
+extern AudioSoundFX *snd_bonusget, *snd_hit, *snd_pow;
 extern AudioMusic *audio_music;
 extern GLFT_Font font;
 extern GLFT_Font fontLevel;
@@ -279,9 +279,9 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
 
 //Load sound-------------------------------------------------
-	snd_bonusget = new SoundFX("bonus_get.ogg");
-	snd_hit = new SoundFX("hit.ogg");
-	snd_pow = new SoundFX("pow.ogg");
+	snd_bonusget = new AudioSoundFX("bonus_get.ogg");
+	snd_hit = new AudioSoundFX("hit.ogg");
+	snd_pow = new AudioSoundFX("pow.ogg");
 //-----------------------------------------------------------
 
 //Load music-------------------------------------------------

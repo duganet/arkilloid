@@ -4,7 +4,7 @@
 #include <SDL/SDL_mixer.h>
 #include "sfx.hpp"
 
-SoundFX::SoundFX(std::string filename)
+AudioSoundFX::AudioSoundFX(std::string filename)
 {
 	filename = path_construct("sounds/sfx", filename);
 	#ifdef DEBUG
@@ -17,18 +17,18 @@ SoundFX::SoundFX(std::string filename)
 		}
 }
 
-SoundFX::~SoundFX()
+AudioSoundFX::~AudioSoundFX()
 {
 	Mix_FreeChunk(sound_chunk);
 	sound_chunk=NULL;
 }
 
-void SoundFX::LoadFromFile(std::string filename)
+void AudioSoundFX::LoadFromFile(std::string filename)
 {
 
 }
 
-void SoundFX::Play()
+void AudioSoundFX::Play()
 {
 	#ifdef DEBUG
 		log("Playing sound");

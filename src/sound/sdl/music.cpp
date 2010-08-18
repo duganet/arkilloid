@@ -23,13 +23,30 @@ AudioMusic::~AudioMusic()
 	music=NULL;
 }
 
+void AudioMusic::Off()
+{
+	Mix_PauseMusic();
+}
+
+void AudioMusic::On()
+{
+	this->Play();
+}
+
 void AudioMusic::Play()
 {
 	#ifdef DEBUG
 		log("Playing music");
 	#endif
-	if (Mix_PlayMusic(music, -1) == -1)
+	if (Mix_PausedMusic())
 	{
-		log("ERROR: Can't play music");
+		Mix_ResumeMusic();
+	}
+	else
+	{
+		if (Mix_PlayMusic(music, -1) == -1)
+		{
+			log("ERROR: Can't play music");
+		}
 	}
 }

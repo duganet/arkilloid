@@ -4,5 +4,7 @@ class AudioMusic {
 	public:
 		AudioMusic(std::string filename);
 		~AudioMusic();
+		void Off();
+		void On();
 		void Play();
 };

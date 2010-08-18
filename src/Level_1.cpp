@@ -11,7 +11,7 @@ extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<Texture*> textureList;
 extern AudioMusic *audio_music;
-extern SoundFX *snd_bonusget, *snd_hit, *snd_pow;
+extern AudioSoundFX *snd_bonusget, *snd_hit, *snd_pow;
 extern int score;
 extern int hi_score;
 extern GLFT_Font font;
@@ -54,12 +54,12 @@ void soundOn_notchecked_pause()
 }
 void musicOn_checked_pause()
 {
-    Mix_HaltMusic();
+    audio_music->Off();
 }
 
 void musicOn_notchecked_pause()
 {
-    audio_music->Play();
+    audio_music->On();
 }
 
 Level_1::Level_1(int num_level, std::string filename)

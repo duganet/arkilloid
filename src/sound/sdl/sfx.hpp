@@ -1,9 +1,9 @@
-class SoundFX {
+class AudioSoundFX {
 	private:
 		Mix_Chunk* sound_chunk;
 	public:
-		SoundFX(std::string filename);
-		~SoundFX();
+		AudioSoundFX(std::string filename);
+		~AudioSoundFX();
 		void LoadFromFile(std::string filename);
 		void Play();
 };
