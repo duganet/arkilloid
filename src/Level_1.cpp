@@ -444,7 +444,7 @@ void Level_1::logic()
                                 {
                                     BrickControl::brickList[i]->set_collision_type(collision_type);
                                     if(sound_on == true)
-                                        snd_pow->Play();
+                                        snd_hit->Play();
                                     break;
                                 }
                             }
