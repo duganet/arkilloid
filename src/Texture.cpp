@@ -132,6 +132,10 @@ bool Texture::load_from_file(std::string filename, int r, int g, int b)
 
         mode = GL_RGBA;
     }
+    else if(surface->format->BytesPerPixel == 1) //8bit
+    {
+		mode = GL_RGBA;
+	}
     else
     {
         log("ERROR: " + filename + " not 32 or 24 bit image");

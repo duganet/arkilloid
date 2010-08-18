@@ -34,7 +34,7 @@ extern GLFT_Font font;
 //    stateID = STATE_EXIT;
 //}
 
-void buttonHelp_click()
+void buttonOptions_click()
 {
     set_next_state(STATE_HELP);
 }
@@ -44,7 +44,7 @@ Title::Title()
     //bg = imageList[BG_TITLE];
     ball = new Ball(300,300);
     buttonStart = new Button(524,380, "btn_start.png");
-	buttonHelp = new Button(413, 436,"btn_help.png");
+	buttonOptions = new Button(413, 436,"btn_options.png");
     buttonExit = new Button(518,436, "btn_exit.png");
     lives = 3;
     if(score > hi_score)
@@ -63,7 +63,7 @@ Title::~Title()
     version = NULL;
     delete buttonExit;
     delete buttonStart;
-    delete buttonHelp;
+    delete buttonOptions;
     delete ball;
 }
 
@@ -71,7 +71,7 @@ void Title::handle_events(SDL_Event &event)
 {
     buttonStart->handle_events(event, buttonStart_click);
     buttonExit->handle_events(event, buttonExit_click);
-    buttonHelp->handle_events(event, buttonHelp_click);
+    buttonOptions->handle_events(event, buttonOptions_click);
 }
 
 void Title::logic()
@@ -84,7 +84,7 @@ void Title::logic()
     collision_type = ball->collision_check(buttonStart->get_rect());
     if(collision_type == NO_COLLISION)
     {
-        collision_type = ball->collision_check(buttonHelp->get_rect());
+        collision_type = ball->collision_check(buttonOptions->get_rect());
         if(collision_type == NO_COLLISION)
         {
             collision_type = ball->collision_check(buttonExit->get_rect());
@@ -112,7 +112,7 @@ void Title::render()
 {
     textureList[BG_TITLE]->show(0,0);
     buttonStart->show();
-    buttonHelp->show();
+    buttonOptions->show();
     buttonExit->show();
     ball->show();
 

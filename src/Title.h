@@ -16,9 +16,7 @@ public:
 //    void buttonExit_click();
 //    void buttonStart_click();
 private:
-    Button *buttonStart;
-    Button *buttonExit;
-    Button *buttonHelp;
+	Button *buttonExit, *buttonOptions, *buttonStart;
     Ball *ball;
     SDL_Surface *version;
     SDL_Surface *hi_score_show;
