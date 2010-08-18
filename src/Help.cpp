@@ -1,12 +1,13 @@
 //Help.cpp
 #include "Help.h"
+#include <sound.hpp>
 
 extern int stateID;
 extern int nextState;
 extern std::ofstream loger;
 extern std::vector<Texture*>textureList;
-extern Mix_Music *music;
 extern bool sound_on;
+extern AudioMusic *audio_music;
 
 Help::Help()
 {
@@ -47,7 +48,7 @@ void musicOn_checked()
 
 void musicOn_notchecked()
 {
-    Mix_PlayMusic(music, -1);
+	audio_music->Play();
 }
 
 Help::~Help()

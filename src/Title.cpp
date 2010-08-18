@@ -2,6 +2,7 @@
 #include "Title.h"
 #include <sstream>
 #include <vector>
+#include <sound.hpp>
 
 extern int stateID;
 extern int nextState;
@@ -10,8 +11,9 @@ extern int lives;
 extern int score;
 extern int hi_score;
 extern std::vector<Texture*> textureList;
+extern AudioMusic *audio_music;
 extern GLFT_Font font;
-extern Mix_Music *music;
+
 //void set_next_state( int newState )
 //{
 //    //If the user doesn't want to exit
@@ -52,7 +54,7 @@ Title::Title()
     #ifndef DEBUG
     SDL_WM_GrabInput(SDL_GRAB_OFF);
     #endif
-    Mix_PlayMusic(music, -1);
+    audio_music->Play();
 }
 
 Title::~Title()

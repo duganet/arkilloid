@@ -3,9 +3,9 @@
 
 std::vector<Mix_Chunk*> soundList;
 std::vector<Texture*> textureList;
-std::vector<Mix_Chunk*> snd_bonusget, snd_hit, snd_pow;
 
-Mix_Music *music = NULL;
+Mix_Chunk snd_bonusget, snd_hit, snd_pow;
+AudioMusic *audio_music;
 
 bool sound_on = true;
 

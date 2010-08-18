@@ -10,7 +10,7 @@ extern int nextState;
 extern int lives;
 extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<Texture*> textureList;
-extern Mix_Music *music;
+extern AudioMusic *audio_music;
 extern SoundFX *snd_bonusget, *snd_hit, *snd_pow;
 extern int score;
 extern int hi_score;
@@ -59,7 +59,7 @@ void musicOn_checked_pause()
 
 void musicOn_notchecked_pause()
 {
-    Mix_PlayMusic(music, -1);
+    audio_music->Play();
 }
 
 Level_1::Level_1(int num_level, std::string filename)

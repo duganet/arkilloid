@@ -9,6 +9,7 @@ extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<Texture*>textureList;
 extern Mix_Music *music;
 extern SoundFX *snd_bonusget, *snd_hit, *snd_pow;
+extern AudioMusic *audio_music;
 extern GLFT_Font font;
 extern GLFT_Font fontLevel;
 extern GLFT_Font font_small;
@@ -284,13 +285,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
 
 //Load music-------------------------------------------------
-	filename = path_construct (mus_basedir, "intro.ogg");
-	music = Mix_LoadMUS(filename.c_str());
-    if(music == NULL)
-    {
-	  log("ERROR: " + filename + " not found");
-	  return false;
-	}
+	audio_music = new AudioMusic("intro.ogg");
 //-----------------------------------------------------------
 
     return true;
@@ -394,7 +389,7 @@ void Game::Close()
 
     //imageList.erase(imageList.begin(),imageList.end());
 	Mix_HaltMusic();
-	Mix_FreeMusic(music);
+	delete audio_music;
     Mix_CloseAudio();
     SDL_Quit();
 }
