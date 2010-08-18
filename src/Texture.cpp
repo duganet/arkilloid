@@ -38,6 +38,10 @@ bool Texture::load_from_file(std::string filename)
     int width = 0;
     int height = 0;
 
+	#ifdef DEBUG
+		log("Loading texture \"" + filename + "\"");
+	#endif
+
     num_vclip = 1;
     num_hclip = 1;
 

@@ -1,0 +1,5 @@
+set(
+	DATA_IMAGES_BRICKS_FILES
+	brick_beton.png
+)
+install(FILES ${DATA_IMAGES_BRICKS_FILES} DESTINATION ${DATA_IMAGES_DIR}/bricks)

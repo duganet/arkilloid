@@ -124,7 +124,7 @@ bool Game::LoadFiles()
     mus_basedir = "sounds/music";
 
 //Load Images------------------------------------------------
-    filename = path_construct("images", "BetonBrick_n.png");
+    filename = path_construct("images/bricks", "brick_beton.png");
     Texture *brickbtn_tex = new Texture;
     if(brickbtn_tex->load_from_file(filename) == false)
     {

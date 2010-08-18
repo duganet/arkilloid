@@ -1,8 +1,6 @@
 set(
 	DATA_IMAGES_FILES
 	ball.png
-	BetonBrick_n.png
-	BetonBrick.png
 	bg_Help.bmp
 	bg_intro.png
 	bg.png
@@ -13,7 +11,6 @@ set(
 	bonus_life.png
 	bonus_speed_down.png
 	bonus_speed_up.png
-	brick_beton.png
 	brick.png
 	heart.png
 	menu_button.png
@@ -24,4 +21,5 @@ set(
 	StrongBrick.png
 )
 install(FILES ${DATA_IMAGES_FILES} DESTINATION ${DATA_IMAGES_DIR})
+add_subdirectory(bricks)
 add_subdirectory(buttons)
