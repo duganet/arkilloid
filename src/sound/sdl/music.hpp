@@ -1,4 +1,5 @@
-class AudioMusic {
+class AudioMusic
+{
 	private:
 		Mix_Music* music;
 	public:

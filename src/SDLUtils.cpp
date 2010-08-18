@@ -1,7 +1,6 @@
 #include "SDLUtils.h"
 #include <sound.hpp>
 
-std::vector<Mix_Chunk*> soundList;
 std::vector<Texture*> textureList;
 
 Mix_Chunk snd_bonusget, snd_hit, snd_pow;

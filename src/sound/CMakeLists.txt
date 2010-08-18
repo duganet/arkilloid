@@ -1,6 +1,7 @@
 set(
 	libsound_SRCS
 	sound.cpp
+	sdl/audio.cpp
 	sdl/music.cpp
 	sdl/sfx.cpp
 )

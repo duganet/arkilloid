@@ -5,9 +5,8 @@
 extern int stateID;
 extern int nextState;
 extern std::ofstream loger;
-extern std::vector<Mix_Chunk*> soundList;
 extern std::vector<Texture*>textureList;
-extern Mix_Music *music;
+extern AudioEngine *audio;
 extern AudioSoundFX *snd_bonusget, *snd_hit, *snd_pow;
 extern AudioMusic *audio_music;
 extern GLFT_Font font;
@@ -107,11 +106,13 @@ bool Game::Init()
         return false;
     }
 
-
+	::AudioEngine::Start();
+/*
     if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
     {
         return false;
     }
+*/
     return true;
 }
 
@@ -376,11 +377,6 @@ void Game::Close()
     loger.close();
     font.release();
     fontLevel.release();
-    for(unsigned int i = 0; i < soundList.size(); i++)
-    {
-        Mix_FreeChunk(soundList[i]);
-        //soundList.erase(soundList.begin() + i);
-    }
 
     for(unsigned int i = 0; i < textureList.size(); i++)
     {
@@ -390,7 +386,7 @@ void Game::Close()
     //imageList.erase(imageList.begin(),imageList.end());
 	Mix_HaltMusic();
 	delete audio_music;
-    Mix_CloseAudio();
+    ::AudioEngine::Stop();
     SDL_Quit();
 }
 
