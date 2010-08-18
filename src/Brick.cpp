@@ -2,7 +2,7 @@
 #include "Brick.h"
 #include "SDLUtils.h"
 #include <sstream>
-extern std::ofstream loger;
+//extern std::ofstream loger;
 extern int stateID;
 extern int nextState;
 

@@ -11,13 +11,6 @@ bool sound_on = true;
 GLFT_Font font;
 GLFT_Font fontLevel;
 GLFT_Font font_small;
-std::ofstream loger("log.txt");
-void log(std::string message)
-{
-    loger << message  << std::endl;
-
-    loger.flush();
-}
 
 int stateID = STATE_NULL;
 int nextState = STATE_NULL;

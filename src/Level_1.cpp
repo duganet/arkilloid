@@ -2,6 +2,7 @@
 #include "Level_1.h"
 #include "Constants.h"
 #include "Globals.h"
+#include <report.hpp>
 #include <sound.hpp>
 #include <sstream>
 
@@ -66,13 +67,12 @@ Level_1::Level_1(int num_level, std::string filename)
 {
     std::string dir;
     filename = path_construct("maps", filename);
-    #ifdef DEBUG
-		log("level_1 constructor");
-	#endif
+	report("level_1 constructor", MSG_DEBUG);
     restarted = false;
     //levelFont = font;
+	// If in debug mode don't capture mouse in window
     #ifndef DEBUG
-    SDL_WM_GrabInput(SDL_GRAB_ON);
+		SDL_WM_GrabInput(SDL_GRAB_ON);
     #endif
     this->num_level = num_level;
    // SDL_Color textColor = {226,67,71};
@@ -143,9 +143,6 @@ Level_1::Level_1(int num_level, std::string filename)
     {
         soundOn->check();
     }
-    #ifdef DEBUG
-		log("...");
-	#endif
 }
 
 void Level_1::load_files()
@@ -170,9 +167,7 @@ Level_1::~Level_1()
     delete restartButton;
     delete soundOn;
     delete musicOn;
-    #ifdef DEBUG
-		log("level_1 destructor");
-	#endif
+	report("level_1 destructor", MSG_DEBUG);
 }
 
 void Level_1::render()

@@ -2,7 +2,6 @@
 #include "BrickStrong.h"
 #include "SDLUtils.h"
 
-extern std::ofstream loger;
 extern int stateID;
 extern int nextState;
 

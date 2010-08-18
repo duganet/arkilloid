@@ -1,5 +1,6 @@
 //Help.cpp
 #include "Help.h"
+#include <report.hpp>
 #include <sound.hpp>
 
 extern int stateID;
@@ -11,9 +12,7 @@ extern AudioMusic *audio_music;
 
 Help::Help()
 {
-	#ifdef DEBUG
-		log("help state");
-	#endif
+	report("help state", MSG_DEBUG);
     //bg = textureList[BG_HELP];
     buttonStart = new Button(413,436, "btn_start.png");
     buttonExit = new Button(518,436, "btn_exit.png");

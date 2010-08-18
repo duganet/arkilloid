@@ -22,6 +22,7 @@
 
 #include "Texture.h"
 #include "SDLUtils.h"
+#include <report.hpp>
 #include <sstream>
 
 std::stringstream st;
@@ -38,9 +39,7 @@ bool Texture::load_from_file(std::string filename)
     int width = 0;
     int height = 0;
 
-	#ifdef DEBUG
-		log("Loading texture \"" + filename + "\"");
-	#endif
+	report("Loading texture \"" + filename + "\"", MSG_DEBUG);
 
     num_vclip = 1;
     num_hclip = 1;
@@ -49,7 +48,7 @@ bool Texture::load_from_file(std::string filename)
     surface = IMG_Load(filename.c_str());
     if(surface == NULL)
     {
-        log("ERROR: Can't load texture " + filename);
+        report("Can't load texture \"" + filename + "\"", MSG_ERROR);
         return false;
     }
 
@@ -63,7 +62,7 @@ bool Texture::load_from_file(std::string filename)
     }
     else
     {
-        log("ERROR: " + filename + " not 32 or 24 bit image");
+        report("\"" + filename + "\" is not 8, 24 or 32 bit image", MSG_ERROR);
         SDL_FreeSurface(surface);
         return false;
     }
@@ -123,7 +122,7 @@ bool Texture::load_from_file(std::string filename, int r, int g, int b)
     surface = IMG_Load(filename.c_str());
     if(surface == NULL)
     {
-        log("ERROR: Can't load texture " + filename);
+        report("Can't load texture \"" + filename + "\"", MSG_ERROR);
         return false;
     }
 

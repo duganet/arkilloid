@@ -1,13 +1,14 @@
 //Checkbox.cpp
 #include "Checkbox.h"
+#include <report.hpp>
 
-extern std::ofstream loger;
 extern int stateID;
 extern int nextState;
 
 Checkbox::Checkbox(int x, int y, std::string filename)
 {
     filename = path_construct("images", filename);
+   	report("Creating checkbox \"" + filename + "\"", MSG_DEBUG);
     checked = true;
     buttonSheet = new Texture;
     buttonSheet->load_from_file(filename);

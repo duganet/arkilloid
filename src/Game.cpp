@@ -1,10 +1,10 @@
 //Game.cpp
 #include "Game.h"
 #include <sound.hpp>
+#include <report.hpp>
 
 extern int stateID;
 extern int nextState;
-extern std::ofstream loger;
 extern std::vector<Texture*>textureList;
 extern AudioEngine *audio;
 extern AudioSoundFX *snd_bonusget, *snd_hit, *snd_pow;
@@ -19,9 +19,7 @@ Game::Game()
 
 Game::~Game()
 {
-	#ifdef DEBUG
-		log("Game destructor");
-	#endif
+	report("Game destructor", MSG_DEBUG);
     Close();
 }
 
@@ -92,7 +90,7 @@ bool Game::InitGL()
 
     if(glGetError() != GL_NO_ERROR)
     {
-        log("ERROR: gl not init, " + glGetError());
+        report("gl not init, " + glGetError(), MSG_ERROR);
         return false;
     }
     return true;
@@ -102,17 +100,11 @@ bool Game::Init()
 {
     if(SDL_Init(SDL_INIT_EVERYTHING) == -1)
     {
-        log("ERROR: init failed");
+        report("init failed", MSG_ERROR);
         return false;
     }
 
 	::AudioEngine::Start();
-/*
-    if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
-    {
-        return false;
-    }
-*/
     return true;
 }
 
@@ -296,12 +288,11 @@ bool Game::LoadFiles()
 
 bool Game::MainLoop()
 {
-	#ifdef DEBUG
-		log("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.\nInitializing...");
-    #endif
+	report("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.", MSG_DEBUG);
+	report("Initializing...", MSG_DEBUG);
     if(Init() == false)
     {
-        log("ERROR: Init() = false");
+        report("Init() = false", MSG_ERROR);
         return false;
     }
 
@@ -309,19 +300,17 @@ bool Game::MainLoop()
 
     if(window.error() == true)
     {
-        log("ERROR: error in window");
+        report("error in window", MSG_ERROR);
         return 1;
     }
     if(InitGL() == false)
     {
         return false;
     }
-    #ifdef DEBUG
-		log("Loading files...");
-    #endif
+	report("Loading files...", MSG_DEBUG);
     if(LoadFiles() == false)
     {
-        log("ERROR: Some files failed to load :(");
+        report("Some files failed to load :(", MSG_ERROR);
         return false;
     }
 
@@ -371,10 +360,8 @@ bool Game::MainLoop()
 
 void Game::Close()
 {
-	#ifdef DEBUG
-		log("Game::Close()");
-    #endif
-    loger.close();
+	report("Game::Close()", MSG_DEBUG);
+    logfile.close();
     font.release();
     fontLevel.release();
 

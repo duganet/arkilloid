@@ -38,10 +38,6 @@ struct Point
     int y;
 };
 
-void log(std::string message);
-
-
-
 enum GameStates
 {
     STATE_NULL,

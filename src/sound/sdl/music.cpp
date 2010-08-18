@@ -2,18 +2,17 @@
 #include <SDLUtils.h>
 #include <string>
 #include <SDL/SDL_mixer.h>
+#include <report.hpp>
 #include "music.hpp"
 
 AudioMusic::AudioMusic(std::string filename)
 {
 	filename = path_construct("sounds/music", filename);
-	#ifdef DEBUG
-		log("Loading music file \"" + filename + "\"");
-	#endif
+	report("Loading music file \"" + filename + "\"", MSG_DEBUG);
 	music = Mix_LoadMUS(filename.c_str());
 	if (!music)
 	{
-		log("ERROR: Can't load music file \"" + filename + "\"");
+		report("Can't load music file \"" + filename + "\"", MSG_ERROR);
 	}
 }
 
@@ -35,9 +34,7 @@ void AudioMusic::On()
 
 void AudioMusic::Play()
 {
-	#ifdef DEBUG
-		log("Playing music");
-	#endif
+	report("Playing music", MSG_DEBUG);
 	if (Mix_PausedMusic())
 	{
 		Mix_ResumeMusic();

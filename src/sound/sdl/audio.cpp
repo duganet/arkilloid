@@ -1,27 +1,21 @@
 #include <SDL/SDL_mixer.h>
-#include <SDLUtils.h>
+#include <report.hpp>
 #include "audio.hpp"
 
 bool AudioEngine::Start()
 {
-	#ifdef DEBUG
-		log("Starting SDL_Mixer audio engine");
-	#endif
+	report("Starting SDL_Mixer audio engine", MSG_DEBUG);
 	int mix_flags=MIX_INIT_OGG;
 	int initted=Mix_Init(mix_flags);
-	#ifdef DEBUG
-		log("Mix_Init();");
-	#endif
+	report("Mix_Init()", MSG_DEBUG);
 	if (initted&mix_flags != mix_flags)
 	{
-		log("Mix_Init failed");
+		report("Mix_Init failed", MSG_ERROR);
 	}
-	#ifdef DEBUG
-		log("Mix_OpenAudio();");
-	#endif
+	report("Mix_OpenAudio()", MSG_DEBUG);
 	if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
 	{
-		log("ERROR: Mix_OpenAudio failed");
+		report("Mix_OpenAudio failed", MSG_ERROR);
 	}
 }
 bool AudioEngine::Stop()

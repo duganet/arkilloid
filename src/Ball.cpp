@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <map>
 #include <cmath>
+#include <report.hpp>
 
 //extern Uint32 deltaTicks;
 
@@ -45,9 +46,7 @@ Ball::Ball(int X, int Y, bool move, Texture* texture)
             direction = 315;
         set_direction(direction);
     }
-    #ifdef DEBUG
-		log("ball create");
-	#endif
+	report("ball create", MSG_DEBUG);
 }
 
 void Ball::set_up(int X, int Y, Texture* texture = textureList[BALL])

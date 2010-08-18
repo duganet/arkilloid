@@ -1,6 +1,7 @@
 //BrickControl.cpp
 #include "BrickControl.h"
 #include <sstream>
+#include <report.hpp>
 extern std::ofstream loger;
 std::vector<Brick*> BrickControl::brickList;
 
@@ -51,9 +52,7 @@ bool BrickControl::LoadBricksFromFile(const char *filename)
             BrickControl::brickList.push_back(brick);
         }
     }
-    #ifdef DEBUG
-		log("brick loaded");
-	#endif
+	report("brick loaded", MSG_DEBUG);
     fclose(FileHandle);
 
     return true;

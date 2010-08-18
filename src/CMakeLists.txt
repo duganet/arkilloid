@@ -34,7 +34,7 @@ set(
 
 set(
 	arkilloid_LIBS
-	arkilloid_fileio
+	arkilloid_io
 	arkilloid_sound
 	glftfont
 	${OPENGL_LIBRARIES}
@@ -45,7 +45,7 @@ set(
 )
 
 include_directories(
-	${LIBFILEIO_INCLUDE_DIR}
+	${LIBIO_INCLUDE_DIR}
 	${LIBSOUND_INCLUDE_DIR}
 )
 add_executable(arkilloid ${arkilloid_SRCS})
