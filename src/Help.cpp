@@ -43,12 +43,12 @@ void soundOn_notchecked()
 }
 void musicOn_checked()
 {
-    Mix_HaltMusic();
+    audio_music->Off();
 }
 
 void musicOn_notchecked()
 {
-	audio_music->Play();
+	audio_music->On();
 }
 
 Help::~Help()
