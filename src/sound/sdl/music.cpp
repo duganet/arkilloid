@@ -42,6 +42,10 @@ void AudioMusic::Play()
 	{
 		Mix_ResumeMusic();
 	}
+	else if (Mix_PlayingMusic())
+	{
+		
+	}
 	else
 	{
 		if (Mix_PlayMusic(music, -1) == -1)

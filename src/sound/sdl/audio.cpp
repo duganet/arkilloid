@@ -19,9 +19,9 @@ bool AudioEngine::Start()
 	#ifdef DEBUG
 		log("Mix_OpenAudio();");
 	#endif
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
+	if (Mix_OpenAudio(48000, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
 	{
-		log("Mix_OpenAudio failed");
+		log("ERROR: Mix_OpenAudio failed");
 	}
 }
 bool AudioEngine::Stop()
