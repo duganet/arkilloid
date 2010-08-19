@@ -20,6 +20,16 @@ extern GLFT_Font fontLevel;
 extern GLFT_Font font_small;
 extern bool sound_on;
 
+int
+	lives_hearts_count,
+	lives_hearts_count_max,
+	lives_hearts_pos_hor,
+	lives_hearts_pos_vert,
+	lives_text_pos_hor,
+	text_level_pos_hor,
+	text_score_pos_hor,
+	text_top_pos_vert;
+
 bool Level_1::pause;
 //int Level_1::num_level;
 bool Level_1::restarted;
@@ -129,6 +139,14 @@ Level_1::Level_1(int num_level, std::string filename)
         particles[i] = new Particles(0,0);
     }
 
+	lives_hearts_count_max = 5;
+	text_score_pos_hor = SCREEN_WIDTH/3;
+	text_level_pos_hor = text_score_pos_hor + SCREEN_WIDTH/3;
+	text_top_pos_vert = 10;
+	lives_hearts_pos_vert = text_top_pos_vert + 5;
+	lives_hearts_pos_hor = 10;
+	lives_text_pos_hor = lives_hearts_pos_hor + 25;
+
     pause = false;
     resumeButton = new Button(308,436, "btn_resume.png");
     exitButton = new Button(518,436, "btn_exit.png");
@@ -218,39 +236,34 @@ void Level_1::render()
 //        font_small.beginDraw(heart_spr->w+10,5) << "x" << lives << font_small.endDraw();
 //        glColor3f(1,1,1);
 //    }
-    switch(lives)
-    {
-    case 3:
-        textureList[HEART]->show(10,10);
-        textureList[HEART]->show(textureList[HEART]->w+10,10);
-        textureList[HEART]->show(textureList[HEART]->w *2+10,10);
-        break;
-    case 2:
-        textureList[HEART]->show(10,10);
-        textureList[HEART]->show(textureList[HEART]->w+10,10);
-        break;
-    case 1:
-        textureList[HEART]->show(10,10);
-        break;
-    case 0:
-        textureList[HEART]->show(10,10);
-        glColor3f(0,0,0);
-        font_small.beginDraw(textureList[HEART]->w+10,5) << "x0" << font_small.endDraw();
-        glColor3f(1,1,1);
-        break;
-    default:
-        textureList[HEART]->show(10,10);
-        glColor3f(0,0,0);
-        font_small.beginDraw(textureList[HEART]->w+10,5) << "x" << lives << font_small.endDraw();
-        glColor3f(1,1,1);
-        break;
-    }
+	if (lives < 0 )
+	{
+		textureList[HEART]->show(lives_hearts_pos_hor, lives_hearts_pos_vert);
+		glColor3f(1,0,0);
+		font_small.beginDraw(lives_text_pos_hor, text_top_pos_vert) << "Not left" << font_small.endDraw();
+		glColor3f(1,1,1);
+	}
+	else if (lives < 1 or lives > lives_hearts_count_max )
+	{
+		textureList[HEART]->show(lives_hearts_pos_hor, lives_hearts_pos_vert);
+		glColor3f(0,0,0);
+		font_small.beginDraw(lives_text_pos_hor, text_top_pos_vert) << "x" << lives << font_small.endDraw();
+		glColor3f(1,1,1);
+	}
+	else
+	{
+		for (lives_hearts_count = 0; lives_hearts_count < lives; lives_hearts_count++)
+		{
+			textureList[HEART]->show(lives_hearts_pos_hor + lives_hearts_count * textureList[HEART]->w, lives_hearts_pos_vert);
+		}
+	}
+
     //std::stringstream ss;
     //ss << "Score: " + score;
     glColor3f(0,0,0);
-    font_small.beginDraw(400,5) << "Score: " << score << font_small.endDraw();
+    font_small.beginDraw(text_score_pos_hor,text_top_pos_vert) << "Score: " << score << font_small.endDraw();
     //font.small
-    font_small.beginDraw(720,5) << "Level " << num_level << font_small.endDraw();
+    font_small.beginDraw(text_level_pos_hor,text_top_pos_vert) << "Level " << num_level << font_small.endDraw();
     glColor3f(1,1,1);
 
     //Particles-----------------------------------------------
@@ -400,7 +413,7 @@ void Level_1::logic()
                                     {
                                         //srand((unsigned)time(NULL));
                                         int j = rand() % 20;
-                                        //int j = 7;
+                                        //int j = 5;
                                         switch(j)
                                         {
                                         case 2:
