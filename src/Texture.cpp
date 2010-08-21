@@ -35,34 +35,77 @@ Texture::~Texture()
 
 bool Texture::load_from_file(std::string filename)
 {
+	report("Texture: creating surface \"" + filename + "\"", MSG_DEBUG);
+	surface = IMG_Load(filename.c_str());
+	if(surface)
+	{
+		if(surface->format->Amask != 0)
+		{
+			report("Texture: select alpha-channel transparency mode", MSG_DEBUG);
+			SDL_SetAlpha(surface, 0, 0);
+			this->load_alphachannel();
+			return true;
+		}
+		else
+		{
+			report("Texture: select colormap transparency mode", MSG_DEBUG);
+			this->load_colormap(0xFF,0,0xFF);
+			return true;
+		}
+	}
+	else
+	{
+		report("Can't load texture \"" + filename + "\": " + SDL_GetError(), MSG_DEBUG);
+		return false;
+	}
+}
+
+bool Texture::load_from_file(std::string filename, int r, int g, int b)
+{
+	surface = IMG_Load(filename.c_str());
+	if(surface)
+	{
+		this->load_colormap(r,g,b);
+	}
+	else
+	{
+		report("Can't load texture \"" + filename + "\": " + SDL_GetError(), MSG_ERROR);
+		return false;
+	}
+}
+
+bool Texture::load_alphachannel()
+{
     int mode;
     int width = 0;
     int height = 0;
 
-	report("Loading texture \"" + filename + "\"", MSG_DEBUG);
+	report("Texture: starting alphachannel loader", MSG_DEBUG);
 
     num_vclip = 1;
     num_hclip = 1;
-
-    SDL_Surface *surface;
-    surface = IMG_Load(filename.c_str());
+	
     if(surface == NULL)
     {
-        report("Can't load texture \"" + filename + "\"", MSG_ERROR);
+        //report("Texture: failed to load. " + SDL_GetError(), MSG_ERROR);
         return false;
     }
 
-    if(surface->format->BytesPerPixel == 4) // 32bit
-    {
-        mode = GL_RGBA;
-    }
+	if (surface->format->BytesPerPixel == 1 ) //8bit
+	{
+		mode = GL_RGBA;
+	}
     else if(surface->format->BytesPerPixel == 3) //24bit
     {
         mode = GL_RGB;
     }
+    else if(surface->format->BytesPerPixel == 4) // 32bit
+    {
+        mode = GL_RGBA;
+    }
     else
     {
-        report("\"" + filename + "\" is not 8, 24 or 32 bit image", MSG_ERROR);
+        report("Texture: is not 8, 24 or 32 bit image", MSG_ERROR);
         SDL_FreeSurface(surface);
         return false;
     }
@@ -83,6 +126,7 @@ bool Texture::load_from_file(std::string filename)
 
     SDL_Surface *temp = SDL_CreateRGBSurface(SDL_SWSURFACE, surface->w+width, surface->h+height, surface->format->BitsPerPixel,
                                              surface->format->Rmask,surface->format->Gmask,surface->format->Bmask,surface->format->Amask);
+
     SDL_Rect offset;
     offset.x = 0;
     offset.y = 0;
@@ -112,21 +156,20 @@ bool Texture::load_from_file(std::string filename)
     return true;
 }
 
-bool Texture::load_from_file(std::string filename, int r, int g, int b)
+bool Texture::load_colormap(int r, int g, int b)
 {
+	report("Texture: colormap loader started", MSG_DEBUG);
     int mode;
     int width = 0;
     int height = 0;
-
-    SDL_Surface *surface;
-    surface = IMG_Load(filename.c_str());
-    if(surface == NULL)
+	
+    if(!surface)
     {
-        report("Can't load texture \"" + filename + "\"", MSG_ERROR);
+        report("Texture: failed to load.", MSG_ERROR);
         return false;
     }
-
-    if(surface->format->BytesPerPixel == 4) // 32bit
+	
+	if(surface->format->BytesPerPixel == 4) // 32bit
     {
         mode = GL_RGBA;
     }
@@ -141,7 +184,7 @@ bool Texture::load_from_file(std::string filename, int r, int g, int b)
 	}
     else
     {
-        log("ERROR: " + filename + " not 32 or 24 bit image");
+        log("Texture: not 8, 24 or 32 bit image");
         SDL_FreeSurface(surface);
         return false;
     }
@@ -162,21 +205,20 @@ bool Texture::load_from_file(std::string filename, int r, int g, int b)
 
     int rmask,gmask,bmask,amask;
 
-    #if not SDL_BYTEORDER == SDL_BIG_ENDIAN
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
      rmask = 0xff000000;
      gmask = 0x00ff0000;
      bmask = 0x0000ff00;
      amask = 0x000000ff;
- #else
+#else
      rmask = 0x000000ff;
      gmask = 0x0000ff00;
      bmask = 0x00ff0000;
      amask = 0xff000000;
- #endif
+#endif
 
-    SDL_Surface *temp = SDL_CreateRGBSurface(SDL_SWSURFACE, surface->w+width, surface->h+height, 32,
-                                                rmask,gmask,bmask,amask);
-    SDL_Rect offset;
+    SDL_Surface *temp = SDL_CreateRGBSurface(SDL_SWSURFACE, surface->w+width, surface->h+height, 32, rmask, gmask, bmask, amask);
+	SDL_Rect offset;
     offset.x = 0;
     offset.y = 0;
 
@@ -187,21 +229,28 @@ bool Texture::load_from_file(std::string filename, int r, int g, int b)
         for(int x = 0; x < temp->w; x++)
         {
             unsigned int pix = ((unsigned int*)temp->pixels)[y*(temp->pitch/sizeof(unsigned int)) + x];
+            SDL_PixelFormat *fmt;
+            Uint32 tcolor;
+            Uint8 red, green, blue, alpha;
+
             #if SDL_BYTEORDER == SDL_BIG_ENDIAN
             SDL_Color color = {(pix & 0x00ff0000)/0x10000,(pix & 0x0000ff00)/0x100,(pix & 0x000000ff),0};
             #else
             SDL_Color color = {(pix & 0x000000ff),(pix & 0x0000ff00)/0x100,(pix & 0x00ff0000)/0x10000,0};
             #endif
+            
             if(color.r == r && color.g == g && color.b == b)
             {
                 ((unsigned int*)temp->pixels)[y*(temp->pitch/sizeof(unsigned int)) + x] = SDL_MapRGBA(temp->format, 255, 0, 255,0);
             }
             else
             {
-                ((unsigned int*)temp->pixels)[y*(temp->pitch/sizeof(unsigned int)) + x] = SDL_MapRGBA(temp->format, color.r, color.g, color.b,255);
+                ((unsigned int*)temp->pixels)[y*(temp->pitch/sizeof(unsigned int)) + x] = SDL_MapRGBA(temp->format, color.r, color.g, color.b, 255);
             }
+
         }
     }
+
 
     // Have OpenGL generate a texture object handle for us
     glGenTextures( 1, &texture );

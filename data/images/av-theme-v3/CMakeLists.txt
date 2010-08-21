@@ -1,7 +1,7 @@
 set(
 	DATA_IMAGES_FILES
 	ball.png
-	bg_Help.bmp
+	bg_Help.png
 	bg_intro.png
 	bg.png
 	bg_title.png

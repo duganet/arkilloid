@@ -145,7 +145,8 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
     filename = path_construct ("images", "bita.bmp");
     Texture *bita_tex = new Texture;
-    if(bita_tex->load_from_file(filename, 0xFF,0,0xFF) == false)
+    //if(bita_tex->load_from_file(filename, 0xFF,0,0xFF) == false)
+    if(bita_tex->load_from_file(filename) == false)
     {
         log("ERROR: " + filename + " not found");
         return false;
@@ -154,7 +155,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
     filename = path_construct ("images", "ball.png");
     Texture *ball_tex = new Texture;
-    if(ball_tex->load_from_file(filename, 0xFF,0,0xFF) == false)
+    if(ball_tex->load_from_file(filename) == false)
     {
         log("ERROR: " + filename + " not found");
         return false;
@@ -188,7 +189,7 @@ bool Game::LoadFiles()
     }
     textureList.push_back(bgtitle_tex);
 //-----------------------------------------------------------
-    filename = path_construct("images", "bg_Help.bmp");
+    filename = path_construct("images", "bg_Help.png");
     Texture *bghelp_tex = new Texture;
     if(bghelp_tex->load_from_file(filename) == false)
     {

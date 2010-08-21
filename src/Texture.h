@@ -34,6 +34,8 @@ public:
     ~Texture();
     bool load_from_file(std::string filename);
     bool load_from_file(std::string filename, int r, int g, int b);
+    bool load_alphachannel();
+    bool load_colormap(int r, int g, int b);
     bool load_from_surface(SDL_Surface* source);
     void show(int x, int y, GLfloat alpha = 1.0f);
     void show(int x, int y, SDL_Rect clip);
@@ -48,6 +50,7 @@ private:
     GLenum eFormat;
     int surface_w, surface_h;
     double wdt, hgt;
+	SDL_Surface *surface;
 };
 
 

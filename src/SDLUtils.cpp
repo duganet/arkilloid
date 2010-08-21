@@ -45,7 +45,7 @@ SDL_Surface *image_load(std::string filename, int red, int green, int blue)
     if(loadedImage != NULL)
     {
 
-        optimizedImage = SDL_DisplayFormat(loadedImage);
+        optimizedImage = SDL_DisplayFormatAlpha(loadedImage);
 
         SDL_FreeSurface(loadedImage);
     }

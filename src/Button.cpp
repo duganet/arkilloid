@@ -10,7 +10,7 @@ Button::Button(int x, int y, std::string filename)
     filename = path_construct("images/buttons", filename);
 	report("Loading button \"" + filename + "\"", MSG_DEBUG);
     buttonSheet = new Texture;
-    buttonSheet->load_from_file(filename, 0xFF,0,0xFF);
+    buttonSheet->load_from_file(filename);
 
     buttonSheet->num_vclip = 2;
 
