@@ -1,8 +1,10 @@
 /*
  *      Texture.cpp
  *
- *      Copyright 2009 PlugHead Games <plughead@mail.ru>
- *      Copyright 2009 DUGA Project <dev@duganet.ru>
+ *      Copyright 2009-2010 Sergey Babneev <plughead@mail.ru>
+ *      Copyright 2009-2010 Maxim Kachur <mcdebugger@duganet.ru>
+ *      Copyright 2009-2010 PlugHead Games <plughead@mail.ru>
+ *      Copyright 2009-2010 DUGA Project <dev@duganet.ru>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -41,27 +43,29 @@ bool Texture::load_from_file(std::string filename)
 	{
 		if(surface->format->Amask != 0)
 		{
-			report("Texture: select alpha-channel transparency mode", MSG_DEBUG);
+			report("Texture: selected alpha-channel transparency mode", MSG_DEBUG);
 			SDL_SetAlpha(surface, 0, 0);
 			this->load_alphachannel();
 			return true;
 		}
 		else
 		{
-			report("Texture: select colormap transparency mode", MSG_DEBUG);
+			report("Texture: selected colormap transparency mode", MSG_DEBUG);
 			this->load_colormap(0xFF,0,0xFF);
 			return true;
 		}
 	}
 	else
 	{
-		report("Can't load texture \"" + filename + "\": " + SDL_GetError(), MSG_DEBUG);
+		report("Can't load texture \"" + filename + "\": " + SDL_GetError(), MSG_ERROR);
 		return false;
 	}
 }
 
 bool Texture::load_from_file(std::string filename, int r, int g, int b)
 {
+	report("Texture: creating surface \"" + filename + "\"", MSG_DEBUG);
+	report("Texture: forced colormap transparency mode", MSG_DEBUG);
 	surface = IMG_Load(filename.c_str());
 	if(surface)
 	{
