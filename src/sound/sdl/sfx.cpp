@@ -20,10 +20,7 @@
  *		along with Arkilloid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <file.h>
 #include <string>
-=======
->>>>>>> bad
 #include <SDL/SDL_mixer.h>
 #include <io.hpp>
 #include "sfx.hpp"
