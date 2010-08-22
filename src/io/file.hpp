@@ -1,5 +1,5 @@
 /*
- *		report.cpp - error/debug logging (reporting) module
+ *		file.hpp - file module headers
  *
  *		Copyright 2010 Maxim Kachur <mcdebugger@duganet.ru>
  *		Copyright 2010 Sergey Babneev <plughead@mail.ru>
@@ -20,30 +20,11 @@
  *		along with Arkilloid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "report.hpp"
-#include <fstream>
+#ifndef FILE_HPP_INCLUDED
+#define FILE_HPP_INCLUDED
 
-std::ofstream logfile("arkilloid.log");
-void log(std::string message)
-{
-	report(message, MSG_UNDEF);
-}
+#include <string>
 
-void report(std::string message, int msgtype)
-{
-	switch(msgtype)
-	{
-		case MSG_DEBUG:
-			#ifdef DEBUG
-				logfile << "DEBUG: " << message << std::endl;
-			#endif
-			break;
-		case MSG_ERROR:
-			logfile << "ERROR: " << message << std::endl;
-			break;
-		case MSG_UNDEF:
-			logfile << message << std::endl;
-			break;
-	}	
-	logfile.flush();
-}
+std::string path_construct(std::string, std::string);
+
+#endif

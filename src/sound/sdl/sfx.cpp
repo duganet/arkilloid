@@ -22,8 +22,10 @@
 
 #include <file.h>
 #include <string>
+=======
+>>>>>>> bad
 #include <SDL/SDL_mixer.h>
-#include <report.hpp>
+#include <io.hpp>
 #include "sfx.hpp"
 
 AudioSoundFX::AudioSoundFX(std::string filename)

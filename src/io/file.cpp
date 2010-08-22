@@ -20,7 +20,7 @@
  *		along with Arkilloid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "file.h"
+#include "file.hpp"
 
 std::string path_construct(std::string dir_shortname, std::string filename)
 {
