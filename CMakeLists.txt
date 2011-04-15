@@ -4,7 +4,7 @@ project(arkilloid)
 find_package(OpenGL REQUIRED)
 find_package(SDL REQUIRED)
 find_package(SDL_image REQUIRED)
-find_package(SDL_mixer REQUIRED)
+find_package(SDL_mixer 1.2.10 REQUIRED)
 find_package(SDL_ttf REQUIRED)
 find_package(Freetype REQUIRED)
 

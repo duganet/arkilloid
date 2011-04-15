@@ -1,4 +1,15 @@
 Arkilloid Compilation Guide.
+
+Build prerequisites:
+
+	SDL
+	SDL_image
+	SDL_mixer ( >= 1.2.10 )
+	SDL_ttf
+	Freetype
+	OpenGL (GLUT or other)
+	GLFT_Font (included as git submodule)
+
 Gentoo Linux:
 
 	INSTALL FROM OVERLAY
