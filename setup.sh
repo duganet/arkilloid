@@ -9,8 +9,12 @@ cmake ../
 make
 
 echo ''
-echo '********************************************************************'
-echo 'Compile should be completed.'
-echo 'Type `make install` or `sudo make install` to install application.'
-echo '********************************************************************'
+echo '***************************************************'
+echo '*                                                 *'
+echo '* Compile should be completed.                    *'
+echo '*                                                 *'
+echo '* Type `make install` or `sudo make install`      *'
+echo '* from "build/" directory to install application. *'
+echo '*                                                 *'
+echo '***************************************************'
 echo ''
