@@ -1,7 +1,8 @@
+build/
 CMakeFiles/
-*.a
-CMakeCache.txt
-Makefile
 cmake_install.cmake
 cmake_uninstall.cmake
+CMakeCache.txt
+Makefile
+*.a
 src/arkilloid
