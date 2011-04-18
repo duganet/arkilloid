@@ -20,7 +20,7 @@
  *		along with Arkilloid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <SDL/SDL_mixer.h>
+#include <SDL_mixer.h>
 #include <io.hpp>
 #include "audio.hpp"
 

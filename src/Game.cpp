@@ -200,7 +200,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
     filename = path_construct("images", "bonus_speed_up.png");
     Texture *speedup_tex = new Texture;
-    if(speedup_tex->load_from_file(filename, 0xFF,0,0xFF) == false)
+    if(speedup_tex->load_from_file(filename) == false)
     {
         log("ERROR: " + filename + " not found");
         return false;
@@ -209,7 +209,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
     filename = path_construct("images", "bonus_speed_down.png");
     Texture *speeddown_tex = new Texture;
-    if(speeddown_tex->load_from_file(filename, 0xFF,0,0xFF) == false)
+    if(speeddown_tex->load_from_file(filename) == false)
     {
         log("ERROR: " + filename + " not found");
         return false;
@@ -218,7 +218,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
     filename = path_construct("images", "bonus_life.png");
     Texture *life_tex = new Texture;
-    if(life_tex->load_from_file(filename,0xFF,0,0xFF) == false)
+    if(life_tex->load_from_file(filename) == false)
     {
         log("ERROR: " + filename + " not found");
         return false;
@@ -227,7 +227,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
     filename = path_construct("images", "bonus_die.png");
     Texture *die_tex = new Texture;
-    if(die_tex->load_from_file(filename,0xFF,0,0xFF) == false)
+    if(die_tex->load_from_file(filename) == false)
     {
         log("ERROR: " + filename + " not found");
         return false;
@@ -236,7 +236,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
     filename = path_construct("images", "bonus_add.png");
     Texture *add_tex = new Texture;
-    if(add_tex->load_from_file(filename,0xFF,0,0xFF) == false)
+    if(add_tex->load_from_file(filename) == false)
     {
         log("ERROR: " + filename + " not found");
         return false;
@@ -245,7 +245,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
     filename = path_construct("images", "heart.png");
     Texture *heart_tex = new Texture;
-    if(heart_tex->load_from_file(filename,0xFF,0,0xFF) == false)
+    if(heart_tex->load_from_file(filename) == false)
     {
         log("ERROR: " + filename + " not found");
         return false;
@@ -254,7 +254,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
     filename = path_construct("images", "particle.png");
     Texture *particle_tex = new Texture;
-    if(particle_tex->load_from_file(filename,0xFF,0,0xFF) == false)
+    if(particle_tex->load_from_file(filename) == false)
     {
         log("ERROR: " + filename + " not found");
         return false;

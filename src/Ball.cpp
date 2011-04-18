@@ -3,11 +3,12 @@
 #include "SDLUtils.h"
 #include "Constants.h"
 #include <cmath>
-#include <SDL/SDL_ttf.h>
+#include <SDL_ttf.h>
 #include <sstream>
 #include <cstdlib>
 #include <map>
 #include <cmath>
+#include <ctime>
 #include <report.hpp>
 
 //extern Uint32 deltaTicks;

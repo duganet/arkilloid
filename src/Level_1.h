@@ -15,7 +15,7 @@
 #include "Texture.h"
 #include <io.hpp>
 #include <vector>
-#include <SDL/SDL_mixer.h>
+#include <SDL_mixer.h>
 class Level_1 : public GameState
 {
 public:
