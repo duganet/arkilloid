@@ -77,7 +77,7 @@ Level_1::Level_1(int num_level, std::string filename)
 {
     std::string dir;
     filename = path_construct("maps", filename);
-	report("level_1 constructor", MSG_DEBUG);
+	report("Level_1 constructor", MSG_DEBUG);
     restarted = false;
     //levelFont = font;
 	// If in debug mode don't capture mouse in window
@@ -90,7 +90,7 @@ Level_1::Level_1(int num_level, std::string filename)
 
     if(!BrickControl::LoadBricksFromFile(filename.c_str()))
     {
-        log("ERROR: Can't load map " + filename);
+        report("Can't load map " + filename, MSG_ERROR);
     }
     bita.set_up(300, 570);
 
@@ -216,6 +216,12 @@ void Level_1::render()
         fontLevel.beginDraw(SCREEN_WIDTH/2,SCREEN_HEIGHT/2) << "Level " << num_level << " Clear" << fontLevel.endDraw();
         glColor3f(1,1,1);
     }
+    if(pause == true)
+    {
+		glColor3f(0,0,0);
+		fontLevel.beginDraw(SCREEN_WIDTH/2,SCREEN_HEIGHT/2) << "Pause" << fontLevel.endDraw();
+		glColor3f(1,1,1);
+	}
     if(Bonus::bonusList.size() > 0)
     {
         for(unsigned int i = 0; i < Bonus::bonusList.size(); i++)
@@ -278,13 +284,13 @@ void Level_1::render()
     //SDL_Surface *pause_label = NULL;
     if(pause == true)
     {
-        textureList[BG_HELP]->show(0,0);
+        //textureList[BG_HELP]->show(0,0);
 
         resumeButton->show();
         restartButton->show();
         exitButton->show();
-        soundOn->show();
-        musicOn->show();
+        //soundOn->show();
+        //musicOn->show();
     }
 }
 
