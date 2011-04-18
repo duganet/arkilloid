@@ -67,7 +67,7 @@ void AudioMusic::Play()
 	{
 		if (Mix_PlayMusic(music, -1) == -1)
 		{
-			log("ERROR: Can't play music");
+			report("ERROR: Can't play music", MSG_ERROR);
 		}
 	}
 }

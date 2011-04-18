@@ -12,7 +12,11 @@ if [ ! -d "build" ]; then
 fi
 
 cd build
-cmake ../
+if [ "$1" = 'debug' ]; then
+	cmake -D DEBUG=1 ../
+else
+	cmake ../
+fi
 make
 
 echo ''
