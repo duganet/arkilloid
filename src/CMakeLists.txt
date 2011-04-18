@@ -37,6 +37,7 @@ set(
 	arkilloid_io
 	arkilloid_sound
 	glftfont
+	${FREETYPE_LIBRARIES}
 	${OPENGL_LIBRARIES}
 	${SDL_LIBRARY}
 	${SDLIMAGE_LIBRARY}
