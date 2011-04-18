@@ -26,8 +26,10 @@ public:
     void logic();
     void handle_events(SDL_Event&);
     void load_files();
+    void replay();
     static bool pause;
     int num_level;
+    int lives_start, score_start;
     static bool restarted;
 protected:
     Mix_Chunk *hit;

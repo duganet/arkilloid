@@ -76,8 +76,11 @@ void musicOn_notchecked_pause()
 Level_1::Level_1(int num_level, std::string filename)
 {
     std::string dir;
+    std::stringstream st;
     filename = path_construct("maps", filename);
 	report("Level_1 constructor", MSG_DEBUG);
+	st << num_level;
+	report("Current num_level: " + st.str(), MSG_DEBUG);
     restarted = false;
     //levelFont = font;
 	// If in debug mode don't capture mouse in window
@@ -138,6 +141,9 @@ Level_1::Level_1(int num_level, std::string filename)
     {
         particles[i] = new Particles(0,0);
     }
+
+	lives_start = lives;
+	score_start = score;
 
 	lives_hearts_count_max = 5;
 	text_score_pos_hor = SCREEN_WIDTH/3;
@@ -351,6 +357,12 @@ void Level_1::handle_events(SDL_Event &event)
     }
 }
 
+void Level_1::replay()
+{
+	lives = lives_start;
+	score = score_start;
+	set_next_state(num_level + 3);
+}
 
 void Level_1::logic()
 {
@@ -547,7 +559,7 @@ void Level_1::logic()
         {
             if(game_over == true)
             {
-                set_next_state(STATE_TITLE);
+                replay();
             }
 
             if(Ball::ballList.size() > 1)
