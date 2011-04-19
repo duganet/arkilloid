@@ -49,6 +49,14 @@ include_directories(
 	${LIBIO_INCLUDE_DIR}
 	${LIBSOUND_INCLUDE_DIR}
 )
+
 add_executable(arkilloid ${arkilloid_SRCS})
 target_link_libraries(arkilloid	${arkilloid_LIBS})
+
+if(WIN32)
+	if(DEBUG)
+		set_target_properties(arkilloid PROPERTIES OUTPUT_NAME arkilloid-debug)
+	endif()
+endif()
+
 install(TARGETS arkilloid RUNTIME DESTINATION ${BINDIR})

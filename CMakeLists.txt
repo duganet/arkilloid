@@ -10,8 +10,17 @@ find_package(Freetype REQUIRED)
 
 set(GLFTFONT_INCLUDE_DIR extern/glftfont)
 
-set(BINDIR ${CMAKE_INSTALL_PREFIX}/bin)
-set(DATADIR ${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME})
+if(WIN32)
+	set(BINDIR ${CMAKE_INSTALL_PREFIX})
+else()
+	set(BINDIR ${CMAKE_INSTALL_PREFIX}/bin)
+endif()
+
+if(WIN32)
+	set(DATADIR ${CMAKE_INSTALL_PREFIX})
+else()
+	set(DATADIR ${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME})
+endif()
 
 set(ARKILLOID_INCLUDE_DIR src)
 set(LIBIO_INCLUDE_DIR src/io)
