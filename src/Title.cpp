@@ -54,7 +54,6 @@ Title::Title()
     #ifndef DEBUG
     SDL_WM_GrabInput(SDL_GRAB_OFF);
     #endif
-    audio_music->Play();
 }
 
 Title::~Title()
