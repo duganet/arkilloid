@@ -25,7 +25,48 @@
 #include <io.hpp>
 #include "music.hpp"
 
-AudioMusic::AudioMusic(std::string filename)
+AudioMusic::AudioMusic()
+{
+	report("Starting AudioMusic", MSG_DEBUG);
+	tracks.push_back("intro.ogg");
+	tracks.push_back("arkilloid_track_01.ogg");
+	current_tracknum = -1;
+	this->ChangeTrack();
+	played = false;
+}
+
+AudioMusic::~AudioMusic()
+{
+	Mix_FreeMusic(music);
+	music=NULL;
+}
+
+void AudioMusic::ChangeTrack()
+{
+	if (current_tracknum < tracks.size() - 1)
+	{
+		current_tracknum++;
+	}
+	else
+	{
+		current_tracknum = 0;
+	}
+	this->Load(tracks[current_tracknum]);
+	this->Play();
+}
+
+void AudioMusic::CheckPlay()
+{
+	if (played)
+	{
+		if (!Mix_PlayingMusic())
+		{
+			this->ChangeTrack();
+		}
+	}
+}
+
+void AudioMusic::Load(std::string filename)
 {
 	filename = path_construct("sounds/music", filename);
 	report("Loading music file \"" + filename + "\"", MSG_DEBUG);
@@ -34,12 +75,6 @@ AudioMusic::AudioMusic(std::string filename)
 	{
 		report("Can't load music file \"" + filename + "\"", MSG_ERROR);
 	}
-}
-
-AudioMusic::~AudioMusic()
-{
-	Mix_FreeMusic(music);
-	music=NULL;
 }
 
 void AudioMusic::Off()
@@ -54,6 +89,7 @@ void AudioMusic::On()
 
 void AudioMusic::Play()
 {
+	played = true;
 	report("Playing music", MSG_DEBUG);
 	if (Mix_PausedMusic())
 	{
@@ -65,7 +101,7 @@ void AudioMusic::Play()
 	}
 	else
 	{
-		if (Mix_PlayMusic(music, -1) == -1)
+		if (Mix_PlayMusic(music, 0) == -1)
 		{
 			report("ERROR: Can't play music", MSG_ERROR);
 		}

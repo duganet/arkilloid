@@ -20,13 +20,21 @@
  *		along with Arkilloid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <vector>
+
 class AudioMusic
 {
 	private:
+		int current_tracknum;
 		Mix_Music* music;
+		bool played;
+		std::vector<std::string> tracks;
 	public:
-		AudioMusic(std::string filename);
+		AudioMusic();
 		~AudioMusic();
+		void ChangeTrack();
+		void CheckPlay();
+		void Load(std::string filename);
 		void Off();
 		void On();
 		void Play();

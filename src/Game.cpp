@@ -279,7 +279,7 @@ bool Game::LoadFiles()
 //-----------------------------------------------------------
 
 //Load music-------------------------------------------------
-	audio_music = new AudioMusic("intro.ogg");
+	audio_music = new AudioMusic();
 //-----------------------------------------------------------
 
     return true;
@@ -349,6 +349,8 @@ bool Game::MainLoop()
         currentState->render();
 
         SDL_GL_SwapBuffers();
+
+		audio_music->CheckPlay();
 
         if(fps.Get_Ticks() < 1000/FRAMES_PER_SECOND)
         {
