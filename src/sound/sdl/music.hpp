@@ -27,7 +27,6 @@ class AudioMusic
 	private:
 		int current_tracknum;
 		Mix_Music* music;
-		bool played;
 		std::vector<std::string> tracks;
 	public:
 		AudioMusic();

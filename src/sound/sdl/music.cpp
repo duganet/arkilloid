@@ -32,7 +32,6 @@ AudioMusic::AudioMusic()
 	tracks.push_back("arkilloid_track_01.ogg");
 	current_tracknum = -1;
 	this->ChangeTrack();
-	played = false;
 }
 
 AudioMusic::~AudioMusic()
@@ -57,12 +56,9 @@ void AudioMusic::ChangeTrack()
 
 void AudioMusic::CheckPlay()
 {
-	if (played)
+	if (!Mix_PlayingMusic())
 	{
-		if (!Mix_PlayingMusic())
-		{
-			this->ChangeTrack();
-		}
+		this->ChangeTrack();
 	}
 }
 
@@ -89,7 +85,6 @@ void AudioMusic::On()
 
 void AudioMusic::Play()
 {
-	played = true;
 	report("Playing music", MSG_DEBUG);
 	if (Mix_PausedMusic())
 	{
