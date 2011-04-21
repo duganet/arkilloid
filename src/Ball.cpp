@@ -342,6 +342,12 @@ void Ball::show()
     texture->show((int)cbRect.x, (int)cbRect.y);
 }
 
+void Ball::teleportate()
+{
+	cbRect.x = 30;
+	cbRect.y = 50;
+}
+
 void Ball::reset(int x, int y)
 {
     speed = 10;

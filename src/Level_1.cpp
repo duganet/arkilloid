@@ -415,7 +415,7 @@ void Level_1::logic()
                             collision_type = Ball::ballList[k]->collision_check(BrickControl::brickList[i]->get_rect());
                             if(collision_type > 0)
                             {
-                                if(BrickControl::brickList[i]->get_type() != BRICK_BETON_T)
+                                if((BrickControl::brickList[i]->get_type() != BRICK_BETON_T) && (BrickControl::brickList[i]->get_type() != BRICK_PORTAL_A_T) && (BrickControl::brickList[i]->get_type() != BRICK_PORTAL_B_T))
                                 {
                                     if(BrickControl::brickList[i]->get_type() == STRONG_BRICK_T)
                                     {
@@ -483,6 +483,10 @@ void Level_1::logic()
                                     BrickControl::brickList.erase(BrickControl::brickList.begin()+i);
                                     break;
                                 }
+                                else if (BrickControl::brickList[i]->get_type() == BRICK_PORTAL_A_T)
+                                {
+									Ball::ballList[k]->teleportate();
+								}
                                 else
                                 {
                                     BrickControl::brickList[i]->set_collision_type(collision_type);

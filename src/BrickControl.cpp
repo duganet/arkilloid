@@ -55,6 +55,7 @@ bool BrickControl::LoadBricksFromFile(const char *filename)
 			brick = new BrickPortalA();
 			brick->set_up(X,Y);
 			BrickControl::brickList.push_back(brick);
+			BrickControl::portalaList.push_back(brick);
 			break;
         case BRICK_PORTAL_B_T:
 			brick = new BrickPortalB();

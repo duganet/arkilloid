@@ -24,6 +24,7 @@ public:
     SDL_Rect get_rect();
     SDL_Rect get_newRect();
     void set_direction(int dir);
+    void teleportate();
     bool collide;
 
     int collision_check(SDL_Rect brickRect);

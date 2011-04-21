@@ -59,6 +59,13 @@ void BrickPortalA::show()
 	textureList[BRICK_PORTAL_A]->show(box.x, box.y,clip[cclip]);
 }
 
+/*
+void BrickPortalA::teleportate(Ball *ball)
+{
+	ball->teleportate();
+}
+*/
+
 /* Brick Portal type B */
 
 BrickPortalB::BrickPortalB()
