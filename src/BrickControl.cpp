@@ -50,7 +50,18 @@ bool BrickControl::LoadBricksFromFile(const char *filename)
             brick = new BrickBeton();
             brick->set_up(X,Y);
             BrickControl::brickList.push_back(brick);
-        }
+            break;
+        case BRICK_PORTAL_A_T:
+			brick = new BrickPortalA();
+			brick->set_up(X,Y);
+			BrickControl::brickList.push_back(brick);
+			break;
+        case BRICK_PORTAL_B_T:
+			brick = new BrickPortalB();
+			brick->set_up(X,Y);
+			BrickControl::brickList.push_back(brick);
+			break;
+		}
     }
 	report("brick loaded", MSG_DEBUG);
     fclose(FileHandle);

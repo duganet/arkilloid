@@ -1,4 +1,4 @@
-//Birck.h
+//Brick.h
 #ifndef BRICK_H
 #define BIRCK_H
 #include "SDLUtils.h"

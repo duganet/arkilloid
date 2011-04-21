@@ -6,6 +6,7 @@
 #include "SDLUtils.h"
 #include "BrickStrong.h"
 #include "BrickBeton.h"
+#include "BrickPortal.h"
 #include <vector>
 
 class BrickControl

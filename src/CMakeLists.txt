@@ -13,6 +13,7 @@ set(
 	Brick.cpp
 	BrickBeton.cpp
 	BrickControl.cpp
+	BrickPortal.cpp
 	BrickStrong.cpp
 	Button.cpp
 	Checkbox.cpp

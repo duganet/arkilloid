@@ -55,7 +55,9 @@ enum BrickType
 {
     BRICK_T = 101,
     STRONG_BRICK_T,
-    BRICK_BETON_T
+    BRICK_BETON_T,
+	BRICK_PORTAL_A_T,
+	BRICK_PORTAL_B_T
 };
 
 enum collision_type
@@ -73,7 +75,9 @@ enum images
 {
     BRICK_BETON,
     BRICK_STRONG,
-    BRICK,
+    BRICK_PORTAL_A,
+    BRICK_PORTAL_B,
+	BRICK,
     BITA,
     BALL,
     BG,

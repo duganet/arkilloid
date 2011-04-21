@@ -304,24 +304,37 @@ void Level_1::handle_events(SDL_Event &event)
 {
     if(begin == true)
     {
-        if(event.type == SDL_KEYDOWN && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_p))
+        if(event.type == SDL_KEYDOWN)
         {
-            if(pause == false)
-            {
-                pause = true;
-                #ifndef DEBUG
-                SDL_WM_GrabInput(SDL_GRAB_OFF);
-                #endif
-                SDL_ShowCursor(true);
-            }
-            else
-            {
-				#ifndef DEBUG
-                SDL_WM_GrabInput(SDL_GRAB_ON);
-                #endif
-                SDL_ShowCursor(false);
-                pause = false;
-            }
+			if ((event.key.keysym.sym == SDLK_ESCAPE) || (event.key.keysym.sym == SDLK_p))
+			{
+				if(pause == false)
+				{
+					pause = true;
+					#ifndef DEBUG
+					SDL_WM_GrabInput(SDL_GRAB_OFF);
+					#endif
+					SDL_ShowCursor(true);
+				}
+				else
+				{
+					#ifndef DEBUG
+					SDL_WM_GrabInput(SDL_GRAB_ON);
+					#endif
+					SDL_ShowCursor(false);
+					pause = false;
+				}
+			}
+			#ifdef DEBUG
+			if (event.key.keysym.sym == SDLK_LEFTBRACKET)
+			{
+				set_next_state(num_level + 2);
+			}
+			if (event.key.keysym.sym == SDLK_RIGHTBRACKET)
+			{
+				set_next_state(num_level + 4);
+			}
+			#endif
         }
         if(pause == false)
         {

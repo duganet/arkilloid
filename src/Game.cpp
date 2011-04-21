@@ -134,6 +134,24 @@ bool Game::LoadFiles()
     }
     textureList.push_back(brickstr_tex);
 //-----------------------------------------------------------
+	filename = path_construct("images/bricks", "brick_portal_a.png");
+	Texture *brickportala_tex = new Texture;
+	if(brickportala_tex->load_from_file(filename) == false)
+	{
+		report(filename + "not found", MSG_ERROR);
+		return false;
+	}
+	textureList.push_back(brickportala_tex);
+//-----------------------------------------------------------
+	filename = path_construct("images/bricks", "brick_portal_b.png");
+	Texture *brickportalb_tex = new Texture;
+	if(brickportalb_tex->load_from_file(filename) == false)
+	{
+		report(filename + "not found", MSG_ERROR);
+		return false;
+	}
+	textureList.push_back(brickportalb_tex);
+//-----------------------------------------------------------
     filename = path_construct ("images", "brick.png");
     Texture *brick_tex = new Texture;
     if(brick_tex->load_from_file(filename) == false)
