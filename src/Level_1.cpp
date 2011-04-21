@@ -213,19 +213,23 @@ void Level_1::render()
     if(begin == false)
     {
         glColor3f(0,0,0);
-        fontLevel.beginDraw(SCREEN_WIDTH/2,SCREEN_HEIGHT/2) << "Level " << num_level << fontLevel.endDraw();
+		drwidth = fontLevel.calcStringWidth("Level 0");
+        fontLevel.beginDraw(SCREEN_WIDTH/2 - drwidth/2,SCREEN_HEIGHT/2) << "Level " << num_level << fontLevel.endDraw();
         glColor3f(1,1,1);
     }
     if(clear == true)
     {
         glColor3f(0,0,0);
-        fontLevel.beginDraw(SCREEN_WIDTH/2,SCREEN_HEIGHT/2) << "Level " << num_level << " Clear" << fontLevel.endDraw();
+        drwidth = fontLevel.calcStringWidth("Level 0 Clear");
+        fontLevel.beginDraw(SCREEN_WIDTH/2 - drwidth/2,SCREEN_HEIGHT/2) << "Level " << num_level << " Clear" << fontLevel.endDraw();
         glColor3f(1,1,1);
     }
     if(pause == true)
     {
 		glColor3f(0,0,0);
-		fontLevel.beginDraw(SCREEN_WIDTH/2,SCREEN_HEIGHT/2) << "Pause" << fontLevel.endDraw();
+		drstring = "Pause";
+		drwidth = fontLevel.calcStringWidth(drstring);
+		fontLevel.beginDraw(SCREEN_WIDTH/2 - drwidth/2,SCREEN_HEIGHT/2) << drstring << fontLevel.endDraw();
 		glColor3f(1,1,1);
 	}
     if(Bonus::bonusList.size() > 0)

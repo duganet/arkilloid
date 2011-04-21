@@ -49,6 +49,8 @@ protected:
     int collision_type;
     bool begin;
     bool clear;
+    int drwidth;
+    std::string drstring;
     bool game_over;
     bool show_particles;
     Timer timer;
