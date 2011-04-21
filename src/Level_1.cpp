@@ -487,6 +487,10 @@ void Level_1::logic()
                                 {
 									Ball::ballList[k]->teleportate();
 								}
+								else if (BrickControl::brickList[i]->get_type() == BRICK_PORTAL_B_T)
+								{
+									Ball::ballList[k]->teleportate();
+								}
                                 else
                                 {
                                     BrickControl::brickList[i]->set_collision_type(collision_type);

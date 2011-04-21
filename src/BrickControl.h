@@ -13,7 +13,7 @@ class BrickControl
 {
 public:
     static std::vector<Brick*> brickList;
-    static std::vector<Brick*> portalaList;
+    //static std::vector<Brick*> portalaList;
     //static std::vector<BrickStrong> brickStrongList;
     static bool LoadBricksFromFile(const char*);
     static void delete_bricks();

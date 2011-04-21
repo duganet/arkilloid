@@ -9,7 +9,7 @@ BrickPortalA::BrickPortalA()
 	type = BRICK_PORTAL_A_T;
 	cclip = 0;
 	frame = 1;
-	fpc = 15;
+	fpc = 5;
 }
 
 BrickPortalA::~BrickPortalA()
@@ -74,7 +74,7 @@ BrickPortalB::BrickPortalB()
 	type = BRICK_PORTAL_B_T;
 	cclip = 0;
 	frame = 1;
-	fpc = 15;
+	fpc = 5;
 }
 
 BrickPortalB::~BrickPortalB()
