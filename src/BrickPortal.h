@@ -16,6 +16,7 @@ class BrickPortalA : public Brick
 	private:
 		SDL_Rect clip[6];
 		Texture *texture;
+		unsigned int cclip, frame, fpc;
 };
 
 class BrickPortalB : public Brick
@@ -28,6 +29,7 @@ class BrickPortalB : public Brick
 	private:
 		SDL_Rect clip[8];
 		Texture *texture;
+		unsigned int cclip, frame, fpc;
 };
 
 #endif

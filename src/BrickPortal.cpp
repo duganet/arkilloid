@@ -7,6 +7,9 @@ BrickPortalA::BrickPortalA()
 {
 	texture = new Texture();
 	type = BRICK_PORTAL_A_T;
+	cclip = 0;
+	frame = 1;
+	fpc = 15;
 }
 
 BrickPortalA::~BrickPortalA()
@@ -36,9 +39,24 @@ void BrickPortalA::set_up(int x, int y, Texture* texture)
 
 void BrickPortalA::show()
 {
-	SDL_Rect cclip;
-	cclip = clip[0];
-	textureList[BRICK_PORTAL_A]->show(box.x, box.y,cclip);
+	unsigned int nclips = textureList[BRICK_PORTAL_A]->num_hclip;
+	if (frame < fpc)
+	{
+		frame++;
+	}
+	else
+	{
+		frame = 1;
+		if (cclip < nclips - 1)
+		{
+			cclip++;
+		}
+		else
+		{
+			cclip = 0;
+		}
+	}
+	textureList[BRICK_PORTAL_A]->show(box.x, box.y,clip[cclip]);
 }
 
 /* Brick Portal type B */
@@ -47,6 +65,9 @@ BrickPortalB::BrickPortalB()
 {
 	texture = new Texture();
 	type = BRICK_PORTAL_B_T;
+	cclip = 0;
+	frame = 1;
+	fpc = 15;
 }
 
 BrickPortalB::~BrickPortalB()
@@ -76,7 +97,22 @@ void BrickPortalB::set_up(int x, int y, Texture* texture)
 
 void BrickPortalB::show()
 {
-	SDL_Rect cclip;
-	cclip = clip[0];
-	textureList[BRICK_PORTAL_B]->show(box.x, box.y,cclip);
+	unsigned int nclips = textureList[BRICK_PORTAL_B]->num_hclip;
+	if (frame < fpc)
+	{
+		frame++;
+	}
+	else
+	{
+		frame = 1;
+		if (cclip < nclips - 1)
+		{
+			cclip++;
+		}
+		else
+		{
+			cclip = 0;
+		}
+	}
+	textureList[BRICK_PORTAL_B]->show(box.x, box.y,clip[cclip]);
 }
