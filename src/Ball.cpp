@@ -194,6 +194,7 @@ int Ball::collision_check(SDL_Rect brickRect)
 {
     if(check_collision(brickRect, cbRect)==true)
     {
+		int dcorr, direction;
         SDL_Rect top;
         SDL_Rect bottom;
         SDL_Rect left;
@@ -223,28 +224,40 @@ int Ball::collision_check(SDL_Rect brickRect)
         {
             xVel = 1;
             yVel = 0;
-            rotate(xVel, yVel, speed, 227);
+			direction = 227;
+			dcorr = rand () % 20 - 10;
+			direction = direction + dcorr;
+            rotate(xVel, yVel, speed, direction);
             return COLLISION_TOP;
         }
         if((check_collision(left, cbRect) && check_collision(bottom, cbRect))&&brick_there(left.x-5,left.y)==false)
         {
             xVel = 1;
             yVel = 0;
-            rotate(xVel, yVel, speed, 137);
+			direction = 137;
+			dcorr = rand () % 20 - 10;
+			direction = direction + dcorr;
+            rotate(xVel, yVel, speed, direction);
             return COLLISION_BOTTOM;
         }
         if((check_collision(right, cbRect) && check_collision(top, cbRect))&&brick_there(right.x+5,right.y)==false)
         {
             xVel = 1;
             yVel = 0;
-            rotate(xVel, yVel, speed, 317);
+			direction = 317;
+			dcorr = rand () % 20 - 10;
+			direction = direction + dcorr;
+            rotate(xVel, yVel, speed, direction);
             return COLLISION_TOP;
         }
         if((check_collision(right, cbRect) && check_collision(bottom, cbRect))&&brick_there(right.x+5,right.y)==false)
         {
             xVel = 1;
             yVel = 0;
-            rotate(xVel, yVel, speed, 47);
+			direction = 47;
+			dcorr = rand () % 20 - 10;
+			direction = direction + dcorr;
+            rotate(xVel, yVel, speed, direction);
             return COLLISION_BOTTOM;
         }
 
