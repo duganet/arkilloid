@@ -419,7 +419,14 @@ void Level_1::logic()
                     }
                      for(unsigned int i = 0; i < BrickControl::brickList.size(); i++)
                      {
+						if (BrickControl::brickList[i]->get_type() != BRICK_PORTAL_B_T)
+						{
                             collision_type = Ball::ballList[k]->collision_check(BrickControl::brickList[i]->get_rect());
+						}
+						else
+						{
+							collision_type = 0;
+						}
                             if(collision_type > 0)
                             {
                                 if((BrickControl::brickList[i]->get_type() != BRICK_BETON_T) && (BrickControl::brickList[i]->get_type() != BRICK_PORTAL_A_T) && (BrickControl::brickList[i]->get_type() != BRICK_PORTAL_B_T))
