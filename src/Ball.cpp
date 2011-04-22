@@ -348,6 +348,12 @@ void Ball::teleportate()
 	cbRect.y = 50;
 }
 
+void Ball::teleportate(int x, int y)
+{
+	cbRect.x = x;
+	cbRect.y = y;
+}
+
 void Ball::reset(int x, int y)
 {
     speed = 10;

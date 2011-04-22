@@ -27,9 +27,12 @@ bool BrickControl::LoadBricksFromFile(const char *filename)
     int brickType = 0;
     fscanf(FileHandle, "%d\n", &brickCount);
     int X, Y;
+    unsigned int agroup = 0;
+    unsigned int bgroup = 0;
     for (int i = 0; i < brickCount; i++)
     {
         Brick *brick;
+        Portal *portal;
 
         fscanf(FileHandle, "%d %d %d\n", &brickType, &X, &Y);
 
@@ -52,15 +55,26 @@ bool BrickControl::LoadBricksFromFile(const char *filename)
             BrickControl::brickList.push_back(brick);
             break;
         case BRICK_PORTAL_A_T:
+			agroup++;
 			brick = new BrickPortalA();
 			brick->set_up(X,Y);
+			brick->set_pg(agroup);
 			BrickControl::brickList.push_back(brick);
-			//BrickControl::portalaList.push_back(brick);
+			portal = new Portal(PORTAL_IN);
+			portal->set_group(agroup);
+			portal->set_coords(X,Y);
+			PortalControl::PortalList.push_back(portal);
 			break;
         case BRICK_PORTAL_B_T:
+			bgroup++;
 			brick = new BrickPortalB();
 			brick->set_up(X,Y);
+			brick->set_pg(bgroup);
 			BrickControl::brickList.push_back(brick);
+			portal = new Portal(PORTAL_OUT);
+			portal->set_group(bgroup);
+			portal->set_coords(X,Y);
+			PortalControl::PortalList.push_back(portal);
 			break;
 		}
     }

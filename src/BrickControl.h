@@ -9,6 +9,8 @@
 #include "BrickPortal.h"
 #include <vector>
 
+extern std::vector<Portal*>PortalList;
+
 class BrickControl
 {
 public:

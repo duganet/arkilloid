@@ -23,8 +23,12 @@ public:
     void clean_up();
     int get_type();
     virtual int get_life();
+	virtual int get_x();
+	virtual int get_y();
     virtual void set_life(int);
     virtual void set_collision_type(int){};
+	virtual unsigned int get_pg() {};
+	virtual void set_pg(unsigned int group) {};
 protected:
     SDL_Rect box;
     int type;

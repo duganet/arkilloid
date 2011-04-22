@@ -81,5 +81,15 @@ int Brick::get_life()
     return 0;
 }
 
+int Brick::get_x()
+{
+	return this->box.x;
+}
+
+int Brick::get_y()
+{
+	return this->box.y;
+}
+
 void Brick::set_life(int i)
 {}

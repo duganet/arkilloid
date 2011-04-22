@@ -388,15 +388,22 @@ void Level_1::logic()
      if(pause == false)
      {
          int brickBeton_num = 0;
+         int brickPortal_num = 0;
+         int brickUndestroyable_num = 0;
          for(unsigned int brc = 0; brc < BrickControl::brickList.size(); brc++)
          {
              BrickControl::brickList[brc]->get_type();
              if(BrickControl::brickList[brc]->get_type() == BRICK_BETON_T)
-             {
-                 brickBeton_num++;
-             }
+			{
+				brickBeton_num++;
+			}
+			if((BrickControl::brickList[brc]->get_type() == BRICK_PORTAL_A_T) || BrickControl::brickList[brc]->get_type() == BRICK_PORTAL_B_T)
+			{
+				brickPortal_num++;
+			}
          }
-            if(BrickControl::brickList.size()-brickBeton_num > 0)
+         brickUndestroyable_num = brickBeton_num + brickPortal_num;
+            if(BrickControl::brickList.size()-brickUndestroyable_num > 0)
             {
                 for(unsigned int k = 0; k < Ball::ballList.size(); k++)
                 {
@@ -485,11 +492,17 @@ void Level_1::logic()
                                 }
                                 else if (BrickControl::brickList[i]->get_type() == BRICK_PORTAL_A_T)
                                 {
-									Ball::ballList[k]->teleportate();
+									for(unsigned int pn = 0; pn < PortalControl::PortalList.size(); pn++)
+									{
+										if ((PortalControl::PortalList[pn]->group == BrickControl::brickList[i]->get_pg() && (PortalControl::PortalList[pn]->type==PORTAL_OUT) ))
+										{
+											Ball::ballList[k]->teleportate(PortalControl::PortalList[pn]->x, PortalControl::PortalList[pn]->y);
+										}
+									}
 								}
 								else if (BrickControl::brickList[i]->get_type() == BRICK_PORTAL_B_T)
 								{
-									Ball::ballList[k]->teleportate();
+									BrickControl::brickList[i]->set_collision_type(NO_COLLISION);
 								}
                                 else
                                 {
