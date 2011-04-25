@@ -30,6 +30,7 @@ AudioMusic::AudioMusic()
 	report("Starting AudioMusic", MSG_DEBUG);
 	tracks.push_back("intro.ogg");
 	tracks.push_back("arkilloid_track_01.ogg");
+	tracks.push_back("arkilloid_track_02.ogg");
 	current_tracknum = -1;
 	this->ChangeTrack();
 }
