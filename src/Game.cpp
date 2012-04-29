@@ -2,6 +2,7 @@
 #include "Game.h"
 #include <sound.hpp>
 #include <report.hpp>
+#include <Load.h>
 
 extern int stateID;
 extern int nextState;
@@ -115,52 +116,16 @@ bool Game::LoadFiles()
 
     mus_basedir = "sounds/music";
 
+/* Load bricks */
+	report("Loading bricks...", MSG_DEBUG);
+	LoadBrick("brick_beton.png");
+	LoadBrick("brick_strong.png");
+	LoadBrick("brick_portal_a.png");
+	LoadBrick("brick_portal_b.png");
+	LoadBrick("brick.png");
+	report("Finished loading bricks.", MSG_DEBUG);
+
 //Load Images------------------------------------------------
-    filename = path_construct("images/bricks", "brick_beton.png");
-    Texture *brickbtn_tex = new Texture;
-    if(brickbtn_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(brickbtn_tex);
-//-----------------------------------------------------------
-    filename = path_construct ("images", "StrongBrick.png");
-    Texture *brickstr_tex = new Texture;
-    if(brickstr_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(brickstr_tex);
-//-----------------------------------------------------------
-	filename = path_construct("images/bricks", "brick_portal_a.png");
-	Texture *brickportala_tex = new Texture;
-	if(brickportala_tex->load_from_file(filename) == false)
-	{
-		report(filename + "not found", MSG_ERROR);
-		return false;
-	}
-	textureList.push_back(brickportala_tex);
-//-----------------------------------------------------------
-	filename = path_construct("images/bricks", "brick_portal_b.png");
-	Texture *brickportalb_tex = new Texture;
-	if(brickportalb_tex->load_from_file(filename) == false)
-	{
-		report(filename + "not found", MSG_ERROR);
-		return false;
-	}
-	textureList.push_back(brickportalb_tex);
-//-----------------------------------------------------------
-    filename = path_construct ("images", "brick.png");
-    Texture *brick_tex = new Texture;
-    if(brick_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(brick_tex);
-//-----------------------------------------------------------
     filename = path_construct ("images", "bita.bmp");
     Texture *bita_tex = new Texture;
     //if(bita_tex->load_from_file(filename, 0xFF,0,0xFF) == false)

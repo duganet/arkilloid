@@ -1,7 +1,7 @@
 /*
- *		sound.hpp - sound subsystem headers
+ *		Load.h - files load functions headers
  *
- *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
+ *		Copyright 2012 Maxim Kachur <mcdebugger@duganet.ru>
  *		
  *		This file is part of Arkilloid.
  *
@@ -19,6 +19,12 @@
  *		along with Arkilloid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <sdl/audio.hpp>
-#include <sdl/music.hpp>
-#include <sdl/sfx.hpp>
+#ifndef _LOAD_H_
+	#define _LOAD_H_
+
+#include <Game.h>
+#include <io.hpp>
+
+int LoadBrick(std::string filename);
+
+#endif

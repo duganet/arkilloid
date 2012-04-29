@@ -1,8 +1,7 @@
 /*
  *		music.hpp - music playing module headers (SDL version)
  *
- *		Copyright 2010 Maxim Kachur <mcdebugger@duganet.ru>
- *		Copyright 2010 Sergey Babneev <plughead@mail.ru>
+ *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
  *		
  *		This file is part of Arkilloid.
  *

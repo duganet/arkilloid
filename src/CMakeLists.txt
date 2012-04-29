@@ -25,6 +25,7 @@ set(
 	Intro.cpp
 	Level.cpp
 	Level_1.cpp
+	Load.cpp
 	Particles.cpp
 	SDLUtils.cpp
 	Texture.cpp

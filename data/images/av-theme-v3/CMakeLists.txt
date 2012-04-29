@@ -11,14 +11,12 @@ set(
 	bonus_life.png
 	bonus_speed_down.png
 	bonus_speed_up.png
-	brick.png
 	heart.png
 	menu_button.png
 	minus_button.png
 	on_off_button.png
 	particle.png
 	plus_button.png
-	StrongBrick.png
 )
 install(FILES ${DATA_IMAGES_FILES} DESTINATION ${DATA_IMAGES_DIR})
 add_subdirectory(bricks)

@@ -1,7 +1,7 @@
 /*
- *		sound.hpp - sound subsystem headers
+ *		Load.cpp - files load functions sources
  *
- *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
+ *		Copyright 2012 Maxim Kachur <mcdebugger@duganet.ru>
  *		
  *		This file is part of Arkilloid.
  *
@@ -19,6 +19,17 @@
  *		along with Arkilloid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <sdl/audio.hpp>
-#include <sdl/music.hpp>
-#include <sdl/sfx.hpp>
+#include "Load.h"
+
+int LoadBrick(std::string filename) {
+	filename = path_construct("images/bricks", filename);
+	Texture *texture = new Texture;
+	if(texture->load_from_file(filename) == false)
+	{
+		log("ERROR: " + filename + " not found");
+		return false;
+	}
+	textureList.push_back(texture);
+	
+	return true;
+}
