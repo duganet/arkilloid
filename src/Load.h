@@ -26,5 +26,6 @@
 #include <io.hpp>
 
 int LoadBrick(std::string filename);
+int LoadTexture(std::string filename);
 
 #endif

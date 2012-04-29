@@ -33,3 +33,16 @@ int LoadBrick(std::string filename) {
 	
 	return true;
 }
+
+int LoadTexture(std::string filename) {
+	filename = path_construct("images", filename);
+	Texture *texture = new Texture;
+	if(texture->load_from_file(filename) == false)
+	{
+		log("ERROR: " + filename + " not found");
+		return false;
+	}
+	textureList.push_back(texture);
+	
+	return true;
+}

@@ -125,6 +125,20 @@ bool Game::LoadFiles()
 	LoadBrick("brick.png");
 	report("Finished loading bricks.", MSG_DEBUG);
 
+/* Load other textures */
+	LoadTexture("bita.bmp");
+	LoadTexture("ball.png");
+	LoadTexture("bg.png");
+	LoadTexture("bg_intro.png");
+	LoadTexture("bg_title.png");
+	LoadTexture("bg_Help.png");
+	LoadTexture("bonus_speed_up.png");
+	LoadTexture("bonus_speed_down.png");
+	LoadTexture("bonus_life.png");
+	LoadTexture("bonus_die.png");
+	LoadTexture("bonus_add.png");
+
+/*
 //Load Images------------------------------------------------
     filename = path_construct ("images", "bita.bmp");
     Texture *bita_tex = new Texture;
@@ -225,6 +239,7 @@ bool Game::LoadFiles()
         return false;
     }
     textureList.push_back(add_tex);
+*/
 //-----------------------------------------------------------
     filename = path_construct("images", "heart.png");
     Texture *heart_tex = new Texture;
