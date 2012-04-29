@@ -100,7 +100,6 @@ bool Game::InitGL()
 bool Game::LoadFiles()
 {
 	std::string filename;
-	std::string mus_basedir = "sounds/music";
 
 /* Load bricks */
 	report("Loading bricks...", MSG_DEBUG);
