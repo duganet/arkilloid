@@ -17,6 +17,7 @@ set(
 	BrickStrong.cpp
 	Button.cpp
 	Checkbox.cpp
+	Engine.cpp
 	Game.cpp
 	GameState.cpp
 	Globals.cpp
