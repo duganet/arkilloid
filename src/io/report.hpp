@@ -23,6 +23,7 @@
 #define REPORT_HPP_INCLUDED
 
 #include <string>
+#include <fstream>
 
 enum msgtypes
 {

@@ -21,7 +21,6 @@
  */
 
 #include "report.hpp"
-#include <fstream>
 
 std::ofstream logfile("arkilloid.log");
 void log(std::string message)

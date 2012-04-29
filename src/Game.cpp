@@ -229,7 +229,6 @@ bool Game::MainLoop()
 void Game::Close()
 {
 	report("Game::Close()", MSG_DEBUG);
-    logfile.close();
     font.release();
     fontLevel.release();
 
@@ -241,7 +240,5 @@ void Game::Close()
     //imageList.erase(imageList.begin(),imageList.end());
 	Mix_HaltMusic();
 	delete audio_music;
-    ::AudioEngine::Stop();
-    SDL_Quit();
 }
 

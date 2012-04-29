@@ -18,6 +18,7 @@ set(
 	Button.cpp
 	Checkbox.cpp
 	Engine.cpp
+	Engine_Cleanup.cpp
 	Engine_Init.cpp
 	Game.cpp
 	GameState.cpp

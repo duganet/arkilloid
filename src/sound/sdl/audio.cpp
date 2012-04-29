@@ -41,6 +41,8 @@ bool AudioEngine::Start()
 }
 bool AudioEngine::Stop()
 {
+	report("Stopping SDL_Mixer audio engine", MSG_DEBUG);
 	Mix_CloseAudio();
 	Mix_Quit();
+	report("Stopping SDL_Mixer audio engine phase somplete", MSG_DEBUG);
 }

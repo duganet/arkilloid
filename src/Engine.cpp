@@ -39,5 +39,9 @@ int Engine::Exec() {
 	{
 		return 1;
 	}
+	
+	game.Close();
+	Cleanup_Process();
+	
 	return 0;
 }
