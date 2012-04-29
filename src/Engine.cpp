@@ -29,6 +29,11 @@ Engine::Engine() {
 }
 
 int Engine::Exec() {
+	
+	if(Init() == false) {
+		return -1;
+	}
+	
 	Game game;
 	if(game.MainLoop() == false)
 	{

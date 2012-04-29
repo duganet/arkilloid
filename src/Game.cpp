@@ -97,19 +97,6 @@ bool Game::InitGL()
     return true;
 }
 
-bool Game::Init()
-{
-    if(SDL_Init(SDL_INIT_EVERYTHING) == -1)
-    {
-        report("init failed", MSG_ERROR);
-        return false;
-    }
-
-	::AudioEngine::Start();
-    return true;
-}
-
-
 bool Game::LoadFiles()
 {
 	std::string filename;
@@ -168,11 +155,13 @@ bool Game::MainLoop()
 {
 	report("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.", MSG_DEBUG);
 	report("Initializing...", MSG_DEBUG);
+	/*
     if(Init() == false)
     {
         report("Init() = false", MSG_ERROR);
         return false;
     }
+    */
 
     Window window;
 
