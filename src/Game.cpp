@@ -112,9 +112,8 @@ bool Game::Init()
 
 bool Game::LoadFiles()
 {
-    std::string filename, mus_basedir;
-
-    mus_basedir = "sounds/music";
+	std::string filename;
+	std::string mus_basedir = "sounds/music";
 
 /* Load bricks */
 	report("Loading bricks...", MSG_DEBUG);
@@ -142,25 +141,23 @@ bool Game::LoadFiles()
 	LoadTexture("particle.png");
 	report("Finished loading other textures", MSG_DEBUG);
 
-//Load fonts ------------------------------------------------
-    filename = path_construct("fonts", "aerial.ttf");
-//-----------------------------------------------------------
-    font.open(filename, 10);
-//-----------------------------------------------------------
-    fontLevel.open(filename, 50);
-//-----------------------------------------------------------
-    font_small.open(filename, 20);
-//-----------------------------------------------------------
+/* Load fonts */
+	report("Loading fonts...", MSG_DEBUG);
+	filename = path_construct("fonts", "aerial.ttf");
+	font.open(filename, 10);
+	fontLevel.open(filename, 50);
+	font_small.open(filename, 20);
+	report("Finished loading fonts", MSG_DEBUG);
 
-//Load sound-------------------------------------------------
+/* Load sounds */
+	report("Loading sounds...", MSG_DEBUG);
 	snd_bonusget = new AudioSoundFX("bonus_get.ogg");
 	snd_hit = new AudioSoundFX("hit.ogg");
 	snd_pow = new AudioSoundFX("pow.ogg");
-//-----------------------------------------------------------
+	report("Finished loading sounds...", MSG_DEBUG);
 
-//Load music-------------------------------------------------
+/* Load music */
 	audio_music = new AudioMusic();
-//-----------------------------------------------------------
 
     return true;
 }
