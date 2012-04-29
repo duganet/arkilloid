@@ -427,98 +427,99 @@ void Level_1::logic()
 						{
 							collision_type = 0;
 						}
-                            if(collision_type > 0)
-                            {
-                                if((BrickControl::brickList[i]->get_type() != BRICK_BETON_T) && (BrickControl::brickList[i]->get_type() != BRICK_PORTAL_A_T) && (BrickControl::brickList[i]->get_type() != BRICK_PORTAL_B_T))
-                                {
-                                    if(BrickControl::brickList[i]->get_type() == STRONG_BRICK_T)
-                                    {
-                                        if(BrickControl::brickList[i]->get_life() > 0)
-                                        {
-                                            if(sound_on == true)
-                                                snd_hit->Play();
-
-                                            score += 10;
-                                            BrickControl::brickList[i]->set_life(BrickControl::brickList[i]->get_life()-1);
-                                            break;
-                                        }
-                                    }
-                                            score += 50;
-                                    //Particles--------------------------------------------
-                                    if(sound_on == true)
-                                        snd_pow->Play();
-
-                                    for(unsigned int p = 0; p < 20; p++)
-                                    {
-                                        delete particles[p];
-                                        particles[p] = new Particles(BrickControl::brickList[i]->get_rect().x,
-                                                                     BrickControl::brickList[i]->get_rect().y);
-                                    }
-                                    show_particles = true;
-
-                                    //-----------------------------------------------------
-
-                                    if(bonus_created == false)
-                                    {
-                                        //srand((unsigned)time(NULL));
-                                        int j = rand() % 20;
-                                        //int j = 5;
-                                        switch(j)
-                                        {
-                                        case 2:
-                                            break;
-                                        case 3:
-                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[SPEEDUP]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[SPEEDUP], SPEED_UP_B);
-                                            Bonus::bonusList.push_back(bonus);
-                                            bonus_created = true;
-                                            break;
-                                        case 4:
-                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[SPEEDDOWN]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[SPEEDDOWN], SPEED_DOWN_B);
-                                            Bonus::bonusList.push_back(bonus);
-                                            bonus_created = true;
-                                            break;
-                                        case 5:
-                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[LIFE]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[LIFE], LIFE_B);
-                                            Bonus::bonusList.push_back(bonus);
-                                            bonus_created = true;
-                                            break;
-                                        case 6:
-                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[DIE]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[DIE], DIE_B);
-                                            Bonus::bonusList.push_back(bonus);
-                                            bonus_created = true;
-                                            break;
-                                        case 7:
-                                            bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[ADD]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[ADD], ADD_BALL_B);
-                                            Bonus::bonusList.push_back(bonus);
-                                            bonus_created = true;
-                                            break;
-                                        }
-                                    }
-                                    BrickControl::brickList.erase(BrickControl::brickList.begin()+i);
-                                    break;
-                                }
-                                else if (BrickControl::brickList[i]->get_type() == BRICK_PORTAL_A_T)
-                                {
-									for(unsigned int pn = 0; pn < PortalControl::PortalList.size(); pn++)
+						
+						if(collision_type > 0)
+						{
+							if((BrickControl::brickList[i]->get_type() != BRICK_BETON_T) && (BrickControl::brickList[i]->get_type() != BRICK_PORTAL_A_T) && (BrickControl::brickList[i]->get_type() != BRICK_PORTAL_B_T))
+							{
+								if(BrickControl::brickList[i]->get_type() == STRONG_BRICK_T)
+								{
+									if(BrickControl::brickList[i]->get_life() > 0)
 									{
-										if ((PortalControl::PortalList[pn]->group == BrickControl::brickList[i]->get_pg() && (PortalControl::PortalList[pn]->type==PORTAL_OUT) ))
-										{
-											Ball::ballList[k]->teleportate(PortalControl::PortalList[pn]->x, PortalControl::PortalList[pn]->y);
-										}
+										if(sound_on == true)
+											snd_hit->Play();
+
+									score += 10;
+									BrickControl::brickList[i]->set_life(BrickControl::brickList[i]->get_life()-1);
+									break;
 									}
 								}
-								else if (BrickControl::brickList[i]->get_type() == BRICK_PORTAL_B_T)
+								score += 50;
+								//Particles--------------------------------------------
+								if(sound_on == true)
+									snd_pow->Play();
+								
+								for(unsigned int p = 0; p < 20; p++)
 								{
-									BrickControl::brickList[i]->set_collision_type(NO_COLLISION);
+									delete particles[p];
+									particles[p] = new Particles(BrickControl::brickList[i]->get_rect().x,
+																BrickControl::brickList[i]->get_rect().y);
 								}
-                                else
-                                {
-                                    BrickControl::brickList[i]->set_collision_type(collision_type);
-                                    if(sound_on == true)
-                                        snd_hit->Play();
-                                    break;
-                                }
-                            }
+								show_particles = true;
+								
+								//-----------------------------------------------------
+								
+								if(bonus_created == false)
+								{
+									//srand((unsigned)time(NULL));
+									int j = rand() % 20;
+									//int j = 5;
+									switch(j)
+									{
+										case 2:
+										break;
+										case 3:
+											bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[SPEEDUP]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[SPEEDUP], SPEED_UP_B);
+											Bonus::bonusList.push_back(bonus);
+											bonus_created = true;
+											break;
+										case 4:
+											bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[SPEEDDOWN]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[SPEEDDOWN], SPEED_DOWN_B);
+											Bonus::bonusList.push_back(bonus);
+											bonus_created = true;
+											break;
+										case 5:
+											bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[LIFE]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[LIFE], LIFE_B);
+											Bonus::bonusList.push_back(bonus);
+											bonus_created = true;
+											break;
+										case 6:
+											bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[DIE]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[DIE], DIE_B);
+											Bonus::bonusList.push_back(bonus);
+											bonus_created = true;
+											break;
+										case 7:
+											bonus = new Bonus(BrickControl::brickList[i]->get_center().x - textureList[ADD]->w/2,BrickControl::brickList[i]->get_rect().y, textureList[ADD], ADD_BALL_B);
+											Bonus::bonusList.push_back(bonus);
+											bonus_created = true;
+											break;
+									}
+								}
+								BrickControl::brickList.erase(BrickControl::brickList.begin()+i);
+								break;
+							}
+							else if (BrickControl::brickList[i]->get_type() == BRICK_PORTAL_A_T)
+							{
+								for(unsigned int pn = 0; pn < PortalControl::PortalList.size(); pn++)
+								{
+									if ((PortalControl::PortalList[pn]->group == BrickControl::brickList[i]->get_pg() && (PortalControl::PortalList[pn]->type==PORTAL_OUT) ))
+									{
+										Ball::ballList[k]->teleportate(PortalControl::PortalList[pn]->x, PortalControl::PortalList[pn]->y);
+									}
+								}
+							}
+							else if (BrickControl::brickList[i]->get_type() == BRICK_PORTAL_B_T)
+							{
+								BrickControl::brickList[i]->set_collision_type(NO_COLLISION);
+							}
+							else
+							{
+								BrickControl::brickList[i]->set_collision_type(collision_type);
+								if(sound_on == true)
+									snd_hit->Play();
+								break;
+							}
+						}
         //----------------------------------------------------------------
         //                    else
         //                    {
@@ -531,8 +532,8 @@ void Level_1::logic()
         //                        }
         //                    }
         //-------------------------------------------------------------------
-                            bonus_created = false;
-                     }
+						bonus_created = false;
+					}
                    Ball::ballList[k]->move(bita.get_rect(),  collision_type, false);
                    if (Ball::ballList[k]->get_rect().y+Ball::ballList[k]->get_rect().h > SCREEN_HEIGHT)
                    {
