@@ -21,7 +21,6 @@ Game::Game()
 Game::~Game()
 {
 	report("Game destructor", MSG_DEBUG);
-    Close();
 }
 
 void Game::change_state()
