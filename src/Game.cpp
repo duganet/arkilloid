@@ -126,6 +126,7 @@ bool Game::LoadFiles()
 	report("Finished loading bricks.", MSG_DEBUG);
 
 /* Load other textures */
+	report("Loading other textures...", MSG_DEBUG);
 	LoadTexture("bita.bmp");
 	LoadTexture("ball.png");
 	LoadTexture("bg.png");
@@ -137,128 +138,9 @@ bool Game::LoadFiles()
 	LoadTexture("bonus_life.png");
 	LoadTexture("bonus_die.png");
 	LoadTexture("bonus_add.png");
-
-/*
-//Load Images------------------------------------------------
-    filename = path_construct ("images", "bita.bmp");
-    Texture *bita_tex = new Texture;
-    //if(bita_tex->load_from_file(filename, 0xFF,0,0xFF) == false)
-    if(bita_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(bita_tex);
-//-----------------------------------------------------------
-    filename = path_construct ("images", "ball.png");
-    Texture *ball_tex = new Texture;
-    if(ball_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(ball_tex);
-//-----------------------------------------------------------
-    filename = path_construct("images", "bg.png");
-    Texture *bg_tex = new Texture;
-    if(bg_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(bg_tex);
-//-----------------------------------------------------------
-    filename = path_construct("images", "bg_intro.png");
-    Texture *bgintro_tex = new Texture;
-    if(bgintro_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(bgintro_tex);
-//-----------------------------------------------------------
-    filename = path_construct("images", "bg_title.png");
-    Texture *bgtitle_tex = new Texture;
-    if(bgtitle_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(bgtitle_tex);
-//-----------------------------------------------------------
-    filename = path_construct("images", "bg_Help.png");
-    Texture *bghelp_tex = new Texture;
-    if(bghelp_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(bghelp_tex);
-//-----------------------------------------------------------
-    filename = path_construct("images", "bonus_speed_up.png");
-    Texture *speedup_tex = new Texture;
-    if(speedup_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(speedup_tex);
-//-----------------------------------------------------------
-    filename = path_construct("images", "bonus_speed_down.png");
-    Texture *speeddown_tex = new Texture;
-    if(speeddown_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(speeddown_tex);
-//-----------------------------------------------------------
-    filename = path_construct("images", "bonus_life.png");
-    Texture *life_tex = new Texture;
-    if(life_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(life_tex);
-//-----------------------------------------------------------
-    filename = path_construct("images", "bonus_die.png");
-    Texture *die_tex = new Texture;
-    if(die_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(die_tex);
-//-----------------------------------------------------------
-    filename = path_construct("images", "bonus_add.png");
-    Texture *add_tex = new Texture;
-    if(add_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(add_tex);
-*/
-//-----------------------------------------------------------
-    filename = path_construct("images", "heart.png");
-    Texture *heart_tex = new Texture;
-    if(heart_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(heart_tex);
-//-----------------------------------------------------------
-    filename = path_construct("images", "particle.png");
-    Texture *particle_tex = new Texture;
-    if(particle_tex->load_from_file(filename) == false)
-    {
-        log("ERROR: " + filename + " not found");
-        return false;
-    }
-    textureList.push_back(particle_tex);
-//-----------------------------------------------------------
+	LoadTexture("heart.png");
+	LoadTexture("particle.png");
+	report("Finished loading other textures", MSG_DEBUG);
 
 //Load fonts ------------------------------------------------
     filename = path_construct("fonts", "aerial.ttf");
