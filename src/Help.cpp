@@ -18,24 +18,22 @@ Help::Help()
     //bg = textureList[BG_HELP];
     HelpButtonExit = new Button(518,436, "btn_exit.png");
     musicOn = new Checkbox(417, 90, "on_off_button.png");
-    if(Mix_PlayingMusic() == 0)
-    {
-        musicOn->check();
-    }
-    soundOn = new Checkbox(417, 150, "on_off_button.png");
-    if(sound_on == false)
-    {
-        soundOn->check();
-    }
-    #ifndef DEBUG
+	if (Mix_PausedMusic())
+	{
+		musicOn->uncheck();
+	}
+	soundOn = new Checkbox(417, 150, "on_off_button.png");
+	if(sound_on == false)
+	{
+		soundOn->uncheck();
+	}
+	#ifndef DEBUG
 		SDL_WM_GrabInput(SDL_GRAB_OFF);
-    #endif
+	#endif
 }
 
 void HelpButtonExit_click()
 {
-    //stateID = STATE_TITLE;
-    //game.change_state();
     set_next_state(STATE_TITLE);
 }
 void soundOn_checked()

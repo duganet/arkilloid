@@ -93,3 +93,8 @@ void Checkbox::check()
     else
         checked = true;
 }
+void Checkbox::uncheck()
+{
+	checked = false;
+	clip = clips[CLIP_MOUSEOUT];
+}
