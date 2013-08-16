@@ -35,7 +35,7 @@ int Engine::Exec() {
 	}
 	
 	Game game;
-	if(game.MainLoop() == false)
+	if(game.Exec() == false)
 	{
 		return 1;
 	}

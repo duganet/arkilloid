@@ -21,19 +21,20 @@
 class Game
 {
 public:
-    Game();
-    ~Game();
-    bool Start();
-    bool LoadFiles();
-    bool Init();
-    bool InitGL();
-    bool MainLoop();
-    void Close();
-    void change_state();
+	Game();
+	~Game();
+	int Exec();
+	bool Start();
+	bool LoadFiles();
+	bool InitGL();
+	void Close();
+	void change_state();
 private:
-    bool quit;
-    GameState *currentState;
-    SDL_Event event;
+	bool Init();
+	bool MainLoop();
+	bool quit;
+	GameState *currentState;
+	SDL_Event event;
 };
 
 #endif

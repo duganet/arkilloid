@@ -23,6 +23,48 @@ Game::~Game()
 	report("Game destructor", MSG_DEBUG);
 }
 
+int Game::Exec()
+{
+	if(Init() == false)
+	{
+		report("Game::Init() failed", MSG_DEBUG);
+		report("Error initializing game engine", MSG_ERROR);
+		return -1;
+	}
+}
+
+bool Game::Init()
+{
+	Window window;
+
+	report("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.", MSG_DEBUG);
+	report("Initializing...", MSG_DEBUG);
+
+
+	if(window.error() == true)
+	{
+		report("error in window", MSG_ERROR);
+		return 1;
+	}
+	if(InitGL() == false)
+	{
+		return false;
+	}
+	report("Loading files...", MSG_DEBUG);
+	if(LoadFiles() == false)
+	{
+		report("Some files failed to load :(", MSG_ERROR);
+		return false;
+	}
+
+	stateID = STATE_INTRO;
+
+	//Set the current game state object
+	currentState = new Intro();
+
+	MainLoop();
+}
+
 void Game::change_state()
 {
     //If the state needs to be changed
@@ -147,47 +189,14 @@ bool Game::LoadFiles()
     return true;
 }
 
-
-
 bool Game::MainLoop()
 {
-	report("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.", MSG_DEBUG);
-	report("Initializing...", MSG_DEBUG);
-	/*
-    if(Init() == false)
-    {
-        report("Init() = false", MSG_ERROR);
-        return false;
-    }
-    */
+	Timer fps;
+	Window window;
 
-    Window window;
-
-    if(window.error() == true)
-    {
-        report("error in window", MSG_ERROR);
-        return 1;
-    }
-    if(InitGL() == false)
-    {
-        return false;
-    }
-	report("Loading files...", MSG_DEBUG);
-    if(LoadFiles() == false)
-    {
-        report("Some files failed to load :(", MSG_ERROR);
-        return false;
-    }
-
-    stateID = STATE_INTRO;
-
-    //Set the current game state object
-    currentState = new Intro();
-
-    Timer fps;
-    while(stateID != STATE_EXIT)
-    {
-        fps.Start();
+	while(stateID != STATE_EXIT)
+	{
+		fps.Start();
 
         while(SDL_PollEvent(&event))
         {
@@ -228,16 +237,15 @@ bool Game::MainLoop()
 void Game::Close()
 {
 	report("Game::Close()", MSG_DEBUG);
-    font.release();
-    fontLevel.release();
+	font.release();
+	fontLevel.release();
 
-    for(unsigned int i = 0; i < textureList.size(); i++)
-    {
-       textureList.erase(textureList.begin(), textureList.end());
-    }
+	for(unsigned int i = 0; i < textureList.size(); i++)
+	{
+		textureList.erase(textureList.begin(), textureList.end());
+	}
 
-    //imageList.erase(imageList.begin(),imageList.end());
+	//imageList.erase(imageList.begin(),imageList.end());
 	Mix_HaltMusic();
 	delete audio_music;
 }
-
