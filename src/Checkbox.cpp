@@ -89,12 +89,10 @@ void Checkbox::handle_events(SDL_Event &event,void(callback)(void))
 void Checkbox::change()
 {
 	if(checked)	{
-		checked = false;
-		clip = clips[CLIP_MOUSEOUT];
+		uncheck();
 	}
 	else {
-		checked = true;
-		clip= clips[CLIP_MOUSEOUT_CHECKED];
+		check();
 	}
 }
 void Checkbox::check()
