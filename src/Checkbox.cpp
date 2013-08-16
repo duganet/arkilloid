@@ -88,12 +88,8 @@ void Checkbox::handle_events(SDL_Event &event,void(callback)(void))
 
 void Checkbox::change()
 {
-	if(checked)	{
-		uncheck();
-	}
-	else {
-		check();
-	}
+	if(checked)	uncheck();
+	else check();
 }
 void Checkbox::check()
 {
