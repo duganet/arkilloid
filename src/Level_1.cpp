@@ -191,8 +191,8 @@ Level_1::~Level_1()
     delete resumeButton;
     delete exitButton;
     delete restartButton;
-    delete soundOn;
-    delete musicOn;
+//    delete soundOn;
+//    delete musicOn;
 	report("level_1 destructor", MSG_DEBUG);
 }
 
