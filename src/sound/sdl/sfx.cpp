@@ -24,6 +24,8 @@
 #include <io.hpp>
 #include "sfx.hpp"
 
+bool sfx_enabled = true;
+
 AudioSoundFX::AudioSoundFX(std::string filename)
 {
 	filename = path_construct("sounds/sfx", filename);
@@ -48,10 +50,12 @@ void AudioSoundFX::LoadFromFile(std::string filename)
 
 void AudioSoundFX::Play()
 {
-	report("Playing sound", MSG_DEBUG);
-	if(Mix_PlayChannel(-1, sound_chunk, 0) == -1)
-	{
-			//log("ERROR: can't play sound. " + char* Mix_GetError());
-			report("Can't play sound", MSG_ERROR);
+	if(sfx_enabled) {
+		report("Playing sound", MSG_DEBUG);
+		if(Mix_PlayChannel(-1, sound_chunk, 0) == -1)
+		{
+				//log("ERROR: can't play sound. " + char* Mix_GetError());
+				report("Can't play sound", MSG_ERROR);
+		}
 	}
 }

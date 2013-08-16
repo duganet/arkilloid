@@ -6,8 +6,6 @@ std::vector<Texture*> textureList;
 Mix_Chunk snd_bonusget, snd_hit, snd_pow;
 AudioMusic *audio_music;
 
-bool sound_on = true;
-
 GLFT_Font font;
 GLFT_Font fontLevel;
 GLFT_Font font_small;

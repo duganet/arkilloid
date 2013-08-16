@@ -18,7 +18,7 @@ extern int hi_score;
 extern GLFT_Font font;
 extern GLFT_Font fontLevel;
 extern GLFT_Font font_small;
-extern bool sound_on;
+extern bool sfx_enabled;
 
 int
 	lives_hearts_count,
@@ -54,7 +54,7 @@ void exitButton_click()
     set_next_state(STATE_TITLE);
 }
 
-void soundOn_checked_pause()
+/*void soundOn_checked_pause()
 {
     sound_on = false;
 }
@@ -72,7 +72,7 @@ void musicOn_notchecked_pause()
 {
     audio_music->On();
 }
-
+*/
 Level_1::Level_1(int num_level, std::string filename)
 {
     std::string dir;
@@ -154,10 +154,11 @@ Level_1::Level_1(int num_level, std::string filename)
 	lives_text_pos_hor = lives_hearts_pos_hor + 25;
 
     pause = false;
+
     resumeButton = new Button(308,436, "btn_resume.png");
     exitButton = new Button(518,436, "btn_exit.png");
     restartButton = new Button(413,436,"btn_start.png");
-    musicOn = new Checkbox(413, 200, "on_off_button.png");
+/*    musicOn = new Checkbox(413, 200, "on_off_button.png");
     if(Mix_PlayingMusic() == 0)
     {
         musicOn->check();
@@ -167,6 +168,7 @@ Level_1::Level_1(int num_level, std::string filename)
     {
         soundOn->check();
     }
+*/
 }
 
 void Level_1::load_files()
@@ -353,7 +355,7 @@ void Level_1::handle_events(SDL_Event &event)
             resumeButton->handle_events(event,resumeButton_click);
             restartButton->handle_events(event,restartButton_click);
             exitButton->handle_events(event, exitButton_click);
-            if(soundOn->is_checked())
+/*            if(soundOn->is_checked())
             {
                 soundOn->handle_events(event,soundOn_checked_pause);
             }
@@ -370,6 +372,7 @@ void Level_1::handle_events(SDL_Event &event)
             {
                 musicOn->handle_events(event,musicOn_notchecked_pause);
             }
+*/
         }
     }
 }
@@ -436,8 +439,7 @@ void Level_1::logic()
 								{
 									if(BrickControl::brickList[i]->get_life() > 0)
 									{
-										if(sound_on == true)
-											snd_hit->Play();
+										snd_hit->Play();
 
 									score += 10;
 									BrickControl::brickList[i]->set_life(BrickControl::brickList[i]->get_life()-1);
@@ -446,8 +448,7 @@ void Level_1::logic()
 								}
 								score += 50;
 								//Particles--------------------------------------------
-								if(sound_on == true)
-									snd_pow->Play();
+								snd_pow->Play();
 								
 								for(unsigned int p = 0; p < 20; p++)
 								{
@@ -515,8 +516,7 @@ void Level_1::logic()
 							else
 							{
 								BrickControl::brickList[i]->set_collision_type(collision_type);
-								if(sound_on == true)
-									snd_hit->Play();
+								snd_hit->Play();
 								break;
 							}
 						}
@@ -557,8 +557,7 @@ void Level_1::logic()
                         if(check_collision(bita.get_rect(), Bonus::bonusList[i]->get_rect()))
                         {
                             score += 10;
-                            if(sound_on == true)
-                                snd_bonusget->Play();
+							snd_bonusget->Play();
                             switch(Bonus::bonusList[i]->get_type())
                             {
                             case SPEED_UP_B:

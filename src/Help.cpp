@@ -8,7 +8,7 @@ extern int stateID;
 extern int nextState;
 extern std::ofstream loger;
 extern std::vector<Texture*>textureList;
-extern bool sound_on;
+extern bool sfx_enabled;
 extern AudioMusic *audio_music;
 //extern Game game;
 
@@ -23,7 +23,7 @@ Help::Help()
 		musicOn->uncheck();
 	}
 	soundOn = new Checkbox(417, 150, "on_off_button.png");
-	if(sound_on == false)
+	if(sfx_enabled == false)
 	{
 		soundOn->uncheck();
 	}
@@ -38,11 +38,11 @@ void HelpButtonExit_click()
 }
 void soundOn_checked()
 {
-    sound_on = false;
+    sfx_enabled = false;
 }
 void soundOn_notchecked()
 {
-    sound_on = true;
+    sfx_enabled = true;
 }
 void musicOn_checked()
 {
