@@ -15,7 +15,7 @@ public:
 	void logic();
 private:
     Button *buttonStart;
-    Button *buttonExit;
+    Button *HelpButtonExit;
     Checkbox *musicOn;
     Checkbox *soundOn;
 };

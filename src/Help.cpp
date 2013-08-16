@@ -16,7 +16,7 @@ Help::Help()
 {
 	report("help state", MSG_DEBUG);
     //bg = textureList[BG_HELP];
-    buttonExit = new Button(518,436, "btn_exit.png");
+    HelpButtonExit = new Button(518,436, "btn_exit.png");
     musicOn = new Checkbox(417, 90, "on_off_button.png");
     if(Mix_PlayingMusic() == 0)
     {
@@ -32,7 +32,7 @@ Help::Help()
     #endif
 }
 
-void Help_buttonExit_click()
+void HelpButtonExit_click()
 {
     //stateID = STATE_TITLE;
     //game.change_state();
@@ -58,15 +58,14 @@ void musicOn_notchecked()
 Help::~Help()
 {
     delete bg;
-    delete buttonExit;
-    delete buttonStart;
+    delete HelpButtonExit;
     delete soundOn;
     delete musicOn;
 }
 
 void Help::handle_events(SDL_Event &event)
 {
-    buttonExit->handle_events(event, Help_buttonExit_click);
+    HelpButtonExit->handle_events(event, HelpButtonExit_click);
     if(soundOn->is_checked())
     {
         soundOn->handle_events(event,soundOn_checked);
@@ -93,7 +92,7 @@ void Help::logic()
 void Help::render()
 {
     textureList[BG_HELP]->show(0,0);
-    buttonExit->show();
+    HelpButtonExit->show();
     soundOn->show();
     musicOn->show();
 }
