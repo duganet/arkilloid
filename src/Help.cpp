@@ -34,8 +34,9 @@ Help::Help()
 
 void Help_buttonExit_click()
 {
-    stateID = STATE_TITLE;
+    //stateID = STATE_TITLE;
     //game.change_state();
+    set_next_state(STATE_TITLE);
 }
 void soundOn_checked()
 {
