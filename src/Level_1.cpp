@@ -51,7 +51,7 @@ void resumeButton_click()
 
 void exitButton_click()
 {
-    set_next_state(STATE_EXIT);
+    set_next_state(STATE_TITLE);
 }
 
 void soundOn_checked_pause()

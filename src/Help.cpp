@@ -16,12 +16,12 @@ Help::Help()
     //bg = textureList[BG_HELP];
     buttonStart = new Button(413,436, "btn_start.png");
     buttonExit = new Button(518,436, "btn_exit.png");
-    musicOn = new Checkbox(413, 200, "on_off_button.png");
+    musicOn = new Checkbox(417, 90, "on_off_button.png");
     if(Mix_PlayingMusic() == 0)
     {
         musicOn->check();
     }
-    soundOn = new Checkbox(413, 230, "on_off_button.png");
+    soundOn = new Checkbox(417, 150, "on_off_button.png");
     if(sound_on == false)
     {
         soundOn->check();
