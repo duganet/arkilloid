@@ -34,9 +34,17 @@ extern GLFT_Font font;
 //    stateID = STATE_EXIT;
 //}
 
+void buttonExit_click()
+{
+    stateID = STATE_EXIT;
+}
 void buttonOptions_click()
 {
     set_next_state(STATE_HELP);
+}
+void buttonStart_click()
+{
+    set_next_state(STATE_LEVEL_1);
 }
 
 Title::Title()

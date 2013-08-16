@@ -17,7 +17,4 @@ protected:
     Texture *bg;
 };
 
-void buttonStart_click();
-void buttonExit_click();
-
 #endif

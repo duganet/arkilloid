@@ -1,5 +1,6 @@
 //Help.cpp
 #include "Help.h"
+#include "Game.h"
 #include <report.hpp>
 #include <sound.hpp>
 
@@ -9,12 +10,12 @@ extern std::ofstream loger;
 extern std::vector<Texture*>textureList;
 extern bool sound_on;
 extern AudioMusic *audio_music;
+//extern Game game;
 
 Help::Help()
 {
 	report("help state", MSG_DEBUG);
     //bg = textureList[BG_HELP];
-    buttonStart = new Button(413,436, "btn_start.png");
     buttonExit = new Button(518,436, "btn_exit.png");
     musicOn = new Checkbox(417, 90, "on_off_button.png");
     if(Mix_PlayingMusic() == 0)
@@ -31,11 +32,15 @@ Help::Help()
     #endif
 }
 
+void Help_buttonExit_click()
+{
+    stateID = STATE_TITLE;
+    //game.change_state();
+}
 void soundOn_checked()
 {
     sound_on = false;
 }
-
 void soundOn_notchecked()
 {
     sound_on = true;
@@ -44,7 +49,6 @@ void musicOn_checked()
 {
     audio_music->Off();
 }
-
 void musicOn_notchecked()
 {
 	audio_music->On();
@@ -61,8 +65,7 @@ Help::~Help()
 
 void Help::handle_events(SDL_Event &event)
 {
-    buttonStart->handle_events(event, buttonStart_click);
-    buttonExit->handle_events(event, buttonExit_click);
+    buttonExit->handle_events(event, Help_buttonExit_click);
     if(soundOn->is_checked())
     {
         soundOn->handle_events(event,soundOn_checked);
@@ -89,7 +92,6 @@ void Help::logic()
 void Help::render()
 {
     textureList[BG_HELP]->show(0,0);
-    buttonStart->show();
     buttonExit->show();
     soundOn->show();
     musicOn->show();

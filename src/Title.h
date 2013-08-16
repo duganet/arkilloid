@@ -13,8 +13,6 @@ public:
     void handle_events(SDL_Event &event);
     void logic();
     void render();
-//    void buttonExit_click();
-//    void buttonStart_click();
 private:
 	Button *buttonExit, *buttonOptions, *buttonStart;
     Ball *ball;
