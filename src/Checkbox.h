@@ -11,6 +11,7 @@ public:
 	Checkbox(int x, int y, std::string filename);
 	bool is_checked()
 	{return checked;}
+	void change();
 	void check();
 	void handle_events(SDL_Event &event,void(callback)(void));
 	void uncheck();

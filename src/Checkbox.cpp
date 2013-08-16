@@ -79,19 +79,28 @@ void Checkbox::handle_events(SDL_Event &event,void(callback)(void))
                 (mouse_x < box.x+box.w)&&(mouse_y < box.y+box.h))
             {
                 //clip = clips[MOUSE_DOWN];
-                check();
+                change();
                 callback();
             }
         }
     }
 }
 
+void Checkbox::change()
+{
+	if(checked)	{
+		checked = false;
+		clip = clips[CLIP_MOUSEOUT];
+	}
+	else {
+		checked = true;
+		clip= clips[CLIP_MOUSEOUT_CHECKED];
+	}
+}
 void Checkbox::check()
 {
-    if(checked == true)
-        checked = false;
-    else
-        checked = true;
+	checked = true;
+	clip = clips[CLIP_MOUSEOUT_CHECKED];
 }
 void Checkbox::uncheck()
 {
