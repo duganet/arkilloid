@@ -178,6 +178,7 @@ void Level_1::load_files()
 
 Level_1::~Level_1()
 {
+	report("level_1 destructor started", MSG_DEBUG);
     BrickControl::delete_bricks();
     //SDL_FreeSurface(level_label);
     //SDL_FreeSurface(level_label_small);
@@ -193,7 +194,7 @@ Level_1::~Level_1()
     delete restartButton;
 //    delete soundOn;
 //    delete musicOn;
-	report("level_1 destructor", MSG_DEBUG);
+	report("level_1 destructor ended", MSG_DEBUG);
 }
 
 void Level_1::render()
