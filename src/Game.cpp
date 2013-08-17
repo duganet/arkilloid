@@ -25,12 +25,14 @@ Game::~Game()
 
 int Game::Exec()
 {
-	if(Init() == false)
+	report("Game::Exec started", MSG_DEBUG);
+	if(!Init())
 	{
 		report("Game::Init() failed", MSG_DEBUG);
 		report("Error initializing game engine", MSG_ERROR);
 		return -1;
 	}
+	report("Game::Exec finished", MSG_DEBUG);
 }
 
 bool Game::Init()
@@ -38,7 +40,7 @@ bool Game::Init()
 	Window window;
 
 	report("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.", MSG_DEBUG);
-	report("Initializing...", MSG_DEBUG);
+	report("Game::Init started", MSG_DEBUG);
 
 
 	if(window.error() == true)
@@ -61,8 +63,9 @@ bool Game::Init()
 
 	//Set the current game state object
 	currentState = new Intro();
-
+	
 	MainLoop();
+	return true;
 }
 
 void Game::change_state()

@@ -2,9 +2,7 @@
  *      Texture.cpp
  *
  *      Copyright 2009-2010 Sergey Babneev <plughead@mail.ru>
- *      Copyright 2009-2010 Maxim Kachur <mcdebugger@duganet.ru>
- *      Copyright 2009-2010 PlugHead Games <plughead@mail.ru>
- *      Copyright 2009-2010 DUGA Project <dev@duganet.ru>
+ *      Copyright 2009-2013 Maxim Kachur <mcdebugger@duganet.ru>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by

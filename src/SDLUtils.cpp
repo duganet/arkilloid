@@ -82,14 +82,14 @@ bool check_collision( SDL_Rect A, SDL_Rect B )
     int bottomA, bottomB;
 
     leftA = A.x;
-    rightA = A.x + A.w;
+    rightA = A.x + A.w - 1;
     topA = A.y;
-    bottomA = A.y + A.h;
+    bottomA = A.y + A.h - 1;
 
     leftB = B.x;
-    rightB = B.x + B.w;
+    rightB = B.x + B.w - 1;
     topB = B.y;
-    bottomB = B.y + B.h;
+    bottomB = B.y + B.h - 1;
 
     if( bottomA < topB )
     {
@@ -169,9 +169,9 @@ bool check_collision(Circle A, SDL_Rect B)
 
     //Calculate the sides of rect B
     leftB = B.x;
-    rightB = B.x + B.w;
+    rightB = B.x + B.w - 1;
     topB = B.y;
-    bottomB = B.y + B.h;
+    bottomB = B.y + B.h - 1;
 
     //Calculate the corners of B
     Bx1 = B.x, By1 = B.y;
