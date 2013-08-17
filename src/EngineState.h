@@ -14,7 +14,7 @@ class EngineState : public EngineEvent {
 		
 		virtual void Loop_Process() = 0;
 		
-		virtual void Render_Process(SDL_Surface* Surf_Engine_Window) = 0;
+		virtual void Render_Process(SDL_Surface* Surf_Display) = 0;
 };
 
 #endif

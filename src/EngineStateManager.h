@@ -19,7 +19,7 @@ class EngineStateManager {
 		
 		static void Loop_Process();
 		
-		static void Render_Process(SDL_Surface* Surf_Engine_Window);
+		static void Render_Process(SDL_Surface* Surf_Display);
 	
 	public:
 		static void SetActiveEngineState(int EngineStateID);

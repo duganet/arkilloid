@@ -21,9 +21,8 @@ set(
 	Engine_Cleanup.cpp
 	Engine_Event.cpp
 	Engine_Init.cpp
-	EngineState.cpp
-	EngineState_Intro.cpp
-	EngineStateManager.cpp
+	Engine_Render.cpp
+	Event.cpp
 	Game.cpp
 	GameState.cpp
 	Globals.cpp
@@ -34,6 +33,7 @@ set(
 	Load.cpp
 	Particles.cpp
 	SDLUtils.cpp
+	Surface.cpp
 	Texture.cpp
 	Timer.cpp
 	Title.cpp

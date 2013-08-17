@@ -24,7 +24,9 @@
 #include "Timer.h"
 
 Engine::Engine() {
-	Surf_Engine_Window = NULL;
+	Surf_Display = NULL;
+	
+	Surf_Background = NULL;
 	
 	Engine_Running = true;
 }
@@ -36,21 +38,23 @@ int Engine::Exec() {
 	}
 	
 	SDL_Event Event;
-	Game game;
+	/*Game game;
 	
 	if(game.Exec() == false) {
 		return 1;
 	}	
-	
+	*/
 	while(Engine_Running) {
 		while(SDL_PollEvent(&Event)) {
 			Event_Process(&Event);
 		}
-		game.MainLoop();
+		//Loop_Process();
+		OnRender();
+		//game.MainLoop();
 		
 	}
 	
-	game.Close();
+	//game.Close();
 	Cleanup_Process();
 	
 	return 0;

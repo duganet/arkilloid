@@ -6,6 +6,8 @@
 void Engine::Cleanup_Process() {
 	report("Engine: cleaning up...", MSG_DEBUG);
 	::AudioEngine::Stop();
+	SDL_FreeSurface(Surf_Background);
+	SDL_FreeSurface(Surf_Display);
 	SDL_Quit();
 	report("Engine: clean up phase complete.", MSG_DEBUG);
 	logfile.close();

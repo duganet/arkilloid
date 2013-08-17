@@ -16,8 +16,8 @@ void EngineStateManager::Loop_Process() {
 	if(ActiveEngineState) ActiveEngineState->Loop_Process();
 }
 
-void EngineStateManager::Render_Process(SDL_Surface* Surf_Engine_Window) {
-	if(ActiveEngineState) ActiveEngineState->Render_Process(Surf_Engine_Window);
+void EngineStateManager::Render_Process(SDL_Surface* Surf_Display) {
+	if(ActiveEngineState) ActiveEngineState->Render_Process(Surf_Display);
 }
 
 void EngineStateManager::SetActiveEngineState(int EngineStateID) {

@@ -28,9 +28,9 @@ void EngineStateIntro::Loop_Process() {
 	}
 }
 
-void EngineStateIntro::Render_Process(SDL_Surface* Surf_Engine_Window) {
+void EngineStateIntro::Render_Process(SDL_Surface* Surf_Display) {
 	if(Surf_Background) {
-		Surface::OnDraw(Surf_Engine_Window, Surf_Background, 0, 0);
+		Surface::OnDraw(Surf_Display, Surf_Background, 0, 0);
 	}
 }
 

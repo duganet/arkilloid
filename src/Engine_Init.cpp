@@ -18,11 +18,15 @@ bool Engine::Init() {
 	}
 	report("SDL_Init finished", MSG_DEBUG);
 	
-	report("Creating Surface_Engine_Window started", MSG_DEBUG);
-	if((Surf_Engine_Window = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_OPENGL)) == NULL) {
+	report("Creating Surf_Display started", MSG_DEBUG);
+	if((Surf_Display = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
 		return false;
 	}
-	report("Creating Surface_Engine_Window finished", MSG_DEBUG);
+	report("Creating Surf_Display finished", MSG_DEBUG);
+	
+	if((Surf_Background = Surface::OnLoad("/usr/local/share/arkilloid/images/bg_title.png")) == NULL) {
+		return false;
+	}
 	
 	::AudioEngine::Start();
 	

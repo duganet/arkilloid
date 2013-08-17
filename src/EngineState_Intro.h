@@ -22,7 +22,7 @@ class EngineStateIntro : public EngineState {
 		
 		void Loop_Process();
 		
-		void Render_Process(SDL_Surface* Surf_Engine_Window);
+		void Render_Process(SDL_Surface* Surf_Display);
 	
 	public:
 		static EngineStateIntro* GetInstance();

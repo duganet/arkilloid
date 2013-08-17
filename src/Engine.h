@@ -24,11 +24,16 @@
 
 #include <SDL.h>
 
-class Engine {
+#include "Event.h"
+#include "Surface.h"
+
+class Engine : public Event {
 	private:
 		bool            Engine_Running;
 		
-		SDL_Surface*    Surf_Engine_Window;
+		SDL_Surface*    Surf_Display;
+		
+		SDL_Surface*	Surf_Background;
 						
 	public:
 	
@@ -41,14 +46,18 @@ class Engine {
 		bool Init();
 		
 		void Event_Process(SDL_Event* event);
-		
+				
 		void Loop_Process();
 		
-		void Render_Process();
+		void OnRender();
 		
 		void Cleanup_Process();
 		
 		void Stop();
+		
+		void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
+		
+		void OnExit();
 };
 
 #endif
