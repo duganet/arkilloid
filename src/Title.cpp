@@ -76,6 +76,7 @@ Title::~Title()
 
 void Title::handle_events(SDL_Event &event)
 {
+	report("Title::handle_events", MSG_DEBUG);
     buttonStart->handle_events(event, buttonStart_click);
     buttonExit->handle_events(event, buttonExit_click);
     buttonOptions->handle_events(event, buttonOptions_click);

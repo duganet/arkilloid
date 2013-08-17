@@ -20,8 +20,10 @@
  */
 
 #include "Engine.h"
+#include <io.hpp>
 
 int main(int argc, char* argv[]) {
+	report("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.", MSG_DEBUG);
 	Engine main_engine;
 	
 	return main_engine.Exec();

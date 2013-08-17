@@ -19,7 +19,11 @@ set(
 	Checkbox.cpp
 	Engine.cpp
 	Engine_Cleanup.cpp
+	Engine_Event.cpp
 	Engine_Init.cpp
+	EngineState.cpp
+	EngineState_Intro.cpp
+	EngineStateManager.cpp
 	Game.cpp
 	GameState.cpp
 	Globals.cpp

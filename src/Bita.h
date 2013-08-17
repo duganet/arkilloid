@@ -15,7 +15,7 @@ public:
     Bita();
     ~Bita();
     void set_up(int, int, Texture* texture = textureList[BITA]);
-    void handle_events(SDL_Event& event);
+    void handle_events(SDL_Event &event);
     void move();
     void show();
     SDL_Rect get_rect();

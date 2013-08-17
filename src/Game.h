@@ -27,11 +27,13 @@ public:
 	bool Start();
 	bool LoadFiles();
 	bool InitGL();
+	bool MainLoop();
 	void Close();
 	void change_state();
+	void Handle_Events(SDL_Event &Event);
 private:
 	bool Init();
-	bool MainLoop();
+	
 	bool quit;
 	GameState *currentState;
 	SDL_Event event;

@@ -3,6 +3,7 @@
 #include <sound.hpp>
 #include <report.hpp>
 #include <Load.h>
+#include <Engine.h>
 
 extern int stateID;
 extern int nextState;
@@ -37,21 +38,23 @@ int Game::Exec()
 
 bool Game::Init()
 {
-	Window window;
+	//Window window;
 
-	report("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.", MSG_DEBUG);
 	report("Game::Init started", MSG_DEBUG);
 
-
+	/*
 	if(window.error() == true)
 	{
 		report("error in window", MSG_ERROR);
 		return 1;
 	}
+	*/
 	if(InitGL() == false)
 	{
 		return false;
 	}
+	
+	/* Load files */
 	report("Loading files...", MSG_DEBUG);
 	if(LoadFiles() == false)
 	{
@@ -64,7 +67,7 @@ bool Game::Init()
 	//Set the current game state object
 	currentState = new Intro();
 	
-	MainLoop();
+	//MainLoop();
 	return true;
 }
 
@@ -121,6 +124,7 @@ bool Game::Start()
 
 bool Game::InitGL()
 {
+	report("Game::InitGL started", MSG_DEBUG);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
     glEnable( GL_TEXTURE_2D );
@@ -138,6 +142,7 @@ bool Game::InitGL()
         report("gl not init, " + glGetError(), MSG_ERROR);
         return false;
     }
+    report("Game::InitGL finished", MSG_DEBUG);
     return true;
 }
 
@@ -195,21 +200,25 @@ bool Game::LoadFiles()
 bool Game::MainLoop()
 {
 	Timer fps;
-	Window window;
+	//Window window;
+	bool afterloopstart;
 
-	while(stateID != STATE_EXIT)
-	{
-		fps.Start();
-
-        while(SDL_PollEvent(&event))
-        {
-            if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_q))
-            {
-                currentState->set_next_state( STATE_EXIT );
-            }
-            window.handle_events(event);
-            currentState->handle_events(event);
-        }
+	//while(stateID != STATE_EXIT)
+	//{
+		if(!afterloopstart) {
+			fps.Start();
+			afterloopstart=true;
+		}
+//        /*while(SDL_PollEvent(&event))
+//        {
+//            /*if(event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_q))
+//            {
+//                currentState->set_next_state( STATE_EXIT );
+//           }*/
+//            //window.handle_events(event);
+//            currentState->handle_events(event);
+//        }
+        
         //deltaTicks = fps.Get_Ticks();
 //        if(window.error() == true)
 //        {
@@ -232,9 +241,12 @@ bool Game::MainLoop()
         {
             SDL_Delay((1000/FRAMES_PER_SECOND) - fps.Get_Ticks());
         }
-    }
+    //}
 
     return true;
+}
+void Game::Handle_Events(SDL_Event &Event) {
+	currentState->handle_events(event);
 }
 
 void Game::Close()

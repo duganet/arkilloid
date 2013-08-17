@@ -3,26 +3,29 @@
 #include <SDL_mixer.h>
 #include <io.hpp>
 #include <sound.hpp>
+#include "Constants.h"
 
 extern AudioEngine *audio;
 extern AudioSoundFX *snd_bonusget, *snd_hit, *snd_pow;
 extern AudioMusic *audio_music;
 
 bool Engine::Init() {
-	report("Initializing Engine...", MSG_DEBUG);
+	report("Engine::Init started", MSG_DEBUG);
+	report("SDL_Init started", MSG_DEBUG);
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		report("SDL Initialization failed!", MSG_ERROR);
 		return false;
 	}
-	report("Initializing Engine phase complete", MSG_DEBUG);
+	report("SDL_Init finished", MSG_DEBUG);
 	
-	/*
-	if((surf_engine = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
+	report("Creating Surface_Engine_Window started", MSG_DEBUG);
+	if((Surf_Engine_Window = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_OPENGL)) == NULL) {
 		return false;
 	}
-	*/
+	report("Creating Surface_Engine_Window finished", MSG_DEBUG);
 	
 	::AudioEngine::Start();
 	
+	report("Engine::Init finished", MSG_DEBUG);
 	return true;
 }

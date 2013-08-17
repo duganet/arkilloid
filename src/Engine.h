@@ -26,25 +26,29 @@
 
 class Engine {
 	private:
-		bool            engine_running;
+		bool            Engine_Running;
 		
-		SDL_Surface*    surf_engine;
-		
+		SDL_Surface*    Surf_Engine_Window;
+						
 	public:
+	
 		Engine();
 		
 		int Exec();
 		
 	public:
+		
 		bool Init();
-
+		
 		void Event_Process(SDL_Event* event);
 		
-		void MainLoop_Process();
+		void Loop_Process();
 		
 		void Render_Process();
 		
 		void Cleanup_Process();
+		
+		void Stop();
 };
 
 #endif

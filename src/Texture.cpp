@@ -349,6 +349,8 @@ bool Texture::load_from_surface(SDL_Surface *surface)
 
 void Texture::show(int x, int y, GLfloat alpha)
 {
+	//report("Texture::show(int x, int y, GLfloat alpha)", MSG_DEBUG);
+	
     glPushMatrix();
     glTranslatef(x,y,0);
     //glColor4f(1.0f, 1.0f, 1.0f, 0.1f);
@@ -381,6 +383,8 @@ void Texture::show(int x, int y, GLfloat alpha)
 
 void Texture::show(int x, int y, SDL_Rect clip)
 {
+	//report("Texture::show(int x, int y, SDL_Rect clip)", MSG_DEBUG);
+	
     float cl_x = (float)clip.x/w*wdt;
     if(cl_x == 1.0)
         cl_x = 0;

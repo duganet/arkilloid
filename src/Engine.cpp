@@ -21,11 +21,12 @@
 
 #include "Engine.h"
 #include "Game.h"
+#include "Timer.h"
 
 Engine::Engine() {
-	surf_engine = NULL;
+	Surf_Engine_Window = NULL;
 	
-	engine_running = true;
+	Engine_Running = true;
 }
 
 int Engine::Exec() {
@@ -34,14 +35,26 @@ int Engine::Exec() {
 		return -1;
 	}
 	
+	SDL_Event Event;
 	Game game;
-	if(game.Exec() == false)
-	{
+	
+	if(game.Exec() == false) {
 		return 1;
+	}	
+	
+	while(Engine_Running) {
+		while(SDL_PollEvent(&Event)) {
+			Event_Process(&Event);
+		}
+		game.MainLoop();
+		
 	}
 	
 	game.Close();
 	Cleanup_Process();
 	
 	return 0;
+}
+void Engine::Stop() {
+	Engine_Running = false;
 }

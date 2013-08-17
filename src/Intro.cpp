@@ -1,6 +1,6 @@
 //Intro.cpp
 #include "Intro.h"
-
+#include <io.hpp>
 
 extern int stateID;
 extern int nextState;
@@ -11,8 +11,10 @@ extern std::vector<Texture*> textureList;
 
 Intro::Intro()
 {
+	report("Intro::Intro constructor started", MSG_DEBUG);
     bg = textureList[BG_INTRO];
     introTime.Start();
+    report("Intro::Intro constructor finished", MSG_DEBUG);
 }
 
 Intro::~Intro()
@@ -39,7 +41,11 @@ void Intro::logic()
 
 void Intro::render()
 {
+	report("Intro::render() started", MSG_DEBUG);
+	
     textureList[BG_INTRO]->show(0,0);
+    
+    report("Intro::render() finished", MSG_DEBUG);
 }
 
 
