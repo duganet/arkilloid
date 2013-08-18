@@ -24,9 +24,7 @@ bool Engine::OnInit() {
 	}
 	report("Creating Surf_Display finished", MSG_DEBUG);
 
-	if((Surf_Background = Surface::OnLoad("/usr/local/share/arkilloid/images/bg_title.png")) == NULL) {
-		return false;
-	}
+	EngineStateManager::SetActiveEngineState(ENGINESTATE_INTRO);
 
 	::AudioEngine::Start();
 

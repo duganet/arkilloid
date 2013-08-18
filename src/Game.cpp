@@ -1,9 +1,9 @@
 //Game.cpp
 #include "Game.h"
+#include "Engine.h"
+#include "Load.h"
 #include <sound.hpp>
 #include <report.hpp>
-#include <Load.h>
-#include <Engine.h>
 
 extern int stateID;
 extern int nextState;
@@ -53,7 +53,7 @@ bool Game::Init()
 	{
 		return false;
 	}
-	
+
 	/* Load files */
 	report("Loading files...", MSG_DEBUG);
 	if(LoadFiles() == false)
@@ -66,7 +66,7 @@ bool Game::Init()
 
 	//Set the current game state object
 	currentState = new Intro();
-	
+
 	//MainLoop();
 	return true;
 }
@@ -218,7 +218,7 @@ bool Game::MainLoop()
 //            //window.handle_events(event);
 //            currentState->handle_events(event);
 //        }
-        
+
         //deltaTicks = fps.Get_Ticks();
 //        if(window.error() == true)
 //        {

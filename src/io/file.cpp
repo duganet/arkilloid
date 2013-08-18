@@ -2,7 +2,7 @@
  *		file.cpp - file module
  *
  *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -30,7 +30,7 @@ std::string path_construct(std::string dir_shortname, std::string filename)
 		#ifdef DATAROOTDIR
 			dir_basename = DATAROOTDIR "/" PACKAGE;
 		#else
-			dir_basename = DATADIR;
+			dir_basename = "DATADIR";
 		#endif
     #endif
     return dir_basename + '/' + dir_shortname + "/" + filename;

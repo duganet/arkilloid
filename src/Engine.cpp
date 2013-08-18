@@ -26,8 +26,6 @@
 Engine::Engine() {
 	Surf_Display = NULL;
 
-	Surf_Background = NULL;
-
 	Engine_Running = true;
 }
 

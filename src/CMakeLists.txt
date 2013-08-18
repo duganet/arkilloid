@@ -23,6 +23,10 @@ set(
 	Engine_Init.cpp
 	Engine_Loop.cpp
 	Engine_Render.cpp
+	EngineState.cpp
+	EngineState_Intro.cpp
+	EngineState_MainMenu.cpp
+	EngineStateManager.cpp
 	Event.cpp
 	Game.cpp
 	GameState.cpp

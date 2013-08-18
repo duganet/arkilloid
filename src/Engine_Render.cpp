@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 void Engine::OnRender() {
-	Surface::OnDraw(Surf_Display, Surf_Background, 0, 0);
-	
+	EngineStateManager::OnRender(Surf_Display);
+
 	SDL_Flip(Surf_Display);
 }

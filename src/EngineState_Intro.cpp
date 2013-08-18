@@ -10,7 +10,7 @@ EngineStateIntro::EngineStateIntro() {
 
 void EngineStateIntro::OnActivate() {
 	/* Load background */
-	Surf_Background = Surface::OnLoad("splash.png");
+	Surf_Background = Surface::OnLoad("/usr/local/share/arkilloid/images/bg_intro.png");
 
 	StartTime = SDL_GetTicks();
 }

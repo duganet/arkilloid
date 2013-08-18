@@ -4,6 +4,7 @@
 #include "EngineState.h"
 
 enum {
+	/* Engine states */
 	ENGINESTATE_NONE,
 	ENGINESTATE_INTRO,
 	ENGINESTATE_MAINMENU,

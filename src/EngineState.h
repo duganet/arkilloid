@@ -1,9 +1,9 @@
 #ifndef __ENGINESTATE_H__
 	#define __ENGINESTATE_H__
 
-#include "Engine_Event.h"
+#include "Event.h"
 
-class EngineState : public EngineEvent {
+class EngineState : public Event {
 	public:
 		EngineState();
 

@@ -1,19 +1,19 @@
-#ifndef _ENGINESTATE_INTRO_H_
-	#define _ENGINESTATE_INTRO_H_
+#ifndef _ENGINESTATE_MAINMENU_H_
+	#define _ENGINESTATE_MAINMENU_H_
 
 #include "EngineState.h"
 #include "Surface.h"
 
-class EngineStateIntro : public EngineState {
+class EngineStateMainMenu : public EngineState {
 	private:
-		static EngineStateIntro Instance;
+		static EngineStateMainMenu Instance;
 
 		SDL_Surface* Surf_Background;
 
 		int StartTime;
 
 	private:
-		EngineStateIntro();
+		EngineStateMainMenu();
 
 	public:
 		void OnActivate();
@@ -25,7 +25,7 @@ class EngineStateIntro : public EngineState {
 		void OnRender(SDL_Surface* Surf_Display);
 
 	public:
-		static EngineStateIntro* GetInstance();
+		static EngineStateMainMenu* GetInstance();
 };
 
 #endif

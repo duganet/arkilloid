@@ -2,7 +2,7 @@
  *		Load.h - files load functions headers
  *
  *		Copyright 2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@
 #ifndef _LOAD_H_
 	#define _LOAD_H_
 
-#include <Game.h>
+#include "Game.h"
 #include <io.hpp>
 
 int LoadBrick(std::string filename);

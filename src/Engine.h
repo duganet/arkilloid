@@ -24,6 +24,8 @@
 
 #include <SDL.h>
 
+#include "EngineStateManager.h"
+
 #include "Event.h"
 #include "Surface.h"
 
@@ -32,8 +34,6 @@ class Engine : public Event {
 		bool            Engine_Running;
 
 		SDL_Surface*    Surf_Display;
-
-		SDL_Surface*	Surf_Background;
 
 	public:
 
