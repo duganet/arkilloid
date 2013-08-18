@@ -3,7 +3,7 @@
 #include <io.hpp>
 #include <sound.hpp>
 
-void Engine::Cleanup_Process() {
+void Engine::OnCleanup() {
 	report("Engine: cleaning up...", MSG_DEBUG);
 	::AudioEngine::Stop();
 	SDL_FreeSurface(Surf_Background);

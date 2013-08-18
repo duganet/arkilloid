@@ -7,23 +7,23 @@
 class EngineStateIntro : public EngineState {
 	private:
 		static EngineStateIntro Instance;
-		
+
 		SDL_Surface* Surf_Background;
-		
+
 		int StartTime;
-		
+
 	private:
 		EngineStateIntro();
-	
+
 	public:
-		void Activate_Process();
-		
-		void Deactivate_Process();
-		
-		void Loop_Process();
-		
-		void Render_Process(SDL_Surface* Surf_Display);
-	
+		void OnActivate();
+
+		void OnDeactivate();
+
+		void OnLoop();
+
+		void OnRender(SDL_Surface* Surf_Display);
+
 	public:
 		static EngineStateIntro* GetInstance();
 };

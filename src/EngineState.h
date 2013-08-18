@@ -6,15 +6,15 @@
 class EngineState : public EngineEvent {
 	public:
 		EngineState();
-	
+
 	public:
-		virtual void Activate_Process() = 0;
-		
-		virtual void Deactivate_Process() = 0;
-		
-		virtual void Loop_Process() = 0;
-		
-		virtual void Render_Process(SDL_Surface* Surf_Display) = 0;
+		virtual void OnActivate() = 0;
+
+		virtual void OnDeactivate() = 0;
+
+		virtual void OnLoop() = 0;
+
+		virtual void OnRender(SDL_Surface* Surf_Display) = 0;
 };
 
 #endif

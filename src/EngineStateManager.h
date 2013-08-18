@@ -13,17 +13,17 @@ enum {
 class EngineStateManager {
 	private:
 		static EngineState* ActiveEngineState;
-	
+
 	public:
-		static void Event_Process(SDL_Event* Event);
-		
-		static void Loop_Process();
-		
-		static void Render_Process(SDL_Surface* Surf_Display);
-	
+		static void OnEvent(SDL_Event* Event);
+
+		static void OnLoop();
+
+		static void OnRender(SDL_Surface* Surf_Display);
+
 	public:
 		static void SetActiveEngineState(int EngineStateID);
-		
+
 		static EngineState* GetActiveEngineState();
 };
 

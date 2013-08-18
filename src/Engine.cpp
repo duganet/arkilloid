@@ -1,8 +1,8 @@
 /*
  *		Engine.cpp - Arkilloid core engine sources
  *
- *		Copyright 2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *		Copyright 2012-2013 Maxim Kachur <mcdebugger@duganet.ru>
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -25,38 +25,38 @@
 
 Engine::Engine() {
 	Surf_Display = NULL;
-	
+
 	Surf_Background = NULL;
-	
+
 	Engine_Running = true;
 }
 
-int Engine::Exec() {
-	
-	if(Init() == false) {
+int Engine::OnExec() {
+
+	if(OnInit() == false) {
 		return -1;
 	}
-	
+
 	SDL_Event Event;
 	/*Game game;
-	
+
 	if(game.Exec() == false) {
 		return 1;
-	}	
+	}
 	*/
 	while(Engine_Running) {
 		while(SDL_PollEvent(&Event)) {
-			Event_Process(&Event);
+			OnEvent(&Event);
 		}
-		//Loop_Process();
+		OnLoop();
 		OnRender();
 		//game.MainLoop();
-		
+
 	}
-	
+
 	//game.Close();
-	Cleanup_Process();
-	
+	OnCleanup();
+
 	return 0;
 }
 void Engine::Stop() {

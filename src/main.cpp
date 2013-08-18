@@ -2,7 +2,7 @@
  *		main.cpp - Arkilloid sources
  *
  *		Copyright 2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -25,6 +25,6 @@
 int main(int argc, char* argv[]) {
 	report("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.", MSG_DEBUG);
 	Engine main_engine;
-	
-	return main_engine.Exec();
+
+	return main_engine.OnExec();
 }

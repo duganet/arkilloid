@@ -2,7 +2,7 @@
  *		Engine.h - Arkilloid core engine headers
  *
  *		Copyright 2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -30,33 +30,33 @@
 class Engine : public Event {
 	private:
 		bool            Engine_Running;
-		
+
 		SDL_Surface*    Surf_Display;
-		
+
 		SDL_Surface*	Surf_Background;
-						
+
 	public:
-	
+
 		Engine();
-		
-		int Exec();
-		
+
+		int OnExec();
+
 	public:
-		
-		bool Init();
-		
-		void Event_Process(SDL_Event* event);
-				
-		void Loop_Process();
-		
+
+		bool OnInit();
+
+		void OnEvent(SDL_Event* event);
+
+		void OnLoop();
+
 		void OnRender();
-		
-		void Cleanup_Process();
-		
+
+		void OnCleanup();
+
 		void Stop();
-		
+
 		void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
-		
+
 		void OnExit();
 };
 

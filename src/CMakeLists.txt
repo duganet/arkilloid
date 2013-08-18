@@ -21,6 +21,7 @@ set(
 	Engine_Cleanup.cpp
 	Engine_Event.cpp
 	Engine_Init.cpp
+	Engine_Loop.cpp
 	Engine_Render.cpp
 	Event.cpp
 	Game.cpp

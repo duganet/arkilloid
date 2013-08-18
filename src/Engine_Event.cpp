@@ -2,7 +2,7 @@
 #include <io.hpp>
 #include <Game.h>
 
-void Engine::Event_Process(SDL_Event* Event) {
+void Engine::OnEvent(SDL_Event* Event) {
 	Event::OnEvent(Event);
 	//Game game;
 	report("Engine::Event_Process executing", MSG_DEBUG);
