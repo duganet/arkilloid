@@ -2,7 +2,7 @@
  *		sfx.hpp - sounds playing module headers (SDL version)
  *
  *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -19,6 +19,11 @@
  *		along with Arkilloid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef _SFX_H_
+	#define _SFX_H_
+
+#include <SDL_mixer.h>
+
 class AudioSoundFX {
 	private:
 		Mix_Chunk* sound_chunk;
@@ -29,3 +34,5 @@ class AudioSoundFX {
 		void LoadFromFile(std::string filename);
 		void Play();
 };
+
+#endif

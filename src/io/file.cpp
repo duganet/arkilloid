@@ -30,7 +30,11 @@ std::string path_construct(std::string dir_shortname, std::string filename)
 		#ifdef DATAROOTDIR
 			dir_basename = DATAROOTDIR "/" PACKAGE;
 		#else
-			dir_basename = "DATADIR";
+			#if DATADIR
+				dir_basename = DATADIR;
+			#else
+				dir_basename = ".";
+			#endif
 		#endif
     #endif
     return dir_basename + '/' + dir_shortname + "/" + filename;

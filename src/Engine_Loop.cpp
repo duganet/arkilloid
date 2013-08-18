@@ -2,4 +2,5 @@
 
 void Engine::OnLoop() {
 	EngineStateManager::OnLoop();
+	Music.CheckPlay();
 }

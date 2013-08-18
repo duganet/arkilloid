@@ -2,12 +2,11 @@
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <io.hpp>
-#include <sound.hpp>
 #include "Constants.h"
 
 extern AudioEngine *audio;
 extern AudioSoundFX *snd_bonusget, *snd_hit, *snd_pow;
-extern AudioMusic *audio_music;
+//extern AudioMusic *music;
 
 bool Engine::OnInit() {
 	report("Engine::Init started", MSG_DEBUG);
@@ -27,6 +26,7 @@ bool Engine::OnInit() {
 	EngineStateManager::SetActiveEngineState(ENGINESTATE_INTRO);
 
 	::AudioEngine::Start();
+	AudioMusic Music;
 
 	report("Engine::Init finished", MSG_DEBUG);
 	return true;

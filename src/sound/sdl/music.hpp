@@ -2,7 +2,7 @@
  *		music.hpp - music playing module headers (SDL version)
  *
  *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -19,7 +19,11 @@
  *		along with Arkilloid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef _MUSIC_H_
+	#define _MUSIC_H_
+
 #include <vector>
+#include <SDL_mixer.h>
 
 class AudioMusic
 {
@@ -37,3 +41,5 @@ class AudioMusic
 		void On();
 		void Play();
 };
+
+#endif

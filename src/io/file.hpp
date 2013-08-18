@@ -2,7 +2,7 @@
  *		file.hpp - file module headers
  *
  *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify

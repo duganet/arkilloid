@@ -28,6 +28,7 @@
 
 #include "Event.h"
 #include "Surface.h"
+#include <sound.hpp>
 
 class Engine : public Event {
 	private:
@@ -40,6 +41,8 @@ class Engine : public Event {
 		Engine();
 
 		int OnExec();
+
+		AudioMusic Music;
 
 	public:
 

@@ -2,7 +2,7 @@
  *		sound.hpp - sound subsystem headers
  *
  *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -20,5 +20,3 @@
  */
 
 #include <sdl/audio.hpp>
-#include <sdl/music.hpp>
-#include <sdl/sfx.hpp>

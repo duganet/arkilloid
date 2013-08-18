@@ -2,7 +2,7 @@
  *		audio.hpp - audio engine header file (SDL version)
  *
  *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -19,6 +19,12 @@
  *		along with Arkilloid.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef _AUDIO_H_
+	#define _AUDIO_H_
+
+#include "music.hpp"
+#include "sfx.hpp"
+
 class AudioEngine
 {
 	public:
@@ -28,3 +34,5 @@ class AudioEngine
 		static bool Start();
 		static bool Stop();
 };
+
+#endif
