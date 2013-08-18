@@ -2,7 +2,7 @@
  *		music.cpp - music playing module (SDL version)
  *
  *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ AudioMusic::AudioMusic()
 	tracks.push_back("arkilloid_track_01.ogg");
 	tracks.push_back("arkilloid_track_02.ogg");
 	current_tracknum = -1;
-	this->ChangeTrack();
+	//this->ChangeTrack();
 }
 
 AudioMusic::~AudioMusic()
@@ -40,6 +40,10 @@ AudioMusic::~AudioMusic()
 	music=NULL;
 }
 
+void AudioMusic::OnInit()
+{
+	CheckPlay();
+}
 void AudioMusic::ChangeTrack()
 {
 	if (current_tracknum < tracks.size() - 1)
@@ -92,7 +96,7 @@ void AudioMusic::Play()
 	}
 	else if (Mix_PlayingMusic())
 	{
-		
+
 	}
 	else
 	{

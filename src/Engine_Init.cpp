@@ -1,6 +1,5 @@
 #include "Engine.h"
 #include <SDL.h>
-#include <SDL_mixer.h>
 #include <io.hpp>
 #include "Constants.h"
 
@@ -27,6 +26,7 @@ bool Engine::OnInit() {
 
 	::AudioEngine::Start();
 	AudioMusic Music;
+	Music.OnInit();
 
 	report("Engine::Init finished", MSG_DEBUG);
 	return true;

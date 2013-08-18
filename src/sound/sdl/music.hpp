@@ -34,6 +34,7 @@ class AudioMusic
 	public:
 		AudioMusic();
 		~AudioMusic();
+		void OnInit();
 		void ChangeTrack();
 		void CheckPlay();
 		void Load(std::string filename);
