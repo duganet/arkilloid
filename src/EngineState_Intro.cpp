@@ -8,6 +8,10 @@ EngineStateIntro::EngineStateIntro() {
 	Surf_Background = NULL;
 }
 
+void EngineStateIntro::OnLButtonDown(int mX, int mY) {
+	EngineStateManager::SetActiveEngineState(ENGINESTATE_MAINMENU);
+}
+
 void EngineStateIntro::OnActivate() {
 	/* Load background */
 	Surf_Background = Surface::OnLoad("/usr/local/share/arkilloid/images/bg_intro.png");

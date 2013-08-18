@@ -16,6 +16,9 @@ class EngineStateIntro : public EngineState {
 		EngineStateIntro();
 
 	public:
+		void OnLButtonDown(int mX, int mY);
+
+	public:
 		void OnActivate();
 
 		void OnDeactivate();
