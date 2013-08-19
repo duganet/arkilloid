@@ -1,5 +1,8 @@
 build/
 CMakeFiles/
+Arkilloid.cbp
+Arkilloid.depend
+Arkilloid.layout
 cmake_install.cmake
 cmake_uninstall.cmake
 CMakeCache.txt
