@@ -10,7 +10,7 @@ EngineStateMainMenu::EngineStateMainMenu() {
 
 void EngineStateMainMenu::OnActivate() {
 	/* Load background */
-	Surf_Background = Surface::OnLoad("/usr/local/share/arkilloid/images/bg_title.png");
+	Surf_Background = Surface::OnLoad("images/bg_title.png");
 
 	StartTime = SDL_GetTicks();
 }

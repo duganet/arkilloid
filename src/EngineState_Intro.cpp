@@ -14,7 +14,7 @@ void EngineStateIntro::OnLButtonDown(int mX, int mY) {
 
 void EngineStateIntro::OnActivate() {
 	/* Load background */
-	Surf_Background = Surface::OnLoad("/usr/local/share/arkilloid/images/bg_intro.png");
+	Surf_Background = Surface::OnLoad("images/bg_intro.png");
 
 	StartTime = SDL_GetTicks();
 }
