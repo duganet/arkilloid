@@ -5,6 +5,7 @@
 
 void Engine::OnCleanup() {
 	report("Engine: cleaning up...", MSG_DEBUG);
+	Music.OnCleanup();
 	::AudioEngine::Stop();
 
 	EngineStateManager::SetActiveEngineState(ENGINESTATE_NONE);

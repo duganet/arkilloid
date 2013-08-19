@@ -36,13 +36,16 @@ AudioMusic::AudioMusic()
 
 AudioMusic::~AudioMusic()
 {
-	Mix_FreeMusic(music);
-	music=NULL;
+
 }
 
-void AudioMusic::OnInit()
-{
+void AudioMusic::OnInit() {
 	CheckPlay();
+}
+void AudioMusic::OnCleanup() {
+	report("AudioMusic::OnCleanup", MSG_DEBUG);
+	Mix_FreeMusic(music);
+	music=NULL;
 }
 void AudioMusic::ChangeTrack()
 {

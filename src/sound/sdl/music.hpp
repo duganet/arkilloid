@@ -35,6 +35,7 @@ class AudioMusic
 		AudioMusic();
 		~AudioMusic();
 		void OnInit();
+		void OnCleanup();
 		void ChangeTrack();
 		void CheckPlay();
 		void Load(std::string filename);
