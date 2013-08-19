@@ -2,7 +2,7 @@
 #ifndef BITA_H
 #define BITA_H
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #include "SDLUtils.h"
 #include "Texture.h"
 #include <vector>

@@ -1,8 +1,8 @@
 //Game.cpp
 #include "Game.h"
+#include "Load.h"
 #include <sound.hpp>
 #include <report.hpp>
-#include <Load.h>
 
 extern int stateID;
 extern int nextState;
@@ -63,7 +63,7 @@ bool Game::Init()
 
 	//Set the current game state object
 	currentState = new Intro();
-	
+
 	MainLoop();
 	return true;
 }
