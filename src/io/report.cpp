@@ -3,7 +3,7 @@
  *
  *		Copyright 2010-2012 Maxim Kachur <mcdebugger@duganet.ru>
  *		Copyright 2010 Sergey Babneev <plughead@mail.ru>
- *		
+ *
  *		This file is part of Arkilloid.
  *
  *		Arkilloid is free software: you can redistribute it and/or modify
@@ -22,7 +22,11 @@
 
 #include "report.hpp"
 
-std::ofstream logfile("arkilloid.log");
+#ifdef _WIN32
+	std::ofstream logfile("arkilloid_log.txt");
+#else
+	std::ofstream logfile("arkilloid.log");
+#endif
 void log(std::string message)
 {
 	report(message, MSG_UNDEF);
@@ -43,6 +47,6 @@ void report(std::string message, int msgtype)
 		case MSG_UNDEF:
 			logfile << message << std::endl;
 			break;
-	}	
+	}
 	logfile.flush();
 }

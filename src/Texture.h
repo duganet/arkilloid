@@ -23,8 +23,8 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include <SDL/SDL.h>
-#include <SDL/SDL_opengl.h>
+#include <SDL.h>
+#include <SDL_opengl.h>
 #include "Constants.h"
 #include <string>
 
