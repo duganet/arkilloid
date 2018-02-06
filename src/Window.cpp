@@ -37,10 +37,10 @@ void Window::toggle_fullscreen()
     }
     else if(windowed == false)
     {
-        if(SDL_SetVideoMode(SCREEN_WIDTH,
+        if(!SDL_SetVideoMode(SCREEN_WIDTH,
                                   SCREEN_HEIGHT,
                                   SCREEN_BPP,
-                                  SDL_OPENGL) == false)
+                                  SDL_OPENGL))
         {
             windowOk = false;
             return;
