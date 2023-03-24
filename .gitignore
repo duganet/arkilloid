@@ -6,3 +6,6 @@ CMakeCache.txt
 Makefile
 *.a
 src/arkilloid
+
+# IDE stuff
+.vscode/
