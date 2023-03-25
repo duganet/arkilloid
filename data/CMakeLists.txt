@@ -10,7 +10,7 @@ set(DATA_MUSIC_DIR ${DATADIR}/${DATA_MUSIC_SUFFIX})
 set(DATA_SOUNDFX_DIR ${DATADIR}/${DATA_SOUNDFX_SUFFIX})
 
 add_subdirectory(${DATA_FONTS_SUFFIX})
-add_subdirectory(${DATA_IMAGES_SUFFIX}/av-theme-v3)
+add_subdirectory(${DATA_IMAGES_SUFFIX})
 add_subdirectory(${DATA_MAPS_SUFFIX})
 add_subdirectory(${DATA_MUSIC_SUFFIX})
 add_subdirectory(${DATA_SOUNDFX_SUFFIX})
