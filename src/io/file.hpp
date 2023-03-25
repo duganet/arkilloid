@@ -24,6 +24,7 @@
 
 #include <string>
 
+bool file_exists(const std::string filename);
 std::string path_construct(std::string, std::string);
 
 #endif
