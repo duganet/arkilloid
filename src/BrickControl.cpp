@@ -1,5 +1,6 @@
 //BrickControl.cpp
 #include "BrickControl.h"
+#include "BrickPortal.h"
 #include <sstream>
 #include <report.hpp>
 extern std::ofstream loger;
@@ -32,6 +33,7 @@ bool BrickControl::LoadBricksFromFile(const char *filename)
     for (int i = 0; i < brickCount; i++)
     {
         Brick *brick;
+        BrickPortal *brick_portal;
         Portal *portal;
 
         fscanf(FileHandle, "%d %d %d\n", &brickType, &X, &Y);
@@ -56,10 +58,10 @@ bool BrickControl::LoadBricksFromFile(const char *filename)
             break;
         case BRICK_PORTAL_A_T:
 			agroup++;
-			brick = new BrickPortalA();
-			brick->set_up(X,Y);
-			brick->set_pg(agroup);
-			BrickControl::brickList.push_back(brick);
+			brick_portal = new BrickPortalA();
+			brick_portal->set_up(X,Y);
+			brick_portal->set_pg(agroup);
+			BrickControl::brickList.push_back(brick_portal);
 			portal = new Portal(PORTAL_IN);
 			portal->set_group(agroup);
 			portal->set_coords(X,Y);
@@ -67,10 +69,10 @@ bool BrickControl::LoadBricksFromFile(const char *filename)
 			break;
         case BRICK_PORTAL_B_T:
 			bgroup++;
-			brick = new BrickPortalB();
-			brick->set_up(X,Y);
-			brick->set_pg(bgroup);
-			BrickControl::brickList.push_back(brick);
+			brick_portal = new BrickPortalB();
+			brick_portal->set_up(X,Y);
+			brick_portal->set_pg(bgroup);
+			BrickControl::brickList.push_back(brick_portal);
 			portal = new Portal(PORTAL_OUT);
 			portal->set_group(bgroup);
 			portal->set_coords(X,Y);

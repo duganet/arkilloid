@@ -79,9 +79,3 @@ void BrickBeton::show()
     }
     textureList[BRICK_BETON]->show(box.x,box.y,clips);
 }
-
-void BrickBeton::set_collision_type(int type)
-{
-    collision_type = type;
-    timer.Start();
-}

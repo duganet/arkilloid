@@ -5,6 +5,21 @@
 
 std::vector<Portal*>PortalControl::PortalList;
 
+BrickPortal::BrickPortal() {
+
+}
+
+unsigned int BrickPortal::get_pg() {
+	return this->pg;
+}
+
+void BrickPortal::set_pg(unsigned int group) {
+	std::stringstream st;
+	st << group;
+	report("Setting BrickPortal group: " + st.str(), MSG_DEBUG);
+	this->pg = group;
+}
+
 /* Brick Portal Type A */
 
 BrickPortalA::BrickPortalA()
@@ -20,7 +35,7 @@ BrickPortalA::~BrickPortalA()
 {
 }
 
-unsigned int BrickPortalA::get_pg()
+/*unsigned int BrickPortalA::get_pg()
 {
 	return this->pg;
 }
@@ -31,7 +46,7 @@ void BrickPortalA::set_pg(unsigned int group)
 	st << group;
 	report("Setting BrickPortalA group: " + st.str(), MSG_DEBUG);
 	this->pg = group;
-}
+}*/
 
 void BrickPortalA::set_up(int x, int y, Texture* texture)
 {
@@ -94,7 +109,7 @@ BrickPortalB::~BrickPortalB()
 {
 }
 
-unsigned int BrickPortalB::get_pg()
+/*unsigned int BrickPortalB::get_pg()
 {
 	return this->pg;
 }
@@ -105,7 +120,7 @@ void BrickPortalB::set_pg(unsigned int group)
 	st << group;
 	report("Setting BrickPortalB group: " + st.str(), MSG_DEBUG);
 	this->pg = group;
-}
+}*/
 
 void BrickPortalB::set_up(int x, int y, Texture* texture)
 {
