@@ -1,6 +1,6 @@
 //Brick.h
 #ifndef BRICK_H
-#define BIRCK_H
+#define BRICK_H
 #include "SDLUtils.h"
 #include <vector>
 #include "Texture.h"
