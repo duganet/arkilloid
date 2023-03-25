@@ -42,6 +42,9 @@ bool Game::Init()
 	report("This is DEBUG build! It will log some debug info. If this is not what you want please recompile without -DDEBUG definition.", MSG_DEBUG);
 	report("Game::Init started", MSG_DEBUG);
 
+	#ifdef DATADIR
+		report("DATADIR: " DATADIR, MSG_DEBUG);
+	#endif
 
 	if(window.error() == true)
 	{
