@@ -13,11 +13,8 @@ public:
     virtual ~BrickBeton();
     virtual void set_up(int x, int y, Texture* texture= textureList[BRICK_BETON]);
     virtual void show();
-    void set_collision_type(int type);
 private:
     Texture *texture;
     SDL_Rect clip[5];
-    int collision_type;
-    Timer timer;
 };
 #endif

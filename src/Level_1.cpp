@@ -1,5 +1,6 @@
 //Level_1.cpp
 #include "Level_1.h"
+#include "BrickPortal.h"
 #include "Constants.h"
 #include "Globals.h"
 #include <report.hpp>

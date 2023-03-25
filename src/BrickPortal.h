@@ -1,6 +1,7 @@
 #ifndef BRICKPORTAL_H
 #define BRICKPORTAL_H
 
+#include "Brick.h"
 #include "BrickStrong.h"
 //#include "Ball.h"
 #include "Texture.h"
@@ -9,36 +10,45 @@
 
 extern std::vector<Texture*>textureList;
 
-class BrickPortalA : public Brick
+class BrickPortal : public Brick {
+	public:
+		BrickPortal();
+		virtual unsigned int get_pg();
+		virtual void set_pg(unsigned int group);
+	private:
+		unsigned int pg;
+};
+
+class BrickPortalA : public BrickPortal
 {
 	public:
 		BrickPortalA();
 		virtual ~BrickPortalA();
-		virtual unsigned int get_pg();
-		virtual void set_pg(unsigned int group);
+		//virtual unsigned int get_pg();
+		//virtual void set_pg(unsigned int group);
 		virtual void set_up(int x, int y, Texture *texture = textureList[BRICK_PORTAL_A]);
 		virtual void show();
 //		void teleportate(Ball *ball);
 	private:
 		SDL_Rect clip[6];
 		Texture *texture;
-		unsigned int cclip, frame, mpf, pg;
+		unsigned int cclip, frame, mpf;
 		long mlast;
 };
 
-class BrickPortalB : public Brick
+class BrickPortalB : public BrickPortal
 {
 	public:
 		BrickPortalB();
 		virtual ~BrickPortalB();
-		virtual unsigned int get_pg();
-		virtual void set_pg(unsigned int group);
+		//virtual unsigned int get_pg();
+		//virtual void set_pg(unsigned int group);
 		virtual void set_up(int x, int y, Texture *texture = textureList[BRICK_PORTAL_B]);
 		virtual void show();
 	private:
 		SDL_Rect clip[8];
 		Texture *texture;
-		unsigned int cclip, frame, mpf, pg;
+		unsigned int cclip, frame, mpf;
 		long mlast;
 };
 

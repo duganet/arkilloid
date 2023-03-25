@@ -51,6 +51,10 @@ void Brick::Collision_check()
 
 }
 
+unsigned int Brick::get_pg() {
+	return 0;
+}
+
 SDL_Rect Brick::get_rect()
 {
     return box;
@@ -89,6 +93,12 @@ int Brick::get_x()
 int Brick::get_y()
 {
 	return this->box.y;
+}
+
+void Brick::set_collision_type(int type)
+{
+    collision_type = type;
+    timer.Start();
 }
 
 void Brick::set_life(int i)
